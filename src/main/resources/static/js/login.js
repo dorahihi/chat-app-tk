@@ -120,7 +120,7 @@ loginForm.addEventListener('submit', e => {
 
     $.ajax({
        type: "POST",
-       url: "http://localhost:8080/auth",
+       url: "https://chatapp-kkt.herokuapp.com/auth",
        data: $('#login-form').serialize(),
        success: function() {
          notiMessage("Login successfully!");
@@ -136,7 +136,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: "http://localhost:8080/signup",
+    url: "https://chatapp-kkt.herokuapp.com/signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {
