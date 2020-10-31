@@ -94,9 +94,10 @@ const notiMessage = message =>{
   notiBtn.addEventListener('click', () => { redirect()});
 }
 
-const redirect = () =>{
+const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
+  window.location.replace('https://chatapp-kkt.herokuapp.com/'+path);
 }
 
 switch (pageType) {
@@ -141,6 +142,9 @@ signupForm.addEventListener('submit', e => {
     //contentType: "application/json",
     success: function() {
       notiMessage("Signup successfully!");
+      setTimeout(() => {
+        redirect('login');
+      }, 3000);
     },
     error: () =>{
       notiMessage("Something wrong. Please try again!");
