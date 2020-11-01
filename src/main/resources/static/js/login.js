@@ -16,11 +16,43 @@ const welcome = document.getElementById('welcome');
 const welcomeLoginBtn = document.getElementById('welcome-login-btn');
 const welcomeSignupBtn = document.getElementById('welcome-signup-btn');
 
+const gender = document.getElementById('gender');
+
+const loading = document.getElementById('loading-box');
+
 let pageType = type.innerHTML;
 console.log(pageType);
 
 const url = "https://chatapp-kkt.herokuapp.com/";
 const local = "http://localhost:8080/";
+
+document.onreadystatechange = function() {
+    if (document.readyState !== "complete") {
+        openLoading();
+    } else {
+        closeLoading();
+    }
+};
+
+const openLoading = () =>{
+  loading.classList.remove('hide-o');
+}
+
+const closeLoading = () => {
+  loading.classList.add('hide-opacity');
+  setTimeout(() => {
+    loading.classList.remove('hide-opacity')
+      loading.classList.add('hide-o');
+  }, 1500);
+}
+
+gender.addEventListener('change', () => {
+
+  if(gender.value === "0")
+    gender.style.color = "#8C8B8B";
+  else gender.style.color = "black";
+
+});
 
 window.onpopstate = e =>{
   let path = window.location.pathname;

@@ -81,6 +81,74 @@
   }
 }
 
+#loading-box {
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 2s;
+}
+
+.show-opacity {
+  opacity: 1;
+}
+
+.hide-opacity {
+  opacity: 0;
+}
+
+#loading {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  animation: rolling 3s ease infinite;
+  opacity: 1;
+  margin-top: calc(50vh - 150px)
+}
+
+#loading div {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+}
+
+#loading div:first-child {
+  background-image: linear-gradient(to right, #29FFDF, #29D5FF, #29FFDF, #29D5FF, #29FFDF);
+  background-size: 350%;
+  border-radius: 70px;
+  opacity: 1;
+}
+
+#loading div:last-child {
+  background-color: white;
+  border-radius: 70px;
+  z-index: 1;
+  animation: slide 6s ease-out infinite alternate;
+}
+
+@keyframes rolling {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide {
+  0%, 100% {
+    left: -210px;
+  }
+
+  50% {
+    left: 210px;
+  }
+}
+
 @media only screen and (min-width: 1200px) {
   #welcome {
     background-image: url("/img/welcome-bg.png");
