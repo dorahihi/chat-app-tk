@@ -11,7 +11,6 @@ import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import com.chatApp.sp.model.ChatMessage;
-import com.chatApp.sp.model.MessageType;
 
 @Component
 public class WebSocketEventListener {

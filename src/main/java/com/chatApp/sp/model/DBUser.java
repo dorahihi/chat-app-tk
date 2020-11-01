@@ -1,5 +1,8 @@
 package com.chatApp.sp.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -29,12 +32,21 @@ public class DBUser {
 		
 	}
 	
-	public DBUser(String email, String password, String age, int gender, String userName) {
+	public DBUser(String email, String password, String age, String gender, String userName) {
 		this.age = age;
 		this.email = email;
-		this.gender = (gender == 0)? Gender.HIDDEN: (gender == 1)? Gender.MALE: Gender.FEMALE;
+		this.password = password;
+		if(gender == "0")
+			this.gender = Gender.HIDDEN;
+		else if(gender == "1")
+			this.gender = Gender.MALE;
+		else this.gender = Gender.FEMALE;
 		this.userName = userName;
 		this.role ="ROLE_USER";
+		this.friend = new ArrayList<String>();
+		this.group = new ArrayList<String>();
+		this.friendRequest = new ArrayList<String>();
+		this.acceptFriendRequest = new ArrayList<String>();
 	}
 	
 	public void setUser(DBUser user) {

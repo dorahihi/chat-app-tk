@@ -19,6 +19,9 @@ const welcomeSignupBtn = document.getElementById('welcome-signup-btn');
 let pageType = type.innerHTML;
 console.log(pageType);
 
+const url = "https://chatapp-kkt.herokuapp.com/";
+const local = "http://localhost:8080/";
+
 window.onpopstate = e =>{
   let path = window.location.pathname;
   switch (path) {
@@ -91,13 +94,12 @@ const openLoginForm = (t) =>{
 const notiMessage = message =>{
   notiContainer.classList.remove('hide-o');
   notiContent.innerHTML = message;
-  notiBtn.addEventListener('click', () => { redirect()});
 }
 
 const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
-  window.location.replace('https://chatapp-kkt.herokuapp.com/'+path);
+  window.location.replace(url+path);
 }
 
 switch (pageType) {
@@ -121,7 +123,7 @@ loginForm.addEventListener('submit', e => {
 
     $.ajax({
        type: "POST",
-       url: "https://chatapp-kkt.herokuapp.com/auth",
+       url: url+ "auth",
        data: $('#login-form').serialize(),
        success: function() {
          notiMessage("Login successfully!");
@@ -137,7 +139,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: "https://chatapp-kkt.herokuapp.com/signup",
+    url: url+ "signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {

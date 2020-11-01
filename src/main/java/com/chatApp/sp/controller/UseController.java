@@ -22,7 +22,7 @@ public class UseController {
 	public String createAccount(@RequestParam("email") String email, @RequestParam("password") String password, 
 								@RequestParam("userName") String userName,
 								@RequestParam("age") String age,
-								@RequestParam("gender") int gender) {
+								@RequestParam("gender") String gender) {
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	

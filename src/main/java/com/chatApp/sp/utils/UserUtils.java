@@ -22,11 +22,12 @@ public class UserUtils {
 	CookieUtils cookieUtils;
 	
 	
-	public String createUser(String email, String userName, String password, String age, int gender){
+	public String createUser(String email, String userName, String password, String age, String gender){
 		
 		if(userRepo.findByEmail(email) == null) {
 			DBUser user = new DBUser(email, passwordEncoder.encode(password), age, gender, userName);
 			
+			System.out.println("new user password: "+user.getPassword());
 			userRepo.insert(user);
 			
 			return "SUCCEED";

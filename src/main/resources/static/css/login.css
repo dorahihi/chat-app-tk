@@ -117,7 +117,7 @@ a {
   height: 130px;
 }
 
-input {
+input, select {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -130,6 +130,10 @@ input {
   box-shadow: inset 1px 3px 4px #C4C4C4;
   outline: none;
   transition: 0.5s;
+}
+
+select {
+  color: #8C8B8B;
 }
 
 .button-light {
@@ -237,7 +241,7 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
-  input {
+  input, select {
     width: 90%;
   }
 
