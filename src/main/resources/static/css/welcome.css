@@ -155,7 +155,7 @@
     background-size: cover;
     width: 100vw;
     min-height: 100vh;
-    padding-top: 3vh;
+    padding-top: 10vh;
   }
 
   #welcome-content {
@@ -183,12 +183,12 @@
 
   #welcome-content {
     display: block;
-    padding-top: 50px;
+    padding-top: ;
     padding-bottom: 50px;
   }
 
   #welcome-content div {
-    height: 100px;
+    height: 30px;
   }
 
   .welcome-btn {
