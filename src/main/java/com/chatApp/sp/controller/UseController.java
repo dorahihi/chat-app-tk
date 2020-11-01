@@ -18,6 +18,8 @@ public class UseController {
 	@Autowired
 	UserUtils userUtils;
 	
+	
+	//create account
 	@PostMapping("/signup")
 	public String createAccount(@RequestParam("email") String email, @RequestParam("password") String password, 
 								@RequestParam("userName") String userName,
@@ -26,12 +28,15 @@ public class UseController {
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	
+	//get user info
 	@GetMapping("/users/{email}")
 	public DBUser viewUserProfile(@PathVariable("email") String email) {
 		System.out.println("get user "+ email);
 		return userUtils.viewUserProfile(email);
 	}
 	
+	
+	//edit user info
 	@PostMapping("/users/edit")
 	public String editUserProfile(@RequestParam("password") String password,
 								  @RequestParam("userName") String userName,
@@ -40,6 +45,8 @@ public class UseController {
 		return userUtils.updateUserProfile(password, userName, age, req);
 	}
 	
+	
+	//delete user
 	@GetMapping("/users/delete")
 	public String deleteAccount(HttpServletRequest req) {
 		return userUtils.deleteAccount(req);
