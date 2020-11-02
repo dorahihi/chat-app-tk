@@ -1,7 +1,9 @@
 package com.chatApp.sp.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -20,10 +22,10 @@ public class DBUser {
 	private Gender gender;
 	private String userName;
 	private String role;
-	private List<String> friend;
+	private Map<String, String> friend;
 	private List<String> group;
-	private List<String> friendRequest;
-	private List<String> acceptFriendRequest;
+	private Map<String, String> friendRequest;
+	private Map<String, String> acceptFriendRequest;
 	
 
 	public DBUser() {
@@ -41,10 +43,10 @@ public class DBUser {
 		else this.gender = Gender.FEMALE;
 		this.userName = userName;
 		this.role ="ROLE_USER";
-		this.friend = new ArrayList<String>();
+		this.friend = new HashMap<String, String>();
 		this.group = new ArrayList<String>();
-		this.friendRequest = new ArrayList<String>();
-		this.acceptFriendRequest = new ArrayList<String>();
+		this.friendRequest = new HashMap<String, String>();
+		this.acceptFriendRequest = new HashMap<String, String>();
 	}
 	
 	public void setUser(DBUser user) {
@@ -54,12 +56,6 @@ public class DBUser {
 		this.userName = user.getUserName();
 	}
 	
-	public boolean addFriend(String email) {
-		if(!friend.contains(email)) {
-			friend.add(email);
-			return true;
-		}else return false;
-	}
 	
 	public boolean addGroup(String groupId) {
 		if(!group.contains(groupId)) {
@@ -69,19 +65,19 @@ public class DBUser {
 	}
 	
 	
-	public List<String> getFriendRequest() {
+	public Map<String, String> getFriendRequest() {
 		return friendRequest;
 	}
 
-	public void setFriendRequest(List<String> friendRequest) {
+	public void setFriendRequest(Map<String, String> friendRequest) {
 		this.friendRequest = friendRequest;
 	}
 
-	public List<String> getAcceptFriendRequest() {
+	public Map<String, String> getAcceptFriendRequest() {
 		return acceptFriendRequest;
 	}
 
-	public void setAcceptFriendRequest(List<String> acceptFriendRequest) {
+	public void setAcceptFriendRequest(Map<String, String> acceptFriendRequest) {
 		this.acceptFriendRequest = acceptFriendRequest;
 	}
 
@@ -141,11 +137,11 @@ public class DBUser {
 		this.role = role;
 	}
 	
-	public List<String> getFriend() {
+	public Map<String, String> getFriend() {
 		return friend;
 	}
 
-	public void setFriend(List<String> friend) {
+	public void setFriend(Map<String, String> friend) {
 		this.friend = friend;
 	}
 

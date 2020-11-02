@@ -83,7 +83,7 @@
 
 #loading-box {
   background-color: white;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 100vw;
   height: 100vh;
@@ -120,13 +120,14 @@
   background-size: 350%;
   border-radius: 70px;
   opacity: 1;
+  animation: background-changing linear 8s infinite;
 }
 
 #loading div:last-child {
   background-color: white;
   border-radius: 70px;
   z-index: 1;
-  animation: slide 6s ease-out infinite alternate;
+  animation: slide 6s linear infinite alternate;
 }
 
 @keyframes rolling {

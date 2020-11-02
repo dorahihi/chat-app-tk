@@ -131,7 +131,7 @@ const notiMessage = message =>{
 const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
-  window.location.replace(url+path);
+  window.location.replace(local+path);
 }
 
 switch (pageType) {
@@ -151,11 +151,12 @@ switch (pageType) {
 }
 
 loginForm.addEventListener('submit', e => {
+  openLoading();
     e.preventDefault();
-    openLoading();
+
     $.ajax({
        type: "POST",
-       url: url+ "auth",
+       url: local+ "auth",
        data: $('#login-form').serialize(),
        success: function() {
          closeLoading();
@@ -169,11 +170,12 @@ loginForm.addEventListener('submit', e => {
 });
 
 signupForm.addEventListener('submit', e => {
-  e.preventDefault();
   openLoading();
+  e.preventDefault();
+
   $.ajax({
     type: "POST",
-    url: url+ "signup",
+    url: local+ "signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {

@@ -1,6 +1,6 @@
 package com.chatApp.sp.utils;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +19,7 @@ public class FriendUtils {
 	@Autowired
 	CookieUtils cookieUtils;
 	
-	public List<String> viewFriendlist(HttpServletRequest req){
+	public Map<String, String> viewFriendlist(HttpServletRequest req){
 		String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
@@ -37,10 +37,9 @@ public class FriendUtils {
 		
 		if(userRepo.findByEmail(friendEmail) != null) {
 			
-			List<String> friendRequest = user.getFriendRequest();
-			
-			if(!friendRequest.contains(friendEmail)) {
-				friendRequest.add(friendEmail);
+			Map<String, String> friendRequest = user.getFriendRequest();
+			if(!friendRequest.containsKey(friendEmail)) {
+				friendRequest.put(friendEmail, userRepo.findByEmail(friendEmail).getUserName());
 				user.setFriendRequest(friendRequest);
 				userRepo.save(user);
 				return "SUCCEED";
@@ -56,11 +55,11 @@ public class FriendUtils {
 		DBUser user = userRepo.findByEmail(email);
 		
 		if(userRepo.findByEmail(friendEmail) != null) {
-			List<String> acceptFriendRequest = user.getAcceptFriendRequest();
+			Map<String, String> acceptFriendRequest = user.getAcceptFriendRequest();
 			
-			if(acceptFriendRequest.contains(friendEmail)) {
-				List<String> friends = user.getFriend();
-				friends.add(friendEmail);
+			if(acceptFriendRequest.containsKey(friendEmail)) {
+				Map<String, String> friends = user.getFriend();
+				friends.put(friendEmail, userRepo.findByEmail(friendEmail).getUserName());
 				acceptFriendRequest.remove(friendEmail);
 				user.setAcceptFriendRequest(acceptFriendRequest);
 				user.setFriend(friends);
@@ -77,9 +76,9 @@ public class FriendUtils {
 		
 		DBUser user = userRepo.findByEmail(email);
 		
-		List<String> friends = user.getFriend();
+		Map<String, String> friends = user.getFriend();
 		
-		if(friends.contains(friendEmail)) {
+		if(friends.containsKey(friendEmail)) {
 			friends.remove(friendEmail);
 			return "SUCCEED";
 		}
@@ -87,7 +86,7 @@ public class FriendUtils {
 		return null;
 	}
 	
-	public List<String> viewFriendRequest(HttpServletRequest req){
+	public Map<String, String> viewFriendRequest(HttpServletRequest req){
 		String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
