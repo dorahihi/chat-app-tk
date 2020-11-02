@@ -152,15 +152,17 @@ switch (pageType) {
 
 loginForm.addEventListener('submit', e => {
     e.preventDefault();
-
+    openLoading();
     $.ajax({
        type: "POST",
        url: url+ "auth",
        data: $('#login-form').serialize(),
        success: function() {
+         closeLoading();
          notiMessage("Login successfully!");
        },
        error: () =>{
+         closeLoading();
          notiMessage("Incorrect email or password!");
        }
     });
@@ -168,19 +170,21 @@ loginForm.addEventListener('submit', e => {
 
 signupForm.addEventListener('submit', e => {
   e.preventDefault();
-
+  openLoading();
   $.ajax({
     type: "POST",
     url: url+ "signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {
+      closeLoading();
       notiMessage("Signup successfully!");
       setTimeout(() => {
         redirect('login');
       }, 3000);
     },
     error: () =>{
+      closeLoading();
       notiMessage("Something wrong. Please try again!");
     }
   });
