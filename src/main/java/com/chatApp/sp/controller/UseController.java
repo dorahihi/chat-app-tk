@@ -19,7 +19,7 @@ public class UseController {
 	UserUtils userUtils;
 	
 	
-	//create account
+	//tạo tài khoản
 	@PostMapping("/signup")
 	public String createAccount(@RequestParam("email") String email, @RequestParam("password") String password, 
 								@RequestParam("userName") String userName,
@@ -28,7 +28,7 @@ public class UseController {
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	
-	//get user info
+	//lấy thông tin tài khoản
 	@GetMapping("/users/{email}")
 	public DBUser viewUserProfile(@PathVariable("email") String email) {
 		System.out.println("get user "+ email);
@@ -36,7 +36,7 @@ public class UseController {
 	}
 	
 	
-	//edit user info
+	//sửa thông tin tài khoản
 	@PostMapping("/users/edit")
 	public String editUserProfile(@RequestParam("password") String password,
 								  @RequestParam("userName") String userName,
@@ -46,7 +46,7 @@ public class UseController {
 	}
 	
 	
-	//delete user
+	//Xoá tài khoản
 	@GetMapping("/users/delete")
 	public String deleteAccount(HttpServletRequest req) {
 		return userUtils.deleteAccount(req);

@@ -36,11 +36,19 @@ public class DBUser {
 		this.age = age;
 		this.email = email;
 		this.password = password;
-		if(gender == "0")
+		
+		switch (gender) {
+		case "0":
 			this.gender = Gender.HIDDEN;
-		else if(gender == "1")
+			break;
+		case "1":
 			this.gender = Gender.MALE;
-		else this.gender = Gender.FEMALE;
+			break;
+		default:
+			this.gender = Gender.FEMALE;
+			break;
+		}
+		
 		this.userName = userName;
 		this.role ="ROLE_USER";
 		this.friend = new HashMap<String, String>();

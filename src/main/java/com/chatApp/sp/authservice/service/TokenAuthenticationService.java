@@ -40,7 +40,7 @@ public class TokenAuthenticationService {
 		
 		Cookie email = new Cookie("email", username);
 		email.setMaxAge(24*2*60*60);;
-		email.setHttpOnly(true);
+		//email.setHttpOnly(true);
 		res.addCookie(email);
 				
 		System.out.println(HEADER_STRING + " " + JWT);
