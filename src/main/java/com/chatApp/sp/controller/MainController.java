@@ -37,7 +37,7 @@ public class MainController {
 			return "login";
 	}
 	
-	@RequestMapping("/error")
+	/*@RequestMapping("/error")
 	public String handleError(HttpServletRequest request, Model model) {
 	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 	    
@@ -54,7 +54,7 @@ public class MainController {
 	        }
 	    }
 	    return "error";
-	}
+	}*/
 	
 	
 }
