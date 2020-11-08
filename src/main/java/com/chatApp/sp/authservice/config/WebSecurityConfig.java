@@ -66,10 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 								.addFilterBefore(new JWTLoginFilter("/auth", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 								.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
-		http//.exceptionHandling().accessDeniedPage("/accessDenied");//.accessDeniedHandler(accessDeniedHandler());
-		.exceptionHandling()	
-	   .authenticationEntryPoint((request, response, e) -> 
-	    {
+		http.exceptionHandling()	
+	        .authenticationEntryPoint((request, response, e) -> 
+	        {
 	        response.setContentType("application/json;charset=UTF-8");
 	        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	        response.sendRedirect("/accessDenied");
@@ -79,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	                .put("tester", "tester")
 	                .put("errorCode", "403")
 	                .toString());*/
-	    });
+	        });
 	}
 	
 	@Override 

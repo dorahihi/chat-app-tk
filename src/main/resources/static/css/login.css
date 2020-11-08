@@ -30,6 +30,12 @@ a {
   display: block;
 }
 
+#require-auth {
+  width: 100%;
+  height: 50px;
+  background-color:
+}
+
 #noti-container {
   position: absolute;
   z-index: 1;

@@ -1,4 +1,4 @@
-  const sendBtn = document.getElementById('send');
+const sendBtn = document.getElementById('send');
 const mes = document.getElementById('message');
 const receive = document.getElementById('receive');
 const logout = document.getElementById('logout');
