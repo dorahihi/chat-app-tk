@@ -23,7 +23,7 @@ document.onreadystatechange = function() {
           accessDenied();
           break;
         case '500':
-          intervalError();
+          internalError();
           break;
         default:
           someError();
@@ -46,7 +46,7 @@ const contentNotFound = () =>{
   home.classList.remove('hide-d');
 }
 
-const intervalError = () =>{
+const internalError = () =>{
   err.innerHTML = "500";
   errorMes.innerHTML = 'Oh no, the server is not feeling okay this time! Please come back later.';
   login.classList.add('hide-d');

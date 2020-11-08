@@ -16,9 +16,11 @@ const welcome = document.getElementById('welcome');
 const welcomeLoginBtn = document.getElementById('welcome-login-btn');
 const welcomeSignupBtn = document.getElementById('welcome-signup-btn');
 
+const requireAuth = document.getElementById('require-auth');
 const gender = document.getElementById('gender');
 
 const loading = document.getElementById('loading-box');
+
 
 let pageType = type.innerHTML;
 console.log(pageType);
@@ -131,7 +133,7 @@ const notiMessage = message =>{
 const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
-  window.location.replace(url+path);
+  window.location.replace(local+path);
 }
 
 switch (pageType) {
@@ -146,6 +148,16 @@ switch (pageType) {
     mainContent.classList.remove('hide-o');
     openSignupForm();
     break;
+  case '403':
+    welcome.classList.add('hide-o');
+    mainContent.classList.remove('hide-o');
+    openLoginForm();
+    requireAuth.classList.remove('hide-o');
+    window.history.pushState(" ", "Login to chatApp", "/login");
+    setTimeout(() =>{
+      requireAuth.classList.add('hide-o');
+    }, 15000);
+    break;
   default:
 
 }
@@ -156,7 +168,7 @@ loginForm.addEventListener('submit', e => {
 
     $.ajax({
        type: "POST",
-       url: url+ "auth",
+       url: local+ "auth",
        data: $('#login-form').serialize(),
        success: function() {
          closeLoading();
@@ -175,7 +187,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: url+ "signup",
+    url: local+ "signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {

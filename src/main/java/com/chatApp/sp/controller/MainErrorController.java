@@ -20,23 +20,27 @@ public class MainErrorController implements ErrorController {
 	    
 	    if (status != null) {
 	        Integer statusCode = Integer.valueOf(status.toString());
-	    
+	        
 	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
 	        	model.addAttribute("errorType", "404");
 	        }
 	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
 	        	model.addAttribute("errorType", "500");
-	        } else {
+	        } else if(statusCode == HttpStatus.BAD_REQUEST.value()) {
+	        	model.addAttribute("errorType", " ");
+	        }
+	        else{
 	        	model.addAttribute("errorType", "");
 	        }
 	    }
 	    return "error";
 	}
 	
+	
 	@GetMapping("/accessDenied")
 	public String error(Model model) {
-		model.addAttribute("errorType", "403");
-			return "error";
+		model.addAttribute("type", "403");
+			return "login";
 	}
 	
 	@Override

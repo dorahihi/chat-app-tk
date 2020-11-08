@@ -30,10 +30,13 @@ a {
   display: block;
 }
 
-#require-auth {
+.require-auth {
   width: 100%;
   height: 50px;
-  background-color:
+  background-color: #FCEBF5;
+  font-size: 30px;
+  text-align: center;
+  line-height: 50px;
 }
 
 #noti-container {
@@ -274,6 +277,12 @@ footer {
 
   .logo-img-small {
     display: inline;
+  }
+
+  .require-auth {
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
   }
 }
 
