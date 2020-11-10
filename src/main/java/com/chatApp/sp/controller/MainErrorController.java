@@ -8,10 +8,12 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@CrossOrigin
 public class MainErrorController implements ErrorController {
 
 	@RequestMapping("/error")
@@ -26,8 +28,6 @@ public class MainErrorController implements ErrorController {
 	        }
 	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
 	        	model.addAttribute("errorType", "500");
-	        } else if(statusCode == HttpStatus.BAD_REQUEST.value()) {
-	        	model.addAttribute("errorType", " ");
 	        }
 	        else{
 	        	model.addAttribute("errorType", "");

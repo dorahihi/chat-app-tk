@@ -1,10 +1,8 @@
 package com.chatApp.sp.authservice.config;
 
-import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.chatApp.sp.authservice.filter.JWTAuthenticationFilter;
@@ -44,12 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public JWTAuthenticationFilter jwtAuthenticationFilter() {
 		return new JWTAuthenticationFilter();
-	}
-	
-	
-	@Bean
-	public AccessDeniedHandler accessDeniedHandler(){
-	    return new CustomAccessDeniedHandler();
 	}
 	
 	

@@ -36,7 +36,8 @@ public class DBUser {
 		this.age = age;
 		this.email = email;
 		this.password = password;
-		
+		System.out.println("--------gender-----");
+		System.out.println(gender);
 		switch (gender) {
 		case "0":
 			this.gender = Gender.HIDDEN;

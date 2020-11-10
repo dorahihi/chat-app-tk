@@ -54,7 +54,8 @@ function sendMessage(url, message) {
 
 const displayMessage = data =>{
 let mess = JSON.parse(data.body);
-receive.innerHTML = `from: `+mess.fromWho+`\n message: `+ mess.message+"\n to: "+mess.toWhom;
+console.log(" jhdsjfldsk:  "+mess);
+receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
 }
 
 
@@ -66,8 +67,8 @@ const onDisconnect = () =>{
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   sendMessage('/app/message', JSON.stringify({
-    toWhom: 'tester',
-    fromWho: email,
+    recipient: 'tester',
+    sender: email,
     message: messa
   }));
   mes.innerHTML = '';

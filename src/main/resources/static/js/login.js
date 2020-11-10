@@ -5,6 +5,7 @@ const signup = document.getElementById('signup');
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const mainContent = document.getElementById('main-content');
+const body = document.getElementsByTagName("BODY")[0];
 
 const notiContainer = document.getElementById('noti-container');
 const notiBox = document.getElementById('noti-box');
@@ -126,14 +127,21 @@ const openLoginForm = (t) =>{
 }
 
 const notiMessage = message =>{
+  window.scrollTo(0, 0);
   notiContainer.classList.remove('hide-o');
   notiContent.innerHTML = message;
+  body.style.overflow = 'hidden';
+  setTimeout(() =>{
+    notiContainer.classList.add('hide-o');
+    notiContent.innerHTML = '';
+    body.style.overflow = 'visible';
+  }, 3000);
 }
 
 const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
-  window.location.replace(local+path);
+  window.location.replace(path);
 }
 
 switch (pageType) {
@@ -168,7 +176,7 @@ loginForm.addEventListener('submit', e => {
 
     $.ajax({
        type: "POST",
-       url: local+ "auth",
+       url: "/auth",
        data: $('#login-form').serialize(),
        success: function() {
          closeLoading();
@@ -187,14 +195,14 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: local+ "signup",
+    url: "/signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {
       closeLoading();
       notiMessage("Signup successfully!");
       setTimeout(() => {
-        redirect('login');
+        redirect('/login');
       }, 3000);
     },
     error: () =>{

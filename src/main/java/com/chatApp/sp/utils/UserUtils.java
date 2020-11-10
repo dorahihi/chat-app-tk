@@ -22,7 +22,7 @@ public class UserUtils {
 	CookieUtils cookieUtils;
 	
 	
-	public String createUser(String email, String userName, String password, String age, String gender){
+	public String createUser(String email, String userName, String password, String age, String gender) throws Exception{
 		
 		if(userRepo.findByEmail(email) == null) {
 			DBUser user = new DBUser(email, passwordEncoder.encode(password), age, gender, userName);
@@ -31,8 +31,9 @@ public class UserUtils {
 			userRepo.insert(user);
 			
 			return "SUCCEED";
-		}		
-		return null;
+		}else {
+			throw new Exception(email + " already exist!!");
+		}
 	}
 	
 	public DBUser viewUserProfile(String email) {

@@ -16,19 +16,21 @@ public class Notification {
 	private String recipient;
 	private MessageState state;
 	private String timeStamp;
-	private NotiType type;
+	private NotiType notiType;
+	private Type type;
 	
 	public Notification() {
 		
 	}
 	
-	public Notification(String sender, String recipient, String message, NotiType type) {
+	public Notification(String sender, String recipient, String message, NotiType notiType) {
 		this.message = message;
 		this.sender = sender;
 		this.recipient = recipient;
 		this.timeStamp = System.currentTimeMillis() + "";
 		this.state = MessageState.SENT;
-		this.type = type;
+		this.notiType = notiType;
+		this.type = Type.NOTIFICATION;
 	}
 	
 	public String getId() {
@@ -79,13 +81,21 @@ public class Notification {
 		this.timeStamp = timeStamp;
 	}
 
-	public NotiType getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(NotiType type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
+	public NotiType getNotiType() {
+		return notiType;
+	}
 
+	public void setNotiType(NotiType notiType) {
+		this.notiType = notiType;
+	}
+
+	
 }

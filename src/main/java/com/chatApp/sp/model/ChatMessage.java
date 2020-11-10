@@ -11,12 +11,14 @@ public class ChatMessage {
 	private String id;
 	
 	@Indexed
+	private String chatId;
 	private String sender;
 	private String recipient;
 	private String timeStamp;
 	private String message;
 	private MessageState senderState;
 	private MessageState recipientState;
+	private Type type;
 	
 	
 
@@ -80,14 +82,40 @@ public class ChatMessage {
 		
 	}
 	
-	public ChatMessage(String sender, String recipient, String message, String timestamp) {
+	public String getChatId() {
+		return chatId;
+	}
+
+	public void setChatId(String chatId) {
+		this.chatId = chatId;
+	}
+	
+	
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public ChatMessage(String sender, String recipient, String message) {
+		
+		if(sender.compareTo(recipient) > 0)
+			this.chatId = sender+recipient;
+		else this.chatId = recipient+sender;
 		
 		this.message = message;
 		this.recipient = recipient;
 		this.sender = sender;
-		this.timeStamp = timestamp;
+		this.timeStamp = System.currentTimeMillis() + "";
+		this.senderState = MessageState.SENT;
+		this.recipientState = MessageState.RECEIVED;
+		this.type = Type.PRIVATE_MESSAGE;
+	}	
+	
+	@Override
+	public String toString() {
+		return "sender: "+sender+" | recipient: "+ recipient+" | message: "+message+" | timeStamp: "+timeStamp+" | chatId: "+chatId+" | senderState: "+senderState+" | recipientState: "+recipientState+"|||||";
 	}
-
-	
-	
 }
