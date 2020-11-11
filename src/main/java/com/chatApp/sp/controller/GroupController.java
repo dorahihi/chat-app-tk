@@ -1,6 +1,7 @@
 package com.chatApp.sp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,72 +37,64 @@ public class GroupController {
 	CookieUtils cookieU;
 	
 	
-	//tạo nhóm mới
+	//tạo nhóm mới +
 	@PostMapping("/group/create")
-	public boolean createGroup(@RequestParam("members") String members[], @RequestParam("groupName") String groupName, HttpServletRequest req) {
+	public boolean createGroup(@RequestParam("groupName") String groupName, HttpServletRequest req) {
 		
 		String manager = cookieU.getEmail(req);
 		
-		boolean a = groupUtils.createGroup(members, groupName, manager);
+		boolean a = groupUtils.createGroup(groupName, manager);
 		
 		return a;
 	}
 	
-	//lấy danh sách nhóm của một user
-	@GetMapping("/group")
-	public List<String> getAllGroups(HttpServletResponse res, HttpServletRequest req){
-		Cookie cookies[] = req.getCookies();
-		
-		String email = "";
-		
-		for(Cookie c : cookies) {
-			if(c.getName().equals("email")) {
-				email = c.getValue();
-				break;
-			}
-		}
+	//lấy danh sách nhóm của một user +
+	@GetMapping("/groups")
+	public Map<String, String> getAllGroups(HttpServletRequest req){		
+		String email = cookieU.getEmail(req);
+		System.out.println("+++++++email: "+ email+" +++++++++");
 		return userRepo.findByEmail(email).getGroup();	
 	}
 	
 	
-	//xoá members khỏi nhóm (bỏ các member bị xoá vào mảng) ( ô coi nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi)
+	//xoá members khỏi nhóm (nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi) +
 	@DeleteMapping("/group/delete/members")
-	public String deleteMembers(@RequestParam("groupId") String groupId, @RequestParam("members") String[] members, HttpServletRequest req) {
-		return groupUtils.deleteMember(groupId, members, req);
+	public String deleteMembers(@RequestParam("groupId") String groupId, @RequestParam("member") String member, HttpServletRequest req) throws Exception {
+		return groupUtils.deleteMember(groupId, member, req);
 	}
 	
 	
-	//xem thông tin nhóm
-	@GetMapping("/group/profile/{groupid}")
+	//xem thông tin nhóm +
+	@GetMapping("/group/profile/{groupid}") 
 	public DBGroup getGroup(@PathVariable("groupid") String groupId) {
 		return groupUtils.getGroupInfo(groupId);
 	}
 	
 	
-	//xem danh sách members
+	//xem danh sách members +
 	@GetMapping("group/members/{groupId}")
-	public List<String> viewGroupMember(@PathVariable("groupId") String groupId){
+	public Map<String, String> viewGroupMember(@PathVariable("groupId") String groupId){
 		return groupUtils.getMembers(groupId);
 	}
 	
 	
-	//thêm members (1 lần thêm 1 người)
+	//thêm members (1 lần thêm 1 người) +
 	@GetMapping("/group/add")
-	public String addMember(@RequestParam("email") String friendEmail, @RequestParam("groupId") String groupId, HttpServletRequest req) {
+	public String addMember(@RequestParam("email") String friendEmail, @RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
 		return groupUtils.addGroupMember(friendEmail, groupId, req);
 	}
 	
 	
 	//rời nhóm
 	@PostMapping("/group/leave")
-	public String leaveGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) {
+	public String leaveGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
 		return groupUtils.leaveGroup(groupId, req);
 	}
 	
 	
-	//xoá nhóm( ô coi nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi)
+	//xoá nhóm(nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi)
 	@DeleteMapping("/group/delete")
-	public String deleteGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) {
+	public String deleteGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
 		return groupUtils.deleteGroup(groupId, req);
 	}
 }

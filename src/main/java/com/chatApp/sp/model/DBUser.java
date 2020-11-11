@@ -1,8 +1,6 @@
 package com.chatApp.sp.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -23,9 +21,9 @@ public class DBUser {
 	private String userName;
 	private String role;
 	private Map<String, String> friend;
-	private List<String> group;
+	private Map<String, String> group;
 	private Map<String, String> friendRequest;
-	private Map<String, String> acceptFriendRequest;
+	private Map<String, String> receivedFriendRequest;
 	
 
 	public DBUser() {
@@ -53,9 +51,9 @@ public class DBUser {
 		this.userName = userName;
 		this.role ="ROLE_USER";
 		this.friend = new HashMap<String, String>();
-		this.group = new ArrayList<String>();
+		this.group = new HashMap<String, String>();
 		this.friendRequest = new HashMap<String, String>();
-		this.acceptFriendRequest = new HashMap<String, String>();
+		this.receivedFriendRequest = new HashMap<String, String>();
 	}
 	
 	public void setUser(DBUser user) {
@@ -64,16 +62,7 @@ public class DBUser {
 		this.password = user.getPassword();
 		this.userName = user.getUserName();
 	}
-	
-	
-	public boolean addGroup(String groupId) {
-		if(!group.contains(groupId)) {
-			group.add(groupId);
-			return true;
-		}else return false;
-	}
-	
-	
+		
 	public Map<String, String> getFriendRequest() {
 		return friendRequest;
 	}
@@ -82,12 +71,12 @@ public class DBUser {
 		this.friendRequest = friendRequest;
 	}
 
-	public Map<String, String> getAcceptFriendRequest() {
-		return acceptFriendRequest;
+	public Map<String, String> getReceivedFriendRequest() {
+		return receivedFriendRequest;
 	}
 
-	public void setAcceptFriendRequest(Map<String, String> acceptFriendRequest) {
-		this.acceptFriendRequest = acceptFriendRequest;
+	public void setReceivedFriendRequest(Map<String, String> receivedFriendRequest) {
+		this.receivedFriendRequest = receivedFriendRequest;
 	}
 
 	public String getId() {
@@ -154,11 +143,11 @@ public class DBUser {
 		this.friend = friend;
 	}
 
-	public List<String> getGroup() {
+	public Map<String, String> getGroup() {
 		return group;
 	}
 
-	public void setGroup(List<String> group) {
+	public void setGroup(Map<String, String> group) {
 		this.group = group;
 	}
 

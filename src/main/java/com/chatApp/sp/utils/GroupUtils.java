@@ -1,7 +1,7 @@
 package com.chatApp.sp.utils;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,119 +30,125 @@ public class GroupUtils {
 	@Autowired
 	CookieUtils cookieUtils;
 	
-	public boolean createGroup(String members[], String groupName, String manager) {
-		
-		List<String> mems = Arrays.asList(members);
-		
-		DBGroup group = new DBGroup(mems, manager, groupName);
-		
-		if(groupRepo.findByGroupId(groupName+manager) == null) {
-			
-			groupRepo.insert(group);
-			return true;
-			
-		}		
-		return false;
+	private Map<String, String> getUserGroups(DBUser user){
+		Map<String, String> userGroups = user.getGroup();
+		if(userGroups == null)
+			return new HashMap<String, String>();
+		return userGroups;
+	}
+	
+	private void addUserGroup(String email, String groupId, String groupName) {
+		DBUser user = userRepo.findByEmail(email);
+		Map<String, String> userGroups = getUserGroups(user);
+		userGroups.put(groupId, groupName);
+		user.setGroup(userGroups);
+		userRepo.save(user);
+	}
+	
+	private void deleteUserGroup(String email, String groupId) {
+		DBUser user = userRepo.findByEmail(email);
+		Map<String, String> groups = getUserGroups(user);
+		groups.remove(groupId);
+		user.setGroup(groups);
+		userRepo.save(user);
+	}
+	
+	public boolean createGroup(String groupName, String manager) {
+				
+		DBGroup group = new DBGroup( manager, groupName);	
+		Map<String, String> members = new HashMap<String, String>();
+		members.put(manager, userRepo.findByEmail(manager).getUserName());
+		group.setMembers(members);
+		addUserGroup(manager, group.getGroupId(), group.getGroupName());
+		groupRepo.insert(group);
+		return true;
 	}
 	
 	public DBGroup getGroupInfo(String groupId) {
 		return groupRepo.findByGroupId(groupId);
 	}
 	
-	public String deleteGroup(String groupId, HttpServletRequest req) {
+	public String deleteGroup(String groupId, HttpServletRequest req) throws Exception {
 		
 		String email = cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
-		
-		if(group != null) {
+		Map<String, String> members = group.getMembers();
+
 			if(group.getManager().equals(email)) {
 				groupRepo.delete(group);
+				
+				for (Map.Entry<String, String> m : members.entrySet()) {
+					deleteUserGroup(m.getKey(), groupId);
+				}
 				return "SUCCEED";
-			}
-			return "Permission denied";
-		}
-		
-		return null;
+			}else throw new Exception("something wrong!");
 	}
 	
-	public String leaveGroup(String groupId, HttpServletRequest req) {
+	public String leaveGroup(String groupId, HttpServletRequest req) throws Exception {
 		
 		String email = cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
-		if(group != null) {
-			if(group.getMembers().contains(email)) {
-				List<String> members = group.getMembers();
-				members.remove(email);
-				group.setMembers(members);
-				groupRepo.save(group);
-				return "SUCCEED";
-			}
-			return "You are not a members of that group";
-		}
-		return null;
+		Map<String, String> groupMembers = group.getMembers();
+		
+		if(groupMembers.containsKey(email)) {
+			deleteUserGroup(email, groupId);
+			groupMembers.remove(email);
+			group.setMembers(groupMembers);
+			groupRepo.save(group);
+			return "SUCCEED";
+		}else throw new Exception("You are not a members of that group");
 	}
 	
 	
-	public String deleteMember(String groupId, String members[], HttpServletRequest req) {
+	public String deleteMember(String groupId, String member, HttpServletRequest req) throws Exception {
 		
 		String manager = cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
-		if(group != null) {
-			if(group.getManager().equals(manager)) {
-				List<String> dMembers = Arrays.asList(members);
-				List<String> mems = group.getMembers();
-				mems.removeAll(dMembers);
-				group.setMembers(mems);
-				groupRepo.save(group);
-				return "SUCCEED";
-			}
-			return "Permission denied";
-		}
-		return null;
+		Map<String, String> groupMembers = group.getMembers();
+		
+		if (group.getManager().equals(manager)) {
+			groupMembers.remove(member);
+			deleteUserGroup(member, groupId);
+			group.setMembers(groupMembers);
+			groupRepo.save(group);
+			return "SUCCEED";
+		}else throw new Exception("Permission denied");
 	}
 	
-	public List<String> getMembers(String groupId){
+	public Map<String, String> getMembers(String groupId){
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
-		if(group != null) {
-			return group.getMembers();
-		}
-		
-		return null;
+		return group.getMembers();
 	}
 	
-	public String addGroupMember(String friendEmail, String groupId, HttpServletRequest req) {
+	public String addGroupMember(String newMember, String groupId, HttpServletRequest req) throws Exception {
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
-		DBUser user = userRepo.findByEmail(friendEmail);
+		DBUser user = userRepo.findByEmail(newMember);
 		
 		String email = cookieUtils.getEmail(req);
 		
-		List<String> members = group.getMembers();
+		Map<String, String> members = group.getMembers();
 		
-		if(email != null && members.contains(email)) {
-			if(user != null && !group.getMembers().contains(friendEmail)) {
-				List<String> userGroups = user.getGroup();
+		if(email != null && members.containsKey(email)) {
+			if(user != null && !group.getMembers().containsKey(newMember)) {
 				
-				userGroups.add(groupId);
-				members.add(friendEmail);
+				addUserGroup(newMember, group.getGroupId(), group.getGroupName());
 				
-				user.setGroup(userGroups);
+				members.put(newMember, user.getUserName());
 				group.setMembers(members);
-				
-				userRepo.save(user);
 				groupRepo.save(group);
 				
 				return "SUCCESS";
 			}
-		}
-		return null;
+			return "User does not exist or already a group member";
+		}else throw new Exception("Something wrong!");
 	}
 	
 }
