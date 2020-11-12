@@ -1,5 +1,5 @@
-#welcome {
-  transition: 1s;
+.welcome {
+  transition: opacity 5s;
 }
 
 #welcome-box {
@@ -152,8 +152,6 @@
 
 @media only screen and (min-width: 1200px) {
   #welcome {
-    background-image: url("/img/welcome-bg.png");
-    background-size: cover;
     width: 100vw;
     min-height: 100vh;
     padding-top: 10vh;

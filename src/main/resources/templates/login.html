@@ -7,6 +7,7 @@
   <title>Welcome to chatApp</title>
   <link th:href="@{/css/login.css}" type="text/css" rel="stylesheet">
   <link th:href="@{/css/welcome.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/backgroud.css}" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -25,13 +26,18 @@
     </div>
   </div>
 
+  <div id="bg">
+    <div id="bg-1" class="bg-1"></div>
+    <div id="bg-2" class="bg-2"></div>
+  </div>
+
   <div id="noti-container" class="hide-o">
     <div id="noti-box">
       <div id="noti-content"></div>
     </div>
   </div>
 
-  <div id="welcome">
+  <div id="welcome" class="welcome hide-opacity">
     <div id="welcome-box">
       <span>Welcome to chatApp</span>
       <div id="logo">

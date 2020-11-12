@@ -17,6 +17,9 @@ const welcome = document.getElementById('welcome');
 const welcomeLoginBtn = document.getElementById('welcome-login-btn');
 const welcomeSignupBtn = document.getElementById('welcome-signup-btn');
 
+const bg1 = document.getElementById('bg-1');
+const bg2 = document.getElementById('bg-2');
+
 const requireAuth = document.getElementById('require-auth');
 const gender = document.getElementById('gender');
 
@@ -34,11 +37,13 @@ document.onreadystatechange = function() {
         openLoading();
     } else {
         closeLoading();
+        openWelcomePage();
     }
 };
 
 const openLoading = () =>{
   loading.classList.remove('hide-o');
+  mainContent.style.overflow = "hidden";
 }
 
 const closeLoading = () => {
@@ -99,9 +104,13 @@ openSignupBtn.addEventListener('click', () => {
 
 const openWelcomePage = (t) =>{
   mainContent.classList.add('hide-o');
+  welcome.classList.add('hide-opacity');
   welcome.classList.remove('hide-o');
   if(t) window.history.pushState("Welcome to chatApp", "", "/");
   document.title = "Welcome to chatApp";
+  welcome.classList.remove('hide-opacity');
+  bg1.classList.add('show-bg-1');
+  bg2.classList.add('show-bg-2');
 }
 
 const openSignupForm = (t) =>{
@@ -113,6 +122,7 @@ const openSignupForm = (t) =>{
   login.classList.add('hide-o');
   if(t) window.history.pushState("Signup to chatApp","", "/signup");
   document.title = "Signup to chatApp";
+  bg1.classList.remove('show-bg-1');
 }
 
 const openLoginForm = (t) =>{
@@ -124,6 +134,7 @@ const openLoginForm = (t) =>{
   signup.classList.add('hide-o');
   if(t) window.history.pushState("Login to chatApp", "", "/login");
   document.title = "Login to chatApp";
+  bg1.classList.remove('show-bg-1');
 }
 
 const notiMessage = message =>{
@@ -141,7 +152,20 @@ const notiMessage = message =>{
 const redirect = (path) =>{
   console.log("hiihih");
   notiContainer.classList.add('hide-o');
-  window.location.replace(path);
+  switch (path) {
+    case 'login':
+        openLoginForm(true);
+      break;
+    case 'signup':
+      openSignupForm(true);
+      break;
+    case '':
+      openWelcomePage(true);
+      break;
+    default:
+      window.location.replace(path);
+      break;
+  }
 }
 
 switch (pageType) {
@@ -202,7 +226,7 @@ signupForm.addEventListener('submit', e => {
       closeLoading();
       notiMessage("Signup successfully!");
       setTimeout(() => {
-        redirect('/login');
+        redirect('login');
       }, 3000);
     },
     error: () =>{
