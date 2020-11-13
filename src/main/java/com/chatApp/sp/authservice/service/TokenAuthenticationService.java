@@ -35,27 +35,20 @@ public class TokenAuthenticationService {
 						.setExpiration(new Date(System.currentTimeMillis()+ EXPIRATION_TIME))
 						.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 						.compact();
+
 		
-		ResponseCookieBuilder builder = ResponseCookie.from(HEADER_STRING, TOKEN_PREFIX+JWT);
-		builder.httpOnly(true);
-		builder.sameSite("None");
-		builder.maxAge(24*2*60*60);
-		ResponseCookie c = builder.build();
+		res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+		
+		
 		/*Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
 		cookie.setMaxAge(24*2*60*60);
 		cookie.setHttpOnly(true);
 		//res.addCookie(cookie);*/
-		res.addHeader("Set-Cookie", c.toString());
 		
-		ResponseCookieBuilder emailBuilder = ResponseCookie.from("email", username);
-		emailBuilder.maxAge(24*60*60*2);
-		emailBuilder.sameSite("None");
 		/*Cookie email = new Cookie("email", username);
 		email.setMaxAge(24*2*60*60);;
 		//email.setHttpOnly(true);
 		res.addCookie(email);*/
-		ResponseCookie email = emailBuilder.build();
-		res.addHeader("Set-Cookie", emailBuilder.toString());
 		
 		System.out.println(HEADER_STRING + " " + JWT);
 	}
@@ -63,7 +56,7 @@ public class TokenAuthenticationService {
 	public static Authentication getAuthentication(HttpServletRequest req, HttpServletResponse res) {
 		
 		 
-	Cookie cookies[] = req.getCookies();
+	/*Cookie cookies[] = req.getCookies();
 	
 	String token = null;
 	
@@ -89,13 +82,15 @@ public class TokenAuthenticationService {
 		email.setHttpOnly(true);
 		res.addCookie(email);
 		
-	}
+	}*/
+		
+		String token  = req.getHeader(HEADER_STRING);
 	
 		if(token != null) {
 			String user = Jwts.parser().setSigningKey(SECRET_KEY)
 								.parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
 								.getSubject();
-			res.addHeader("email", user);
+			//res.addHeader("email", user);
 			return (user != null)? new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()): null;
 		}
 		

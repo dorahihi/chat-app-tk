@@ -200,7 +200,7 @@ loginForm.addEventListener('submit', e => {
 
     $.ajax({
        type: "POST",
-       url: "https://chatapp-kkt.herokuapp.com/auth",
+       url: "/auth",
        data: $('#login-form').serialize(),
        xhrFields: {
          withCredentials: true
