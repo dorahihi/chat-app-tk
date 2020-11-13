@@ -38,7 +38,7 @@ public class TokenAuthenticationService {
 		
 		ResponseCookieBuilder builder = ResponseCookie.from(HEADER_STRING, TOKEN_PREFIX+JWT);
 		builder.httpOnly(true);
-		builder.sameSite("Lax");
+		builder.sameSite("None");
 		builder.maxAge(24*2*60*60);
 		ResponseCookie c = builder.build();
 		/*Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
@@ -49,7 +49,7 @@ public class TokenAuthenticationService {
 		
 		ResponseCookieBuilder emailBuilder = ResponseCookie.from("email", username);
 		emailBuilder.maxAge(24*60*60*2);
-		emailBuilder.sameSite("Lax");
+		emailBuilder.sameSite("None");
 		/*Cookie email = new Cookie("email", username);
 		email.setMaxAge(24*2*60*60);;
 		//email.setHttpOnly(true);
