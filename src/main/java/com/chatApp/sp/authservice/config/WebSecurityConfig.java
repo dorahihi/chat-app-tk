@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -55,6 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.cors();
 		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 		
 		http.authorizeRequests().antMatchers("/*.ico","/js/*","/css/*", "/img/*","/","/login","/logout","/signup","/accessDenied","/auth").permitAll();
 		
@@ -92,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        final CorsConfiguration configuration = new CorsConfiguration();
 	        configuration.setAllowedOrigins(ImmutableList.of("*"));
 	        configuration.setAllowedMethods(ImmutableList.of("HEAD",
-	                "GET", "POST", "PUT", "DELETE", "PATCH"));
+	                "GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS"));
 	        // setAllowCredentials(true) is important, otherwise:
 	        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
 	        configuration.setAllowCredentials(true);
