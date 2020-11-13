@@ -39,9 +39,9 @@ public class GroupController {
 	
 	//tạo nhóm mới +
 	@PostMapping("/group/create")
-	public boolean createGroup(@RequestParam("groupName") String groupName, HttpServletRequest req) {
+	public boolean createGroup(@RequestParam("groupName") String groupName,@RequestParam("email") String email, HttpServletRequest req) {
 		
-		String manager = cookieU.getEmail(req);
+		String manager = email;//cookieU.getEmail(req);
 		
 		boolean a = groupUtils.createGroup(groupName, manager);
 		
@@ -59,8 +59,8 @@ public class GroupController {
 	
 	//xoá members khỏi nhóm (nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi) +
 	@DeleteMapping("/group/delete/members")
-	public String deleteMembers(@RequestParam("groupId") String groupId, @RequestParam("member") String member, HttpServletRequest req) throws Exception {
-		return groupUtils.deleteMember(groupId, member, req);
+	public String deleteMembers(@RequestParam("groupId") String groupId, @RequestParam("member") String member,@RequestParam("email") String email, HttpServletRequest req) throws Exception {
+		return groupUtils.deleteMember(groupId,email, member, req);
 	}
 	
 	
@@ -80,21 +80,21 @@ public class GroupController {
 	
 	//thêm members (1 lần thêm 1 người) +
 	@GetMapping("/group/add")
-	public String addMember(@RequestParam("email") String friendEmail, @RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
-		return groupUtils.addGroupMember(friendEmail, groupId, req);
+	public String addMember(@RequestParam("friendEmail") String friendEmail, @RequestParam("groupId") String groupId,@RequestParam("email") String email,  HttpServletRequest req) throws Exception {
+		return groupUtils.addGroupMember(friendEmail,email, groupId, req);
 	}
 	
 	
 	//rời nhóm
 	@PostMapping("/group/leave")
-	public String leaveGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
-		return groupUtils.leaveGroup(groupId, req);
+	public String leaveGroup(@RequestParam("groupId") String groupId, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
+		return groupUtils.leaveGroup(groupId,email, req);
 	}
 	
 	
 	//xoá nhóm(nếu là manager thì hiện cái này lên, còn không phải thì ẩn đi)
 	@DeleteMapping("/group/delete")
-	public String deleteGroup(@RequestParam("groupId") String groupId, HttpServletRequest req) throws Exception {
-		return groupUtils.deleteGroup(groupId, req);
+	public String deleteGroup(@RequestParam("groupId") String groupId,@RequestParam("email") String email, HttpServletRequest req) throws Exception {
+		return groupUtils.deleteGroup(groupId,email, req);
 	}
 }

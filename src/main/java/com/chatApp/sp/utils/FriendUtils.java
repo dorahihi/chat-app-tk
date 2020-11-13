@@ -52,8 +52,8 @@ public class FriendUtils {
 	}
 	
 	//xem danh sách bạn
-	public Map<String, String> viewFriendlist(HttpServletRequest req){
-		String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewFriendlist(String email,HttpServletRequest req){
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -63,9 +63,9 @@ public class FriendUtils {
 	}
 	
 	//gửi lời mời kết bạn
-	public String sendFriendRequest(String friendEmail, HttpServletRequest req) throws Exception {
+	public String sendFriendRequest(String friendEmail,String email, HttpServletRequest req) throws Exception {
 		
-		String email = cookieUtils.getEmail(req);
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		DBUser friend = userRepo.findByEmail(friendEmail);
@@ -88,8 +88,8 @@ public class FriendUtils {
 	}
 	
 	//chấp nhận lời mời kết bạn
-	public String acceptFriendRequest(String friendEmail, HttpServletRequest req) throws Exception {
-		String email = cookieUtils.getEmail(req);
+	public String acceptFriendRequest(String friendEmail,String email, HttpServletRequest req) throws Exception {
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -113,8 +113,8 @@ public class FriendUtils {
 	}
 	
 	// xoá bạn
-	public String removeFriend(String friendEmail, HttpServletRequest req) throws Exception {
-		String email = cookieUtils.getEmail(req);
+	public String removeFriend(String friendEmail,String email, HttpServletRequest req) throws Exception {
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -134,8 +134,8 @@ public class FriendUtils {
 	
 	
 	//Xem danh sách đã gửi lời mời kết bạn
-	public Map<String, String> viewFriendRequest(HttpServletRequest req){
-		String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewFriendRequest(String email, HttpServletRequest req){
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -143,8 +143,8 @@ public class FriendUtils {
 	}
 	
 	
-	public Map<String, String> viewReceivedFriendRequest(HttpServletRequest req){
-		String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewReceivedFriendRequest(String email, HttpServletRequest req){
+		//String email = cookieUtils.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatApp.sp.repository.UserRepository;
@@ -34,42 +35,42 @@ public class FriendController {
 	 */
 	//chấp nhận kết bạn +
 	@GetMapping("/friends/accept/{email}")
-	public String accepyFriendRequest(@PathVariable("email") String email, HttpServletRequest req) throws Exception {
+	public String accepyFriendRequest(@PathVariable("email") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
 		
-		return friendUtils.acceptFriendRequest(email, req);
+		return friendUtils.acceptFriendRequest(friendEmail,email, req);
 	}
 	
 	
 	//gửi lời mời kết bạn +
 	@GetMapping("/friends/add/{email}")
-	public String sendFriendRequest(@PathVariable("email") String friendEmail, HttpServletRequest req) throws Exception {
-		return friendUtils.sendFriendRequest(friendEmail, req);
+	public String sendFriendRequest(@PathVariable("email") String friendEmail, @RequestParam("email") String email,HttpServletRequest req) throws Exception {
+		return friendUtils.sendFriendRequest(friendEmail,email, req);
 	}
 	
 	
 	//xem danh sách bạn +
 	@GetMapping("/friends")
-	public Map<String, String> viewFriendList(HttpServletRequest req) {
-		return friendUtils.viewFriendlist(req);
+	public Map<String, String> viewFriendList(@RequestParam("email") String email,HttpServletRequest req) {
+		return friendUtils.viewFriendlist(email,req);
 	}
 	
 	//xoá bạn (như cái chấp nhận lời mời kết bạn) +
 	@DeleteMapping("/friends/remove/{email}")
-	public String removeFriend(@PathVariable("email") String email, HttpServletRequest req) throws Exception {
-		return friendUtils.removeFriend(email, req);
+	public String removeFriend(@PathVariable("email") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
+		return friendUtils.removeFriend(friendEmail, email, req);
 	}
 	
 	//xem danh sách friend request +
 	@GetMapping("/friends/add/requests")
-	public Map<String, String> viewFriendRequestList(HttpServletRequest req){
-		return friendUtils.viewFriendRequest(req);
+	public Map<String, String> viewFriendRequestList(@RequestParam("email") String email, HttpServletRequest req){
+		return friendUtils.viewFriendRequest(email,req);
 	}
 	
 	
 	//xem lời mời kết bạn nhận được +
 	@GetMapping("/friends/received")
-	public Map<String, String> viewReceivedFriendRequestList(HttpServletRequest req){
-		return friendUtils.viewReceivedFriendRequest(req);
+	public Map<String, String> viewReceivedFriendRequestList(@RequestParam("email") String email, HttpServletRequest req){
+		return friendUtils.viewReceivedFriendRequest(email,req);
 	}
 	
 	

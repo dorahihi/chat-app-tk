@@ -68,9 +68,9 @@ public class GroupUtils {
 		return groupRepo.findByGroupId(groupId);
 	}
 	
-	public String deleteGroup(String groupId, HttpServletRequest req) throws Exception {
+	public String deleteGroup(String groupId,String email, HttpServletRequest req) throws Exception {
 		
-		String email = cookieUtils.getEmail(req);
+		//String email = cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		Map<String, String> members = group.getMembers();
@@ -85,9 +85,9 @@ public class GroupUtils {
 			}else throw new Exception("something wrong!");
 	}
 	
-	public String leaveGroup(String groupId, HttpServletRequest req) throws Exception {
+	public String leaveGroup(String groupId,String email,  HttpServletRequest req) throws Exception {
 		
-		String email = cookieUtils.getEmail(req);
+		//String email = cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
@@ -103,9 +103,9 @@ public class GroupUtils {
 	}
 	
 	
-	public String deleteMember(String groupId, String member, HttpServletRequest req) throws Exception {
+	public String deleteMember(String groupId,String email, String member, HttpServletRequest req) throws Exception {
 		
-		String manager = cookieUtils.getEmail(req);
+		String manager = email;//cookieUtils.getEmail(req);
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
@@ -127,12 +127,12 @@ public class GroupUtils {
 		return group.getMembers();
 	}
 	
-	public String addGroupMember(String newMember, String groupId, HttpServletRequest req) throws Exception {
+	public String addGroupMember(String newMember,String emai, String groupId, HttpServletRequest req) throws Exception {
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
 		DBUser user = userRepo.findByEmail(newMember);
 		
-		String email = cookieUtils.getEmail(req);
+		String email = emai;//cookieUtils.getEmail(req);
 		
 		Map<String, String> members = group.getMembers();
 		
