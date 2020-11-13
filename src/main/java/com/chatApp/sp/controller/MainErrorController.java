@@ -42,8 +42,9 @@ public class MainErrorController implements ErrorController {
 		model.addAttribute("type", "403");
 			return "login";
 	}
-	
+
 	@Override
+	@Deprecated
 	public String getErrorPath() {
 		// TODO Auto-generated method stub
 		return null;

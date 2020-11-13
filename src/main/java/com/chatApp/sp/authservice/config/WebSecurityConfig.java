@@ -23,7 +23,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.chatApp.sp.authservice.filter.JWTAuthenticationFilter;
 import com.chatApp.sp.authservice.filter.JWTLoginFilter;
 import com.chatApp.sp.service.UserService;
-import com.google.common.collect.ImmutableList;
 
 @Configuration
 @EnableWebSecurity
