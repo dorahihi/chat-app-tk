@@ -36,15 +36,13 @@ public class UserUtils {
 		}
 	}
 	
-	public DBUser viewUserProfile(String email) {
+	public DBUser viewUserProfile(String email) throws Exception {
 		DBUser user = userRepo.findByEmail(email);
 		
 		if(user != null) {
 			user.setPassword("");
 			return user;
-		}
-		
-		return null;
+		}else throw new Exception("User does not exist!");
 	}
 	
 	public String updateUserProfile(String password, String userName, String age, HttpServletRequest req) {

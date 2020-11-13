@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "notification")
-public class Notification {
+public class Notification extends Message{
 	
 	@Id
 	private String id;
@@ -16,21 +16,21 @@ public class Notification {
 	private String recipient;
 	private MessageState state;
 	private String timeStamp;
-	private NotiType notiType;
+	private MessageType notiType;
 	private Type type;
 	
 	public Notification() {
 		
 	}
 	
-	public Notification(String sender, String recipient, String message, NotiType notiType) {
+	public Notification(String sender, String recipient, String message, MessageType notiType) {
 		this.message = message;
 		this.sender = sender;
 		this.recipient = recipient;
 		this.timeStamp = System.currentTimeMillis() + "";
 		this.state = MessageState.SENT;
 		this.notiType = notiType;
-		this.type = Type.NOTIFICATION;
+		this.type = Type.Notification;
 	}
 	
 	public String getId() {
@@ -89,11 +89,11 @@ public class Notification {
 		this.type = type;
 	}
 
-	public NotiType getNotiType() {
+	public MessageType getNotiType() {
 		return notiType;
 	}
 
-	public void setNotiType(NotiType notiType) {
+	public void setNotiType(MessageType notiType) {
 		this.notiType = notiType;
 	}
 

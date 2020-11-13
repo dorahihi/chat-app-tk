@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
-public class ChatMessage {
+public class ChatMessage extends Message{
 	
 	@Id
 	private String id;
@@ -111,7 +111,7 @@ public class ChatMessage {
 		this.timeStamp = System.currentTimeMillis() + "";
 		this.senderState = MessageState.SENT;
 		this.recipientState = MessageState.RECEIVED;
-		this.type = Type.PRIVATE_MESSAGE;
+		this.type = Type.PrivateMessage;
 	}	
 	
 	@Override

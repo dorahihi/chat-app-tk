@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "groupMessage")
-public class GroupMessage {
+public class GroupMessage extends Message {
 
 	
 	@Id

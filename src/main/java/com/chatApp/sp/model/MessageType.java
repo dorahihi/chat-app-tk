@@ -1,5 +1,5 @@
 package com.chatApp.sp.model;
 
 public enum MessageType {
-	CHAT,JOIN,LEAVE
+	Message, GroupMessage, FriendRequest, AcceptFriendRequest
 }

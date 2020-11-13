@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class UseController {
 	
 	//lấy thông tin tài khoản
 	@GetMapping("/users/{email}")
-	public DBUser viewUserProfile(@PathVariable("email") String email) {
+	public DBUser viewUserProfile(@PathVariable("email") String email) throws Exception {
 		System.out.println("get user "+ email);
 		return userUtils.viewUserProfile(email);
 	}
@@ -49,7 +50,7 @@ public class UseController {
 	
 	
 	//Xoá tài khoản
-	@GetMapping("/users/delete")
+	@DeleteMapping("/users/delete")
 	public String deleteAccount(HttpServletRequest req) {
 		return userUtils.deleteAccount(req);
 	}	
