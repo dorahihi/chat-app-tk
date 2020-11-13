@@ -202,6 +202,9 @@ loginForm.addEventListener('submit', e => {
        type: "POST",
        url: "https://chatapp-kkt.herokuapp.com/auth",
        data: $('#login-form').serialize(),
+       xhrFields: {
+         withCredentials: true
+       },
        success: function() {
          closeLoading();
          notiMessage("Login successfully!");

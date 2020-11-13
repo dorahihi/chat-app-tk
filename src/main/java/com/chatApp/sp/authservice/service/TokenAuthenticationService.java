@@ -7,6 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseCookie.ResponseCookieBuilder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -33,16 +35,28 @@ public class TokenAuthenticationService {
 						.setExpiration(new Date(System.currentTimeMillis()+ EXPIRATION_TIME))
 						.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 						.compact();
-		Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
+		
+		ResponseCookieBuilder builder = ResponseCookie.from(HEADER_STRING, TOKEN_PREFIX+JWT);
+		builder.httpOnly(true);
+		builder.sameSite("Lax");
+		builder.maxAge(24*2*60*60);
+		ResponseCookie c = builder.build();
+		/*Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
 		cookie.setMaxAge(24*2*60*60);
 		cookie.setHttpOnly(true);
-		res.addCookie(cookie);
+		//res.addCookie(cookie);*/
+		res.addHeader("Set-Cookie", c.toString());
 		
-		Cookie email = new Cookie("email", username);
+		ResponseCookieBuilder emailBuilder = ResponseCookie.from("email", username);
+		emailBuilder.maxAge(24*60*60*2);
+		emailBuilder.sameSite("Lax");
+		/*Cookie email = new Cookie("email", username);
 		email.setMaxAge(24*2*60*60);;
 		//email.setHttpOnly(true);
-		res.addCookie(email);
-				
+		res.addCookie(email);*/
+		ResponseCookie email = emailBuilder.build();
+		res.addHeader("Set-Cookie", emailBuilder.toString());
+		
 		System.out.println(HEADER_STRING + " " + JWT);
 	}
 	
