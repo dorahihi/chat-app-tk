@@ -7,6 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseCookie.ResponseCookieBuilder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -36,7 +38,7 @@ public class TokenAuthenticationService {
 
 		
 		//res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
-		res.setHeader(HEADER_STRING, TOKEN_PREFIX+" "+JWT);
+		//res.setHeader(HEADER_STRING, TOKEN_PREFIX+" "+JWT);
 		System.out.println("Header: "+HEADER_STRING+ ": "+TOKEN_PREFIX+" "+JWT);
 		
 		/*Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
@@ -48,6 +50,12 @@ public class TokenAuthenticationService {
 		email.setMaxAge(24*2*60*60);;
 		//email.setHttpOnly(true);
 		res.addCookie(email);*/
+		
+		ResponseCookieBuilder builder = ResponseCookie.from(TOKEN_PREFIX, JWT);
+		builder.sameSite("None");
+		builder.maxAge(2*60*60*24);
+		ResponseCookie c = builder.build();
+		res.setHeader(HEADER_STRING, c.toString());
 		
 		System.out.println(HEADER_STRING + " " + JWT);
 	}
