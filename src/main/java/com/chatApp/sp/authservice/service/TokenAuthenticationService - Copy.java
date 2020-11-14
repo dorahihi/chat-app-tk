@@ -1,4 +1,4 @@
-package com.chatApp.sp.authservice.service;
+/*package com.chatApp.sp.authservice.service;
 
 import java.util.Collections;
 import java.util.Date;
@@ -35,7 +35,21 @@ public class TokenAuthenticationService {
 						.setExpiration(new Date(System.currentTimeMillis()+ EXPIRATION_TIME))
 						.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 						.compact();
+
+		
+		//res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+		//res.setHeader(HEADER_STRING, TOKEN_PREFIX+" "+JWT);
 		System.out.println("Header: "+HEADER_STRING+ ": "+TOKEN_PREFIX+" "+JWT);
+		
+		/*Cookie cookie = new Cookie(HEADER_STRING, TOKEN_PREFIX+JWT);
+		cookie.setMaxAge(24*2*60*60);
+		cookie.setHttpOnly(true);
+		res.addCookie(cookie);
+		
+		Cookie email = new Cookie("email", username);
+		email.setMaxAge(24*2*60*60);;
+		//email.setHttpOnly(true);
+		res.addCookie(email);*//*
 		
 		ResponseCookieBuilder builder = ResponseCookie.from(TOKEN_PREFIX, JWT);
 		builder.sameSite("None");
@@ -48,16 +62,46 @@ public class TokenAuthenticationService {
 	
 	public static Authentication getAuthentication(HttpServletRequest req, HttpServletResponse res) {
 		
-		String token  = req.getHeader(HEADER_STRING);
+		 
+	/*Cookie cookies[] = req.getCookies();
+	
+	String token = null;
+	
+	if(cookies != null) {
+		for(Cookie c: cookies) {
+			String name = c.getName();
+			if(name.equals(HEADER_STRING))
+				token = c.getValue();
+		}
+	}
+	
+		//String token = req.getHeader(HEADER_STRING);
+		
+	if(req.getHeader("logout") != null) {
+		System.out.println("logout from req: "+ req.getHeader("logout"));
+		Cookie c = new Cookie(HEADER_STRING, "");
+		c.setMaxAge(0);
+		c.setHttpOnly(true);
+		res.addCookie(c);
+		
+		Cookie email = new Cookie("email", "");
+		email.setMaxAge(0);
+		email.setHttpOnly(true);
+		res.addCookie(email);
+		
+	}*/
+		
+	/*	String token  = req.getHeader(HEADER_STRING);
 	
 		if(token != null) {
 			String user = Jwts.parser().setSigningKey(SECRET_KEY)
 								.parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
 								.getSubject();
+			//res.addHeader("email", user);
 			return (user != null)? new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()): null;
 		}
 		
 		return null;
 	}
 
-}
+}*/
