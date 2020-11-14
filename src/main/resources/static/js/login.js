@@ -205,7 +205,7 @@ loginForm.addEventListener('submit', e => {
          withCredentials: true
        },
        success: function(output, status, res) {
-         console.log("testing1:   "+res.getResponseHeader("Authorization"));
+         console.log("testing1: "+res.getResponseHeader("Authorization"));
          closeLoading();
          notiMessage("Login successfully!");
        },
