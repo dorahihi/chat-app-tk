@@ -199,13 +199,15 @@ loginForm.addEventListener('submit', e => {
 
   $.ajax({
        type: "POST",
-       url: "/auth",
+       url: "https://chatapp-kkt.herokuapp.com/auth",
        data: $('#login-form').serialize(),
        xhrFields: {
          withCredentials: true
        },
        success: function(output, status, res) {
          console.log("testing1: "+res.getResponseHeader("Authorization"));
+         console.log("testing2: "+res.getResponseHeader("Date"));
+         console.log("testing3: "+res.getResponseHeader("Content-Type"));
          closeLoading();
          notiMessage("Login successfully!");
        },
