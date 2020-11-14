@@ -196,16 +196,17 @@ switch (pageType) {
 
 loginForm.addEventListener('submit', e => {
   openLoading();
-    e.preventDefault();
+  e.preventDefault();
 
-    $.ajax({
+  $.ajax({
        type: "POST",
-       url: "chatapp-kkt.herokuapp.com/auth",
+       url: "/auth",
        data: $('#login-form').serialize(),
        xhrFields: {
          withCredentials: true
        },
-       success: function() {
+       success: function(output, status, res) {
+         console.log("testing1:   "+res.getResponseHeader("Authorization"));
          closeLoading();
          notiMessage("Login successfully!");
        },
