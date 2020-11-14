@@ -37,11 +37,7 @@ public class TokenAuthenticationService {
 						.compact();
 		System.out.println("Header: "+HEADER_STRING+ ": "+TOKEN_PREFIX+" "+JWT);
 		
-		ResponseCookieBuilder builder = ResponseCookie.from(TOKEN_PREFIX, JWT);
-		builder.sameSite("None");
-		builder.maxAge(2*60*60*24);
-		ResponseCookie c = builder.build();
-		res.setHeader(HEADER_STRING, c.toString());
+		res.setHeader(HEADER_STRING, TOKEN_PREFIX+" "+JWT);
 		
 		System.out.println(HEADER_STRING + " " + JWT);
 	}
