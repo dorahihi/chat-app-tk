@@ -29,18 +29,6 @@ const loading = document.getElementById('loading-box');
 let pageType = type.innerHTML;
 console.log(pageType);
 
-const url = "https://chatapp-kkt.herokuapp.com/";
-const local = "http://localhost:8080/";
-
-document.onreadystatechange = function() {
-    if (document.readyState !== "complete") {
-        openLoading();
-    } else {
-        closeLoading();
-        openWelcomePage();
-    }
-};
-
 const openLoading = () =>{
   loading.classList.remove('hide-o');
   mainContent.style.overflow = "hidden";
@@ -54,67 +42,19 @@ const closeLoading = () => {
   }, 1500);
 }
 
-gender.addEventListener('change', () => {
-
-  if(gender.value === "0")
-    gender.style.color = "#8C8B8B";
-  else gender.style.color = "black";
-
-});
-
-window.onpopstate = e =>{
-  let path = window.location.pathname;
-  switch (path) {
-    case "/login":
-      openLoginForm(false);
-      break;
-    case "/signup":
-      openSignupForm(false);
-      break;
-    default:
-    openWelcomePage(true);
-  }
-};
-
-welcomeLoginBtn.addEventListener('click', () =>{
-  openLoginForm(true);
-  console.log("pathname: "+window.location.pathname);
-});
-
-welcomeSignupBtn.addEventListener('click', () =>{
-  welcome.classList.add('hide-o');
-  mainContent.classList.remove('hide-o');
-  openSignupForm(true);
-  console.log("pathname: "+window.location.pathname);
-});
-
-
-openSignupBtn.addEventListener('click', () => {
-
-  let label = openSignupBtn.innerHTML;
-
-  if(label === 'Create Account'){
-    openSignupForm(true);
-  }
-  else {
-    openLoginForm(true);
-  }
-
-}, true);
-
 const openWelcomePage = (t) =>{
   mainContent.classList.add('hide-o');
-  welcome.classList.add('hide-opacity');
   welcome.classList.remove('hide-o');
+  welcome.classList.remove('hide-opacity');
   if(t) window.history.pushState("Welcome to chatApp", "", "/");
   document.title = "Welcome to chatApp";
-  welcome.classList.remove('hide-opacity');
   bg1.classList.add('show-bg-1');
   bg2.classList.add('show-bg-2');
 }
 
 const openSignupForm = (t) =>{
   welcome.classList.add('hide-o');
+  welcome.classList.add('hide-opacity');
   mainContent.classList.remove('hide-o');
   openSignupBtn.innerHTML = "Login";
   haveAccount.innerHTML = 'Already have an account?';
@@ -123,10 +63,12 @@ const openSignupForm = (t) =>{
   if(t) window.history.pushState("Signup to chatApp","", "/signup");
   document.title = "Signup to chatApp";
   bg1.classList.remove('show-bg-1');
+  bg2.classList.add('show-bg-2');
 }
 
 const openLoginForm = (t) =>{
   welcome.classList.add('hide-o');
+  welcome.classList.add('hide-opacity');
   mainContent.classList.remove('hide-o');
   openSignupBtn.innerHTML = 'Create Account';
   haveAccount.innerHTML = "Don't have an account?";
@@ -135,6 +77,7 @@ const openLoginForm = (t) =>{
   if(t) window.history.pushState("Login to chatApp", "", "/login");
   document.title = "Login to chatApp";
   bg1.classList.remove('show-bg-1');
+  bg2.classList.add('show-bg-2');
 }
 
 const notiMessage = message =>{
@@ -168,31 +111,87 @@ const redirect = (path) =>{
   }
 }
 
-switch (pageType) {
-  case 'login':
-    welcome.classList.add('hide-o');
-    mainContent.classList.remove('hide-o');
-    openLoginForm();
-    window.history.pushState(" ", "Login to chatApp", "/login");
-    break;
-  case 'signup':
-    welcome.classList.add('hide-o');
-    mainContent.classList.remove('hide-o');
-    openSignupForm();
-    break;
-  case '403':
-    welcome.classList.add('hide-o');
-    mainContent.classList.remove('hide-o');
-    openLoginForm();
-    requireAuth.classList.remove('hide-o');
-    window.history.pushState(" ", "Login to chatApp", "/login");
-    setTimeout(() =>{
-      requireAuth.classList.add('hide-o');
-    }, 15000);
-    break;
-  default:
+document.onreadystatechange = function() {
+    if (document.readyState !== "complete") {
+        openLoading();
+    } else {
+        closeLoading();
+        switch (pageType) {
+          case 'login':
+            welcome.classList.add('hide-o');
+            mainContent.classList.remove('hide-o');
+            openLoginForm();
+            window.history.pushState(" ", "Login to chatApp", "/login");
+            break;
+          case 'signup':
+            welcome.classList.add('hide-o');
+            mainContent.classList.remove('hide-o');
+            openSignupForm();
+            break;
+          case '403':
+            welcome.classList.add('hide-o');
+            mainContent.classList.remove('hide-o');
+            openLoginForm();
+            requireAuth.classList.remove('hide-o');
+            window.history.pushState(" ", "Login to chatApp", "/login");
+            setTimeout(() =>{
+              requireAuth.classList.add('hide-o');
+            }, 15000);
+            break;
+          default:
+            openWelcomePage();
+          break;
+        }
+    }
+};
 
-}
+window.onpopstate = e =>{
+  let path = window.location.pathname;
+  switch (path) {
+    case "/login":
+      openLoginForm(false);
+      break;
+    case "/signup":
+      openSignupForm(false);
+      break;
+    default:
+    openWelcomePage(true);
+  }
+};
+
+gender.addEventListener('change', () => {
+
+  if(gender.value === "0")
+    gender.style.color = "#8C8B8B";
+  else gender.style.color = "black";
+
+});
+
+welcomeLoginBtn.addEventListener('click', () =>{
+  openLoginForm(true);
+  console.log("pathname: "+window.location.pathname);
+});
+
+welcomeSignupBtn.addEventListener('click', () =>{
+  welcome.classList.add('hide-o');
+  mainContent.classList.remove('hide-o');
+  openSignupForm(true);
+  console.log("pathname: "+window.location.pathname);
+});
+
+
+openSignupBtn.addEventListener('click', () => {
+
+  let label = openSignupBtn.innerHTML;
+
+  if(label === 'Create Account'){
+    openSignupForm(true);
+  }
+  else {
+    openLoginForm(true);
+  }
+
+}, true);
 
 loginForm.addEventListener('submit', e => {
   openLoading();
