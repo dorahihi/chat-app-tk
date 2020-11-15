@@ -11,7 +11,7 @@ public class MessageTemplate {
 		
 	}
 
-	public MessageTemplate(String type, String sender, String recipient, String message, String messageType) {
+	public MessageTemplate(String sender, String recipient, String message, String type, String messageType) {
 		this.type = type;
 		this.sender = sender;
 		this.recipient = recipient;

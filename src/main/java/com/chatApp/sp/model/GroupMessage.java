@@ -1,5 +1,7 @@
 package com.chatApp.sp.model;
 
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,13 +14,17 @@ public class GroupMessage extends Message {
 	private String id;
 	
 	@Indexed
+	private String messageId;
+	
+	private String timeStamp;
+	
 	private String groupid;
 	
 	private String sender;
 	
-	private String timeStamp;
-	
 	private String message;
+	
+	private Map<String, Boolean> isRemove;
 	
 	private Type type;
 	
@@ -26,11 +32,16 @@ public class GroupMessage extends Message {
 	public GroupMessage() {
 		
 	}
-	public GroupMessage(String groupId, String sender, String message) {
+	public GroupMessage(String groupId, String sender, String message, Map<String, String> members) {
 		this.groupid = groupId;
+		this.messageId = "group_"+this.groupid+"_"+timeStamp;
 		this.sender =sender;
 		this.message = message;
 		this.timeStamp = System.currentTimeMillis() + "";
+		
+		for(Map.Entry<String, String> m: members.entrySet()) {
+			this.isRemove.put(m.getKey(), false);
+		}
 	}
 	public String getId() {
 		return id;
@@ -68,6 +79,19 @@ public class GroupMessage extends Message {
 	public void setType(Type type) {
 		this.type = type;
 	}
+	public Map<String, Boolean> getIsRemove() {
+		return isRemove;
+	}
+	public void setIsRemove(Map<String, Boolean> isRemove) {
+		this.isRemove = isRemove;
+	}
+	public String getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+	
 	
 	
 	

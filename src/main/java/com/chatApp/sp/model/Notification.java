@@ -11,6 +11,7 @@ public class Notification extends Message{
 	private String id;
 	
 	@Indexed
+	private String messageId;
 	private String message;
 	private String sender;
 	private String recipient;
@@ -24,6 +25,8 @@ public class Notification extends Message{
 	}
 	
 	public Notification(String sender, String recipient, String message, MessageType notiType) {
+		this.messageId = "notification_"+timeStamp;
+		
 		this.message = message;
 		this.sender = sender;
 		this.recipient = recipient;
@@ -96,6 +99,16 @@ public class Notification extends Message{
 	public void setNotiType(MessageType notiType) {
 		this.notiType = notiType;
 	}
+
+	public String getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+	
+	
 
 	
 }

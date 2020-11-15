@@ -12,6 +12,7 @@ public class ChatMessage extends Message{
 	
 	@Indexed
 	private String chatId;
+	private String messageId;
 	private String sender;
 	private String recipient;
 	private String timeStamp;
@@ -99,11 +100,22 @@ public class ChatMessage extends Message{
 		this.type = type;
 	}
 
+	
+	public String getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+
 	public ChatMessage(String sender, String recipient, String message) {
 		
 		if(sender.compareTo(recipient) > 0)
 			this.chatId = sender+recipient;
 		else this.chatId = recipient+sender;
+		
+		this.messageId = "private_"+this.chatId+"_"+this.timeStamp;
 		
 		this.message = message;
 		this.recipient = recipient;
