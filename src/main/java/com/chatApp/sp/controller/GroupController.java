@@ -39,11 +39,11 @@ public class GroupController {
 	
 	//tạo nhóm mới +
 	@PostMapping("/group/create")
-	public boolean createGroup(@RequestParam("groupName") String groupName,@RequestParam("email") String email, HttpServletRequest req) {
+	public String createGroup(@RequestParam("groupName") String groupName,@RequestParam("email") String email, HttpServletRequest req) {
 		
 		String manager = email;//cookieU.getEmail(req);
 		
-		boolean a = groupUtils.createGroup(groupName, manager);
+		String a = groupUtils.createGroup(groupName, manager);
 		
 		return a;
 	}

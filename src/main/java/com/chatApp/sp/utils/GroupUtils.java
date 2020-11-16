@@ -53,7 +53,7 @@ public class GroupUtils {
 		userRepo.save(user);
 	}
 	
-	public boolean createGroup(String groupName, String manager) {
+	public String createGroup(String groupName, String manager) {
 				
 		DBGroup group = new DBGroup( manager, groupName);	
 		Map<String, String> members = new HashMap<String, String>();
@@ -61,7 +61,7 @@ public class GroupUtils {
 		group.setMembers(members);
 		addUserGroup(manager, group.getGroupId(), group.getGroupName());
 		groupRepo.insert(group);
-		return true;
+		return group.getGroupId();
 	}
 	
 	public DBGroup getGroupInfo(String groupId) {
