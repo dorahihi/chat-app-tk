@@ -20,7 +20,7 @@ import com.dropbox.core.v2.users.FullAccount;
 @Component
 public class DropboxUtils {
 
-	private static final String ACCESS_TOKEN = "TW2N1u5W4IAAAAAAAAAAAS3QDBC2l_Ot6vMXAS0BxeGq4uistBg_1q_tgjTsTZEy";
+	private static final String ACCESS_TOKEN = "ZUH1-UpPRtMAAAAAAAAAATCi9ieXzmaYhoE8G3sCRGBm9jJf8NLFteDSmG6FJiz5";
 	
 	private static DbxClientV2 client;
 	
