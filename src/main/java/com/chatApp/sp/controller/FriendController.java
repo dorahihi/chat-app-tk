@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,16 +35,16 @@ public class FriendController {
 	 * vd: /friend/accept/khang -> email: khang, có nghĩa là tài khoản người gửi request đã chấp nhận kết bạn với tài khoản có email là khang
 	 */
 	//chấp nhận kết bạn +
-	@GetMapping("/friends/accept/{email}")
-	public String accepyFriendRequest(@PathVariable("email") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
+	@PostMapping("/friends/accept")
+	public String accepyFriendRequest(@RequestParam("friendEmail") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
 		
 		return friendUtils.acceptFriendRequest(friendEmail,email, req);
 	}
 	
 	
 	//gửi lời mời kết bạn +
-	@GetMapping("/friends/add/{email}")
-	public String sendFriendRequest(@PathVariable("email") String friendEmail, @RequestParam("email") String email,HttpServletRequest req) throws Exception {
+	@PostMapping("/friends/add")
+	public String sendFriendRequest(@RequestParam("friendEmail") String friendEmail, @RequestParam("email") String email,HttpServletRequest req) throws Exception {
 		return friendUtils.sendFriendRequest(friendEmail,email, req);
 	}
 	
@@ -55,8 +56,8 @@ public class FriendController {
 	}
 	
 	//xoá bạn (như cái chấp nhận lời mời kết bạn) +
-	@DeleteMapping("/friends/remove/{email}")
-	public String removeFriend(@PathVariable("email") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
+	@DeleteMapping("/friends/remove")
+	public String removeFriend(@RequestParam("friendEmail") String friendEmail, @RequestParam("email") String email, HttpServletRequest req) throws Exception {
 		return friendUtils.removeFriend(friendEmail, email, req);
 	}
 	

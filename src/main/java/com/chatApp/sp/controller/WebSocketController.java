@@ -75,7 +75,7 @@ public class WebSocketController {
 	  mesUtils.sendMessage(message);
   }
   
-  @PostMapping("/save")
+  @PostMapping("/messages/img")
   @ResponseBody
   public void haha(@RequestParam("image") MultipartFile image, 
 		  		   @RequestParam("sender") String sender,

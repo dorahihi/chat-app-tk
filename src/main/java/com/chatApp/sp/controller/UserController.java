@@ -16,7 +16,7 @@ import com.chatApp.sp.utils.UserUtils;
 
 @RestController
 @CrossOrigin
-public class UseController {
+public class UserController {
 	
 	@Autowired
 	UserUtils userUtils;
@@ -24,10 +24,10 @@ public class UseController {
 	
 	//tạo tài khoản
 	@PostMapping("/signup")
-	public String createAccount(@RequestParam("email") String email, @RequestParam("password") String password, 
-								@RequestParam("userName") String userName,
-								@RequestParam("age") String age,
-								@RequestParam("gender") String gender) throws Exception {
+	public String createAccount(@RequestParam("newEmail") String email, @RequestParam("newPassword") String password, 
+								@RequestParam("newUserName") String userName,
+								@RequestParam("newAge") String age,
+								@RequestParam("NewGender") String gender) throws Exception {
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	
