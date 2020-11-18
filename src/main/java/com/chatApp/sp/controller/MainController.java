@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.chatApp.sp.utils.DropboxUtils;
+import com.chatApp.sp.service.DropboxServices;
 import com.dropbox.core.DbxApiException;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.files.UploadErrorException;
@@ -40,7 +40,7 @@ public class MainController {
 	@GetMapping("/huhu")
 	@ResponseBody
 	public String huhu() throws UploadErrorException, DbxException, IOException {
-		DropboxUtils.getFiles();
+		DropboxServices.getFiles();
 		return "huhu";
 	}
 }

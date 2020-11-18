@@ -1,9 +1,10 @@
-package com.chatApp.sp.utils;
+package com.chatApp.sp.service;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.dropbox.core.DbxApiException;
 import com.dropbox.core.DbxException;
@@ -17,23 +18,23 @@ import com.dropbox.core.v2.files.UploadErrorException;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
 import com.dropbox.core.v2.users.FullAccount;
 
-@Component
-public class DropboxUtils {
+@Service
+public class DropboxServices {
 
 	private static final String ACCESS_TOKEN = "ZUH1-UpPRtMAAAAAAAAAATCi9ieXzmaYhoE8G3sCRGBm9jJf8NLFteDSmG6FJiz5";
 	
 	private static DbxClientV2 client;
 	
-	public DropboxUtils() throws DbxApiException, DbxException, IOException {
+	public DropboxServices() throws DbxApiException, DbxException, IOException {
 		DbxRequestConfig config = DbxRequestConfig.newBuilder("chatapp").build();
-        DropboxUtils.client = new DbxClientV2(config, ACCESS_TOKEN);
+		DropboxServices.client = new DbxClientV2(config, ACCESS_TOKEN);
         FullAccount account = client.users().getCurrentAccount();
         System.out.println("in dropboxUtils: dropbox account information: "+account.getName().getDisplayName());
         
 	}
 	
 	public static String uploadFile(InputStream in, String fileName) throws UploadErrorException, DbxException, IOException {
-        FileMetadata metadata = DropboxUtils.client.files().uploadBuilder("/"+fileName).uploadAndFinish(in);
+        FileMetadata metadata = DropboxServices.client.files().uploadBuilder("/"+fileName).uploadAndFinish(in);
         SharedLinkMetadata sharedLink = client.sharing().createSharedLinkWithSettings("/"+fileName);
         return convertToRawLink(sharedLink.getUrl());
 	}

@@ -1,4 +1,4 @@
-package com.chatApp.sp.utils;
+package com.chatApp.sp.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,18 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.chatApp.sp.model.DBUser;
 import com.chatApp.sp.repository.UserRepository;
 
-@Component
-public class FriendUtils {
+@Service
+public class FriendServices {
 	
 	@Autowired
 	UserRepository userRepo;
 	
 	@Autowired
-	CookieUtils cookieUtils;
+	CookieServices cookieServices;
 	
 	private Map<String, String> getFriendRequestList(DBUser user){
 		Map<String, String> friendRequest = user.getFriendRequest();

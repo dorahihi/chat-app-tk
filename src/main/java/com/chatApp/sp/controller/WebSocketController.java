@@ -26,8 +26,8 @@ import com.chatApp.sp.model.ChatMessage;
 import com.chatApp.sp.model.GroupMessage;
 import com.chatApp.sp.model.MessageTemplate;
 import com.chatApp.sp.model.Notification;
-import com.chatApp.sp.utils.DropboxUtils;
-import com.chatApp.sp.utils.MessageUtils;
+import com.chatApp.sp.service.DropboxServices;
+import com.chatApp.sp.service.MessageServices;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.v2.files.UploadErrorException;
 
@@ -37,11 +37,11 @@ public class WebSocketController {
   private final SimpMessagingTemplate simpMessagingTemplate;
   
   @Autowired
-  private MessageUtils mesUtils;
+  private MessageServices messageServices;
   
   public WebSocketController(SimpMessagingTemplate simpMessagingTemplate){ 
     this.simpMessagingTemplate = simpMessagingTemplate; 
-    MessageUtils.activeUser = new HashSet<String>();
+    MessageServices.activeUser = new HashSet<String>();
   }
   
   
@@ -50,10 +50,10 @@ public class WebSocketController {
   @MessageMapping("/register")  
   @SendToUser("/queue/newMember")
   public Set<String> registerUser(String webChatUsername){
-    if(!MessageUtils.activeUser.contains(webChatUsername)) {
-    	MessageUtils.activeUser.add(webChatUsername);
+    if(!MessageServices.activeUser.contains(webChatUsername)) {
+    	MessageServices.activeUser.add(webChatUsername);
       simpMessagingTemplate.convertAndSend("/topic/newMember", webChatUsername); 
-      return MessageUtils.activeUser;
+      return MessageServices.activeUser;
     } else {
       return new HashSet<>();
     }
@@ -64,7 +64,7 @@ public class WebSocketController {
   @MessageMapping("/unregister") 
   @SendTo("/topic/disconnectedUser")
   public String unregisterUser(String webChatUsername){
-	  MessageUtils.activeUser.remove(webChatUsername);
+	  MessageServices.activeUser.remove(webChatUsername);
     return webChatUsername;
   }
 
@@ -72,7 +72,7 @@ public class WebSocketController {
   // send message to a specific user 
   @MessageMapping("/message") 
   public void greeting(MessageTemplate message){
-	  mesUtils.sendMessage(message);
+	  messageServices.sendMessage(message);
   }
   
   @PostMapping("/messages/img")
@@ -83,35 +83,35 @@ public class WebSocketController {
 		  		   @RequestParam("type") String type,
 		  		   @RequestParam("mesType") String mesType) throws UploadErrorException, DbxException, IOException {
 	  
-	String url = DropboxUtils.uploadFile(image.getInputStream(), image.getOriginalFilename());
+	String url = DropboxServices.uploadFile(image.getInputStream(), image.getOriginalFilename());
 	
 	MessageTemplate mes = new MessageTemplate(sender, recipient, url, type, mesType);
 	
-	mesUtils.sendMessage(mes);;
+	messageServices.sendMessage(mes);;
   }
   
   @DeleteMapping("/message/delete")
   @ResponseBody
   public void deleteMessage(@RequestParam("messageId") String messageId, @RequestParam("email") String email, HttpServletRequest req) {
-	  mesUtils.deleteMessage(messageId, email, req);
+	  messageServices.deleteMessage(messageId, email, req);
   }
   
   @GetMapping("/groups/messages")
   @ResponseBody
   public List<GroupMessage> viewGroupMessage(@RequestParam("groupId") String groupId, @RequestParam("email") String email, HttpServletRequest req) throws Exception{
-	  return mesUtils.viewGroupMessages(groupId, email);
+	  return messageServices.viewGroupMessages(groupId, email);
   }
   
   @GetMapping("users/messages")
   @ResponseBody
   public List<ChatMessage> viewPrivateMessage(@RequestParam("chatId") String chatId, @RequestParam("email") String email, HttpServletRequest req) throws Exception{
-	  return mesUtils.viewPrivateMessage(chatId, email);
+	  return messageServices.viewPrivateMessage(chatId, email);
   }
   
   @GetMapping("users/notification")
   @ResponseBody
   public List<Notification> viewNotification(@RequestParam("email") String email, HttpServletRequest req){
-	  return mesUtils.viewNotification(email);
+	  return messageServices.viewNotification(email);
   }
   
 }

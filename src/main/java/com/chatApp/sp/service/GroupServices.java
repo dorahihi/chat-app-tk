@@ -1,4 +1,4 @@
-package com.chatApp.sp.utils;
+package com.chatApp.sp.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.chatApp.sp.model.DBGroup;
 import com.chatApp.sp.model.DBUser;
@@ -15,8 +16,8 @@ import com.chatApp.sp.repository.GroupRepository;
 import com.chatApp.sp.repository.UserRepository;
 
 
-@Component
-public class GroupUtils {
+@Service
+public class GroupServices {
 	
 	@Autowired
 	GroupMessageRepository groupMessRepo;
@@ -28,7 +29,7 @@ public class GroupUtils {
 	UserRepository userRepo;
 	
 	@Autowired
-	CookieUtils cookieUtils;
+	CookieServices cookieServices;
 	
 	private Map<String, String> getUserGroups(DBUser user){
 		Map<String, String> userGroups = user.getGroup();

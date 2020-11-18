@@ -1,12 +1,13 @@
-package com.chatApp.sp.utils;
+package com.chatApp.sp.service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class CookieUtils {
+@Service
+public class CookieServices {
 	
 	public String getEmail(HttpServletRequest req) {
 		Cookie cookies[] = req.getCookies();

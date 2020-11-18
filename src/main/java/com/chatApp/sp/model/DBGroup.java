@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.chatApp.sp.utils.Utils;
+
 @Document(collection = "group")
 public class DBGroup {
 	
@@ -24,7 +26,7 @@ public class DBGroup {
 	}
 	
 	public DBGroup( String manager, String groupName) {
-		this.groupId = groupName.toLowerCase() + System.currentTimeMillis();
+		this.groupId = Utils.covertToString(groupName) + (System.currentTimeMillis()/(1000*60));
 		this.manager = manager;
 		this.groupName = groupName;
 	}

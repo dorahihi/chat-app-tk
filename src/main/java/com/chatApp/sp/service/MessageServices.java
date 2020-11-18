@@ -1,4 +1,4 @@
-package com.chatApp.sp.utils;
+package com.chatApp.sp.service;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.chatApp.sp.model.ChatMessage;
 import com.chatApp.sp.model.DBGroup;
@@ -24,8 +25,8 @@ import com.chatApp.sp.repository.GroupRepository;
 import com.chatApp.sp.repository.MessageRepository;
 import com.chatApp.sp.repository.NotiRepository;
 
-@Component
-public class MessageUtils {
+@Service
+public class MessageServices {
 
 	@Autowired
 	SimpMessagingTemplate messageTemplate;
@@ -99,28 +100,23 @@ public class MessageUtils {
 		Map<String, Boolean> members = mes.getIsRemove();
 		
 		groupMesRepo.save(mes);
-		/*
-		 * check if user is active?
-		 */
+		
 		for(Map.Entry<String, Boolean> mem: members.entrySet()) {
-			messageTemplate.convertAndSendToUser(mem.getKey(), "/msg", mes);
+			if(activeUser.contains(mem.getKey()))
+				messageTemplate.convertAndSendToUser(mem.getKey(), "/msg", mes);
 		}
 	}
 	
 	private void sendPrivateMessage(ChatMessage mes) {
 		mesRepo.save(mes);
-		/*
-		 * check if user is active?
-		 */
-		messageTemplate.convertAndSendToUser(mes.getRecipient(), "/msg", mes);
+		if(activeUser.contains(mes.getRecipient()))
+			messageTemplate.convertAndSendToUser(mes.getRecipient(), "/msg", mes);
 	}
 	
 	private void sendNotification(Notification noti) {
 		notiRepo.save(noti);
-		/*
-		 * check if user is active?
-		 */
-		messageTemplate.convertAndSendToUser(noti.getRecipient(), "/msg", noti);
+		if(activeUser.contains(noti.getRecipient()))
+			messageTemplate.convertAndSendToUser(noti.getRecipient(), "/msg", noti);
 	}
 	
 	

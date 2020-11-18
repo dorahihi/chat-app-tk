@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.chatApp.sp.model.DBUser;
 import com.chatApp.sp.repository.UserRepository;
+import com.chatApp.sp.service.CookieServices;
 
 @Component
 public class UserUtils {
@@ -19,7 +20,7 @@ public class UserUtils {
 	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	CookieUtils cookieUtils;
+	CookieServices cookieServices;
 	
 	
 	public String createUser(String email, String userName, String password, String age, String gender) throws Exception{
@@ -47,7 +48,7 @@ public class UserUtils {
 	
 	public String updateUserProfile(String password, String userName, String age, HttpServletRequest req) {
 		
-		String email = cookieUtils.getEmail(req);
+		String email = cookieServices.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -65,7 +66,7 @@ public class UserUtils {
 	}
 	
 	public String deleteAccount(HttpServletRequest req) {
-		String email = cookieUtils.getEmail(req);
+		String email = cookieServices.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		
