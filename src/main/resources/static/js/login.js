@@ -199,7 +199,7 @@ loginForm.addEventListener('submit', e => {
 
   $.ajax({
        type: "POST",
-       url: "https://chatapp-kkt.herokuapp.com/auth",
+       url: "https://secret-brook-88276.herokuapp.com/auth",
        data: $('#login-form').serialize(),
        xhrFields: {
          withCredentials: true
@@ -224,7 +224,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: "/signup",
+    url: "https://secret-brook-88276.herokuapp.com/signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {
