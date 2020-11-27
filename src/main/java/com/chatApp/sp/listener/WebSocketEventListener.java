@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import com.chatApp.sp.controller.WebSocketController;
 import com.chatApp.sp.service.MessageServices;
 
 @Component
@@ -29,7 +30,7 @@ public class WebSocketEventListener {
 		String username = (String) headerAccessor.getSessionAttributes().get("username");
 		
 		
-		MessageServices.activeUser.remove(username);
+		WebSocketController.activeUser.remove(username);
 		
 		if(username != null) {
 			logger.info("User Disconnected: "+username);

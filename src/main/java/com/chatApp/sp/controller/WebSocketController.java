@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,14 +35,17 @@ import com.dropbox.core.v2.files.UploadErrorException;
 @Controller
 @CrossOrigin
 public class WebSocketController {
-  private final SimpMessagingTemplate simpMessagingTemplate;
+  private static SimpMessagingTemplate simpMessagingTemplate;
   
   @Autowired
   private MessageServices messageServices;
   
+  public static Set<String> activeUser;
+  
   public WebSocketController(SimpMessagingTemplate simpMessagingTemplate){ 
     this.simpMessagingTemplate = simpMessagingTemplate; 
-    MessageServices.activeUser = new HashSet<String>();
+    MessageServices.messageTemplate = simpMessagingTemplate;
+    activeUser = new HashSet<String>();
   }
   
   
@@ -50,12 +54,13 @@ public class WebSocketController {
   @MessageMapping("/register")  
   @SendToUser("/queue/newMember")
   public Set<String> registerUser(String webChatUsername){
-    if(!MessageServices.activeUser.contains(webChatUsername)) {
-    	MessageServices.activeUser.add(webChatUsername);
+	  System.out.println("webSocketController: new connect "+ webChatUsername);
+    if(!activeUser.contains(webChatUsername)) {
+    	activeUser.add(webChatUsername);
       simpMessagingTemplate.convertAndSend("/topic/newMember", webChatUsername); 
-      return MessageServices.activeUser;
+      return activeUser;
     } else {
-      return new HashSet<>();
+      return activeUser;
     }
   }
   
@@ -64,53 +69,66 @@ public class WebSocketController {
   @MessageMapping("/unregister") 
   @SendTo("/topic/disconnectedUser")
   public String unregisterUser(String webChatUsername){
-	  MessageServices.activeUser.remove(webChatUsername);
+	  activeUser.remove(webChatUsername);
     return webChatUsername;
   }
 
   
   // send message to a specific user 
   @MessageMapping("/message") 
-  public void greeting(MessageTemplate message){
+  public void sendMessage(MessageTemplate message){
 	  messageServices.sendMessage(message);
+	  //simpMessagingTemplate.convertAndSendToUser(message.getRecipient(), "/msg", message);
   }
   
-  @PostMapping("/messages/img")
+  //xoá tin nhắn
+  @DeleteMapping("/messages/delete")
   @ResponseBody
-  public void haha(@RequestParam("image") MultipartFile image, 
-		  		   @RequestParam("sender") String sender,
-		  		   @RequestParam("recipient") String recipient,
-		  		   @RequestParam("type") String type,
-		  		   @RequestParam("mesType") String mesType) throws UploadErrorException, DbxException, IOException {
-	  
-	String url = DropboxServices.uploadFile(image.getInputStream(), image.getOriginalFilename());
-	
-	MessageTemplate mes = new MessageTemplate(sender, recipient, url, type, mesType);
-	
-	messageServices.sendMessage(mes);;
+  public void deleteMessage(@RequestHeader("messageId") String messageId, HttpServletRequest req) {
+	  messageServices.deleteMessage(messageId, req);
   }
-  
-  @DeleteMapping("/message/delete")
+  @DeleteMapping("/app/messages/delete")
   @ResponseBody
-  public void deleteMessage(@RequestParam("messageId") String messageId, @RequestParam("email") String email, HttpServletRequest req) {
-	  messageServices.deleteMessage(messageId, email, req);
+  public void appDeleteMessage(@RequestHeader("messageId") String messageId, @RequestHeader("email") String email) {
+	  messageServices.deleteMessage(messageId, email);
   }
   
+  
+  //lấy tin nhắn nhóm
   @GetMapping("/groups/messages")
   @ResponseBody
-  public List<GroupMessage> viewGroupMessage(@RequestParam("groupId") String groupId, @RequestParam("email") String email, HttpServletRequest req) throws Exception{
+  public List<GroupMessage> viewGroupMessage(@RequestHeader("groupId") String groupId, @RequestHeader("email") String email, HttpServletRequest req) throws Exception{
+	  return messageServices.viewGroupMessages(groupId, req);
+  }
+  @GetMapping("/app/groups/messages")
+  @ResponseBody
+  public List<GroupMessage> appViewGroupMessage(@RequestHeader("groupId") String groupId, @RequestHeader("email") String email) throws Exception{
 	  return messageServices.viewGroupMessages(groupId, email);
   }
   
-  @GetMapping("users/messages")
+  
+  //lấy tin nhắn cá nhân
+  @GetMapping("/users/messages")
   @ResponseBody
-  public List<ChatMessage> viewPrivateMessage(@RequestParam("chatId") String chatId, @RequestParam("email") String email, HttpServletRequest req) throws Exception{
+  public List<ChatMessage> viewPrivateMessage(@RequestHeader("chatId") String chatId, @RequestHeader("email") String email, HttpServletRequest req) throws Exception{
+	  return messageServices.viewPrivateMessage(chatId, req);
+  }
+  @GetMapping("/app/users/messages")
+  @ResponseBody
+  public List<ChatMessage> appViewPrivateMessage(@RequestHeader("chatId") String chatId, @RequestHeader("email") String email) throws Exception{
 	  return messageServices.viewPrivateMessage(chatId, email);
   }
   
-  @GetMapping("users/notification")
+  
+  //lấy thông báo
+  @GetMapping("/users/notification")
   @ResponseBody
-  public List<Notification> viewNotification(@RequestParam("email") String email, HttpServletRequest req){
+  public List<Notification> viewNotification(HttpServletRequest req){
+	  return messageServices.viewNotification(req);
+  }
+  @GetMapping("/app/users/notification")
+  @ResponseBody
+  public List<Notification> appViewNotification(@RequestHeader("email") String email){
 	  return messageServices.viewNotification(email);
   }
   

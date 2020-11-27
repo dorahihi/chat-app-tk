@@ -53,8 +53,17 @@ public class FriendServices {
 	}
 	
 	//xem danh sách bạn
-	public Map<String, String> viewFriendlist(String email,HttpServletRequest req){
-		//String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewFriendlist(HttpServletRequest req){
+		String email = cookieServices.getEmail(req);
+		
+		DBUser user = userRepo.findByEmail(email);
+		
+		if(user != null)
+			return getFriendsList(user);
+		else return null;
+	}
+	
+	public Map<String, String> viewFriendlist(String email){
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -64,9 +73,9 @@ public class FriendServices {
 	}
 	
 	//gửi lời mời kết bạn
-	public String sendFriendRequest(String friendEmail,String email, HttpServletRequest req) throws Exception {
+	public String sendFriendRequest(String friendEmail, HttpServletRequest req) throws Exception {
 		
-		//String email = cookieUtils.getEmail(req);
+		String email = cookieServices.getEmail(req);
 		
 		DBUser user = userRepo.findByEmail(email);
 		DBUser friend = userRepo.findByEmail(friendEmail);
@@ -88,9 +97,55 @@ public class FriendServices {
 		else throw new Exception("User does not exist!");
 	}
 	
+public String sendFriendRequest(String friendEmail, String email) throws Exception {
+		
+		DBUser user = userRepo.findByEmail(email);
+		DBUser friend = userRepo.findByEmail(friendEmail);
+		
+		if(friend != null) {
+			
+			Map<String, String> friendRequest = getFriendRequestList(user);
+			Map<String, String> receivedFriendRequest = getReceivedFriendRequest(friend);
+			
+			if(!friendRequest.containsKey(friendEmail)) {
+				user.setFriendRequest(putMap(friendRequest, friendEmail, friend.getUserName()));
+				friend.setReceivedFriendRequest(putMap(receivedFriendRequest, email, user.getUserName()));
+				userRepo.save(user);
+				userRepo.save(friend);
+				return "SUCCEED";
+			}
+			return "Already sent friend request";
+		}
+		else throw new Exception("User does not exist!");
+	}
+	
+	
 	//chấp nhận lời mời kết bạn
-	public String acceptFriendRequest(String friendEmail,String email, HttpServletRequest req) throws Exception {
-		//String email = cookieUtils.getEmail(req);
+	public String acceptFriendRequest(String friendEmail, HttpServletRequest req) throws Exception {
+		String email = cookieServices.getEmail(req);
+		
+		DBUser user = userRepo.findByEmail(email);
+		
+		if(userRepo.findByEmail(friendEmail) != null) {
+			Map<String, String> receivedFriendRequest = getReceivedFriendRequest(user);
+			
+			DBUser friend = userRepo.findByEmail(friendEmail);
+			
+			
+			if(receivedFriendRequest.containsKey(friendEmail)) {
+				user.setFriend(putMap(getFriendsList(user), friendEmail, friend.getUserName()));
+				user.setReceivedFriendRequest(removeMapElement(receivedFriendRequest, friendEmail));
+				friend.setFriend(putMap(getFriendsList(friend), email, user.getUserName()));
+				friend.setFriendRequest(removeMapElement(friend.getFriendRequest(), email));
+				userRepo.save(friend);
+				userRepo.save(user);
+				return "SUCCEED";
+			}
+			return "You did not receive friend request from this user";
+		}else throw new Exception("User does not exist");
+	}
+	
+	public String acceptFriendRequest(String friendEmail, String email) throws Exception {
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -114,8 +169,25 @@ public class FriendServices {
 	}
 	
 	// xoá bạn
-	public String removeFriend(String friendEmail,String email, HttpServletRequest req) throws Exception {
-		//String email = cookieUtils.getEmail(req);
+	public String removeFriend(String friendEmail, HttpServletRequest req) throws Exception {
+		String email = cookieServices.getEmail(req);
+		
+		DBUser user = userRepo.findByEmail(email);
+		
+		Map<String, String> friends = getFriendsList(user);
+		
+		DBUser friend = userRepo.findByEmail(friendEmail);
+		
+		if(friends.containsKey(friendEmail)) {
+			user.setFriend(removeMapElement(friends, friendEmail));
+			friend.setFriend(removeMapElement(friend.getFriend(), email));
+			userRepo.save(user);
+			userRepo.save(friend);
+			return "SUCCEED";
+		}	
+		else throw new Exception("Something wrong!");
+	}
+	public String removeFriend(String friendEmail, String email) throws Exception {
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -135,8 +207,14 @@ public class FriendServices {
 	
 	
 	//Xem danh sách đã gửi lời mời kết bạn
-	public Map<String, String> viewFriendRequest(String email, HttpServletRequest req){
-		//String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewFriendRequest(HttpServletRequest req){
+		String email = cookieServices.getEmail(req);
+		
+		DBUser user = userRepo.findByEmail(email);
+		
+		return user.getFriendRequest();
+	}
+	public Map<String, String> viewFriendRequest(String email){
 		
 		DBUser user = userRepo.findByEmail(email);
 		
@@ -144,8 +222,14 @@ public class FriendServices {
 	}
 	
 	
-	public Map<String, String> viewReceivedFriendRequest(String email, HttpServletRequest req){
-		//String email = cookieUtils.getEmail(req);
+	public Map<String, String> viewReceivedFriendRequest(HttpServletRequest req){
+		String email = cookieServices.getEmail(req);
+		
+		DBUser user = userRepo.findByEmail(email);
+		
+		return getReceivedFriendRequest(user);
+	}
+	public Map<String, String> viewReceivedFriendRequest(String email){
 		
 		DBUser user = userRepo.findByEmail(email);
 		

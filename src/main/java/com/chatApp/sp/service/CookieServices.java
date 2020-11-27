@@ -28,4 +28,17 @@ public class CookieServices {
 		c.setMaxAge(age);
 		return c;
 	}
+	
+	public String getCookie(String cookieName, HttpServletRequest req) {
+		Cookie cookies[] = req.getCookies();
+		
+		for(Cookie c: cookies) {
+			
+			if(c.getName().equals(cookieName)) {
+				return c.getValue();
+			}
+		}
+		
+		return null;
+	}
 }

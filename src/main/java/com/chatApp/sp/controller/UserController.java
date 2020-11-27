@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,21 +33,32 @@ public class UserController {
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	
+	
 	//lấy thông tin tài khoản
 	@GetMapping("/users/{email}")
 	public DBUser viewUserProfile(@PathVariable("email") String email) throws Exception {
-		System.out.println("get user "+ email);
 		return userUtils.viewUserProfile(email);
 	}
 	
 	
 	//sửa thông tin tài khoản
-	@PostMapping("/users/edit")
-	public String editUserProfile(@RequestParam("password") String password,
-								  @RequestParam("userName") String userName,
-								  @RequestParam("age") String age,
+	@PutMapping("/users/edit")
+	public String editUserProfile(@RequestParam("editPassword") String password,
+								  @RequestParam("editUserName") String userName,
+								  @RequestParam("editAge") String age,
 								  HttpServletRequest req) {
+		
+		System.out.println("tên, mật khẩu và tuổi: "+password+" "+ userName+" "+age);
 		return userUtils.updateUserProfile(password, userName, age, req);
+	}
+	
+	//sửa thông tin tài khoản trên app
+	@PutMapping("/app/users/edit")
+	public String appEditUserProfile(@RequestParam("editPassword") String password,
+								  	@RequestParam("editUserName") String userName,
+								  	@RequestParam("editAge") String age,
+								  	@RequestHeader("email") String email) {
+		return userUtils.updateUserProfile(password, userName, age, email);
 	}
 	
 	
@@ -54,4 +67,15 @@ public class UserController {
 	public String deleteAccount(HttpServletRequest req) {
 		return userUtils.deleteAccount(req);
 	}	
+	
+	//Xoá tài khoản trên app
+	@DeleteMapping("/app/users/delete")
+	public String appDeleteAccount(@RequestHeader("email") String email) {
+		return userUtils.deleteAccount(email);
+	}
+	
+	@GetMapping("/logout")
+	public String logout() {
+		return "done";
+	}
 }

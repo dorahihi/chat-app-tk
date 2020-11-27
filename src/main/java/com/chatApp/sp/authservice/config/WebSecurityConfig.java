@@ -55,12 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.csrf().disable();
 		
-		http.cors();
+		//http.cors();
 		
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		
-		http.authorizeRequests().antMatchers("/*.ico","/js/*","/css/*", "/img/*","/","/login","/logout","/signup","/accessDenied","/auth","/save").permitAll();
+		http.authorizeRequests().antMatchers("/js/*","/css/*", "/img/*","/","/login","/logout","/signup","/accessDenied","/auth","/save").permitAll();
 		
 		http.authorizeRequests().anyRequest().authenticated()
 								.and()
@@ -73,12 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        response.setContentType("application/json;charset=UTF-8");
 	        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	        response.sendRedirect("/accessDenied");
-	        /*response.getWriter().write(new JSONObject() 
-	                .put("timestamp", LocalDateTime.now())
-	                .put("message", "Access denied")
-	                .put("tester", "tester")
-	                .put("errorCode", "403")
-	                .toString());*/
 	        });
 	}
 	
@@ -91,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	}
 	
-	 @Bean
+	/* @Bean
 	    public CorsConfigurationSource corsConfigurationSource() {
 	        final CorsConfiguration configuration = new CorsConfiguration();
 	        configuration.setAllowedOrigins(Arrays.asList("*","http://localhost:8080"));
@@ -107,6 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        source.registerCorsConfiguration("/**", configuration);
 	        source.registerCorsConfiguration("/auth", configuration);
 	        return source;
-	    }
+	    }*/
 
 }

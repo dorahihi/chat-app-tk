@@ -14,7 +14,7 @@ import com.chatApp.sp.interceptor.HttpHandShakeInterceptor;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Autowired
-	private HttpHandShakeInterceptor handshakeInterceptor;
+ HttpHandShakeInterceptor handshakeInterceptor;
 	
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -24,6 +24,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/websocket-chat").withSockJS().setInterceptors(handshakeInterceptor);
+    registry.addEndpoint("/websocket-chat").setAllowedOrigins("*").withSockJS().setInterceptors(handshakeInterceptor).setSupressCors(true);
   }
 }

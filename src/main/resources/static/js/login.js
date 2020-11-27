@@ -112,36 +112,37 @@ const redirect = (path) =>{
 }
 
 document.onreadystatechange = function() {
-    if (document.readyState !== "complete") {
-        openLoading();
-    } else {
-        closeLoading();
-        switch (pageType) {
-          case 'login':
-            welcome.classList.add('hide-o');
-            mainContent.classList.remove('hide-o');
-            openLoginForm();
-            window.history.pushState(" ", "Login to chatApp", "/login");
-            break;
-          case 'signup':
-            welcome.classList.add('hide-o');
-            mainContent.classList.remove('hide-o');
-            openSignupForm();
-            break;
-          case '403':
-            welcome.classList.add('hide-o');
-            mainContent.classList.remove('hide-o');
-            openLoginForm();
-            requireAuth.classList.remove('hide-o');
-            window.history.pushState(" ", "Login to chatApp", "/login");
-            setTimeout(() =>{
-              requireAuth.classList.add('hide-o');
-            }, 15000);
-            break;
-          default:
-            openWelcomePage();
+    if (document.readyState === "complete") {
+      closeLoading();
+      switch (pageType) {
+        case 'login':
+          welcome.classList.add('hide-o');
+          mainContent.classList.remove('hide-o');
+          openLoginForm();
+          window.history.pushState(" ", "Login to chatApp", "/login");
           break;
-        }
+        case 'signup':
+          welcome.classList.add('hide-o');
+          mainContent.classList.remove('hide-o');
+          openSignupForm();
+          break;
+        case '403':
+          welcome.classList.add('hide-o');
+          mainContent.classList.remove('hide-o');
+          openLoginForm();
+          requireAuth.classList.remove('hide-o');
+          window.history.pushState(" ", "Login to chatApp", "/login");
+          setTimeout(() =>{
+            requireAuth.classList.add('hide-o');
+          }, 15000);
+          break;
+        default:
+          openWelcomePage();
+        break;
+      }
+        //
+    } else {
+        openLoading();
     }
 };
 
@@ -199,7 +200,7 @@ loginForm.addEventListener('submit', e => {
 
   $.ajax({
        type: "POST",
-       url: "https://secret-brook-88276.herokuapp.com/auth",
+       url: "/auth",
        data: $('#login-form').serialize(),
        xhrFields: {
          withCredentials: true

@@ -26,7 +26,7 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
-  stompClient.subscribe('/user/queue/newMember',  ( data) => data);
+  stompClient.subscribe('/user/queue/newMember',  (data) => console.log(data));
 
  stompClient.subscribe('/topic/newMember', data => console.log("data2: " + data.body));
 
@@ -67,9 +67,11 @@ const onDisconnect = () =>{
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   sendMessage('/app/message', JSON.stringify({
-    recipient: 'tester',
+    recipient: 'khang',
     sender: email,
-    message: messa
+    message: messa,
+    type: 'PrivateMessage',
+    messageType: 'Text'
   }));
   mes.innerHTML = '';
 });

@@ -37,10 +37,10 @@ public class MainController {
 		return "login";
 	}	
 	
-	@GetMapping("/huhu")
+	@GetMapping("/upload")
 	@ResponseBody
 	public String huhu() throws UploadErrorException, DbxException, IOException {
 		DropboxServices.getFiles();
-		return "huhu";
+		return "upload";
 	}
 }

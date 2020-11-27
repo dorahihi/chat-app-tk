@@ -114,13 +114,13 @@ public class ChatMessage extends Message{
 		if(sender.compareTo(recipient) > 0)
 			this.chatId = sender+recipient;
 		else this.chatId = recipient+sender;
+		this.timeStamp = System.currentTimeMillis() + "";
 		
 		this.messageId = "private_"+this.chatId+"_"+this.timeStamp;
 		
 		this.message = message;
 		this.recipient = recipient;
 		this.sender = sender;
-		this.timeStamp = System.currentTimeMillis() + "";
 		this.senderState = MessageState.SENT;
 		this.recipientState = MessageState.RECEIVED;
 		this.type = Type.PrivateMessage;

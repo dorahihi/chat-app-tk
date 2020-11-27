@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.chatApp.sp.controller.WebSocketController;
 import com.chatApp.sp.model.ChatMessage;
 import com.chatApp.sp.model.DBGroup;
 import com.chatApp.sp.model.GroupMessage;
@@ -28,8 +29,8 @@ import com.chatApp.sp.repository.NotiRepository;
 @Service
 public class MessageServices {
 
-	@Autowired
-	SimpMessagingTemplate messageTemplate;
+	//@Autowired
+	public static SimpMessagingTemplate messageTemplate;
 	
 	@Autowired
 	GroupRepository groupRepo;
@@ -43,7 +44,9 @@ public class MessageServices {
 	@Autowired
 	MessageRepository mesRepo;
 	
-	public static Set<String> activeUser;
+	@Autowired
+	CookieServices cookieServices;
+	
 	
 	public void sendMessage(MessageTemplate mes) {
 		Type type = getType(mes.getType());
@@ -65,7 +68,21 @@ public class MessageServices {
 		}
 	}
 	
-	public void deleteMessage(String messageId, String email, HttpServletRequest req) {
+	//
+	public void deleteMessage(String messageId, HttpServletRequest req) {
+		
+		String email = cookieServices.getEmail(req);
+		
+		String type = messageId.substring(0, messageId.indexOf("_"));
+		if(type.equals("group")) {
+			GroupMessage groupMes = groupMesRepo.findByMessageId(messageId);
+			deleteGroupMessage(groupMes, email);
+		}else {
+			ChatMessage mes = mesRepo.findByMessageId(messageId);
+			deleteMessage(mes, email);
+		}
+	}
+	public void deleteMessage(String messageId, String email) {
 		String type = messageId.substring(0, messageId.indexOf("_"));
 		if(type.equals("group")) {
 			GroupMessage groupMes = groupMesRepo.findByMessageId(messageId);
@@ -77,21 +94,48 @@ public class MessageServices {
 	}
 	
 	/*
-	 * Need to limit the result
+	 * Need to limit the results
 	 */
+	public List<GroupMessage> viewGroupMessages(String groupId, HttpServletRequest req) throws Exception{
+		
+		String email = cookieServices.getEmail(req);
+		
+		if(groupRepo.findByGroupId(groupId).getMembers().containsKey(email))
+			return groupMesRepo.findByGroupid(groupId);
+		throw new Exception("You are not a group member!");
+	}
 	public List<GroupMessage> viewGroupMessages(String groupId, String email) throws Exception{
+		
 		if(groupRepo.findByGroupId(groupId).getMembers().containsKey(email))
 			return groupMesRepo.findByGroupid(groupId);
 		throw new Exception("You are not a group member!");
 	}
 	
+	//
+	public List<ChatMessage> viewPrivateMessage(String chatId, HttpServletRequest req) throws Exception{
+		
+		String email = cookieServices.getEmail(req);
+		
+		if(chatId.contains(email))
+			return mesRepo.findByChatId(chatId);
+		throw new Exception("Something wrong!");
+	}
 	public List<ChatMessage> viewPrivateMessage(String chatId, String email) throws Exception{
+		
 		if(chatId.contains(email))
 			return mesRepo.findByChatId(chatId);
 		throw new Exception("Something wrong!");
 	}
 	
-	public List<Notification> viewNotification(String email){
+	//
+	public List<Notification> viewNotification(HttpServletRequest req){
+		
+		String email = cookieServices.getEmail(req);
+		
+		return notiRepo.findByRecipient(email);
+	}
+	public List<Notification> viewNotification(String email){		
+		
 		return notiRepo.findByRecipient(email);
 	}
 	
@@ -102,20 +146,20 @@ public class MessageServices {
 		groupMesRepo.save(mes);
 		
 		for(Map.Entry<String, Boolean> mem: members.entrySet()) {
-			if(activeUser.contains(mem.getKey()))
+			if(WebSocketController.activeUser.contains(mem.getKey()))
 				messageTemplate.convertAndSendToUser(mem.getKey(), "/msg", mes);
 		}
 	}
 	
 	private void sendPrivateMessage(ChatMessage mes) {
 		mesRepo.save(mes);
-		if(activeUser.contains(mes.getRecipient()))
+		if(WebSocketController.activeUser.contains(mes.getRecipient()))
 			messageTemplate.convertAndSendToUser(mes.getRecipient(), "/msg", mes);
 	}
 	
 	private void sendNotification(Notification noti) {
 		notiRepo.save(noti);
-		if(activeUser.contains(noti.getRecipient()))
+		if(WebSocketController.activeUser.contains(noti.getRecipient()))
 			messageTemplate.convertAndSendToUser(noti.getRecipient(), "/msg", noti);
 	}
 	
@@ -145,6 +189,7 @@ public class MessageServices {
 		
 		groupMesRepo.save(groupMes);
 	}
+	
 	
 	private void deleteMessage(ChatMessage mes, String email) {
 		if(mes.getSender().equals(email)) 
