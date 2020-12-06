@@ -38,7 +38,7 @@ public class MainController {
 	}	
 	@GetMapping("/thanh")
 	public String thanhPage(Model model){
-		Sytem.out.println("thanh:   ++++++");
+		System.out.println("thanh:   ++++++");
 		model.addAttribute("type","");
 		return "thanhpage";	
 	} 
