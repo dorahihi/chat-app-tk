@@ -28,7 +28,7 @@ public class MainController {
 	public String wellcome(Model model) {
 		System.out.println("home: +++++++++++++");
 		model.addAttribute("type", "");
-		return "thanhpage";
+		return "login";
 	}
 	@GetMapping("/signup")
 	public String signup(Model model) throws DbxApiException, DbxException {
@@ -36,11 +36,11 @@ public class MainController {
 		model.addAttribute("type", "signup");
 		return "login";
 	}	
-	@GetMapping("/thanh")
+	@GetMapping("/main")
 	public String thanhPage(Model model){
 		System.out.println("thanh:   ++++++");
 		model.addAttribute("type","");
-		return "thanhpage";	
+		return "main";	
 	} 
 	@GetMapping("/upload")
 	@ResponseBody
