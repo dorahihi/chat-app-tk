@@ -28,7 +28,7 @@ public class MainController {
 	public String wellcome(Model model) {
 		System.out.println("home: +++++++++++++");
 		model.addAttribute("type", "");
-		return "login";
+		return "thanhpage";
 	}
 	@GetMapping("/signup")
 	public String signup(Model model) throws DbxApiException, DbxException {
