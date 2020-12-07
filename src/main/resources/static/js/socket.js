@@ -14,7 +14,7 @@ console.log("email ne:   +++++: " + email);
 
 const connect = ()  => {
 
-    var socket = new SockJS(url+'/websocket-chat');
+    var socket = new SockJS('/websocket-chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
 }
@@ -23,16 +23,16 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
-  stompClient.subscribe(url+'/user/queue/newMember',  ( data) => data);
+  stompClient.subscribe('/user/queue/newMember',  ( data) => data);
 
- stompClient.subscribe(url+'/topic/newMember', data => console.log("data2: " + data.body));
+ stompClient.subscribe('/topic/newMember', data => console.log("data2: " + data.body));
 
 
 
     // Tell your username to the server
-  sendMessage(url+'/app/register', email);
+  sendMessage('/app/register', email);
 
-    stompClient.subscribe(urlchat+`/user/${email}/msg`,  data =>{
+    stompClient.subscribe(`/user/${email}/msg`,  data =>{
     console.log(`-------- received message:\n`+ data.body+`\n--------received message!!!!`);
     displayMessage(data);
   });
@@ -55,13 +55,13 @@ receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+
 
 
 const onDisconnect = () =>{
-  sendMessage(url+'/app/unregister', email);
+  sendMessage('/app/unregister', email);
   stompClient.disconnect();
 }
 
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
-  sendMessage(url+'/app/message', JSON.stringify({
+  sendMessage('/app/message', JSON.stringify({
     recipient: 'tester',
     sender: email,
     message: messa

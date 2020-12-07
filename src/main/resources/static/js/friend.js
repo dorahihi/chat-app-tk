@@ -30,7 +30,7 @@ function deleletFriend(node){
         data:"friendEmail="+emailF+"&email="+user.email,
         dataType:"text",
         success: function(res) {
-            getInfoGroup(currentGroupID);
+            getData();
             alert("Xóa bạn thành công");
         },
          error: () =>{
@@ -38,3 +38,24 @@ function deleletFriend(node){
          }
     });
 }
+// xử lí thêm bạn 
+selectIdFrmAddFriend.addEventListener("submit",e =>{
+    e.preventDefault();
+    
+    let friendE=$("input[name='friendEmail']").val();
+    $.ajax({
+        url: url +"/friends/add",
+        type:"POST",
+        data:   $('#id-add-friend').serialize()+"&email="+user.email,
+        dataType:"text",
+        success: function(res) {
+            getData();
+            alert("Đã gửi lời mời kết bạn");
+            offPlayout('frmAddFriend','display-none',1);
+            displayListRequest();
+        },
+         error: () =>{
+            alert("Incorrect!");
+         }
+    });
+});
