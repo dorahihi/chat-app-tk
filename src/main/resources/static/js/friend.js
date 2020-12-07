@@ -27,7 +27,7 @@ function deleletFriend(node){
     $.ajax({
         url: "/friends/remove",
         type:"DELETE",
-        data:"friendEmail="++"&email="+user.email,
+        data:"friendEmail="+emailF+"&email="+user.email,
         dataType:"text",
         success: function(res) {
             getInfoGroup(currentGroupID);
