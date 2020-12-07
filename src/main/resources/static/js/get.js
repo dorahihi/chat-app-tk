@@ -34,12 +34,12 @@ function getInfoGroup(idGroup){
             dataType:"text",
             success: function(res) {
                 groupInfo = JSON.parse(res);
+                infogroup = groupInfo;
             },
              error: () =>{
                 alert("Incorrect!");
              }
         });
-    return groupInfo;
 }
 
 // lấy thông tin bạn chat
@@ -52,10 +52,10 @@ function getInfoFriend(emailF){
             dataType:"text",
             success: function(res) {
                 friendInfo = JSON.parse(res);
+                infofriend = friendInfo;
             },
              error: () =>{
                 alert("Incorrect!");
              }
         });
-    return friendInfo;
 }

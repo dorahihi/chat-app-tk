@@ -17,6 +17,7 @@ function setStatus(event){
 // đăt lại trạng thái fucus
 function friendOnClick(nodeFriend){
     infofriend="";
+    getInfoFriend(eFriend);
     let friend = selectFriend;
     for(let i= 0;i< friend.length;i++){
         friend[i].setAttribute("class",'friend');
@@ -26,12 +27,13 @@ function friendOnClick(nodeFriend){
      eFriend =eFriend.slice(0,eFriend.length-6);
     // hàm hiển thị khung chat
     displayFrameChatFriend(eFriend);
-    infofriend=getInfoFriend(eFriend);
+    
 }
 
 
 function groupOnClick(nodeGroup){
     infogroup="";
+    getInfoGroup(groupId);
     let friend = selectFriend;
     //đặt toàn bộ lại bình thường
     for(let i= 0;i< friend.length;i++){
@@ -42,7 +44,7 @@ function groupOnClick(nodeGroup){
     let groupId = nodeGroup.getAttribute('id');
     groupId =groupId.slice(0,groupId.length-6);
     displayFrameChatGroup(groupId);
-    infogroup  =getInfoGroup(groupId);
+    
 }
 
 function inforOnclick(idchat,type){
