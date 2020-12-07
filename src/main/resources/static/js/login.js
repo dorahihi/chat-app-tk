@@ -211,6 +211,7 @@ loginForm.addEventListener('submit', e => {
          console.log("testing3: "+res.getResponseHeader("Content-Type"));
          closeLoading();
          notiMessage("Login successfully!");
+         window.open("/main","_self");
        },
        error: () =>{
          closeLoading();
