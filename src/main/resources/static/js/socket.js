@@ -62,7 +62,7 @@ const onDisconnect = () =>{
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   sendMessage('/app/message', JSON.stringify({
-    recipient: 'tester',
+    recipient: currentFriendID,
     sender: email,
     message: messa
   }));

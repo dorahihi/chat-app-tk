@@ -2,6 +2,7 @@ const selectFriend = document.getElementsByClassName('friend');
 var infogroup;
 var infofriend;
 var currentGroupID ="" ;
+var currentFriendID="";
 // đặt tên và trang thái cho web selectStatus.innerText="Đang offline"
 window.addEventListener('online',setStatus);
 window.addEventListener('offline',setStatus);
@@ -19,6 +20,7 @@ function friendOnClick(nodeFriend){
     infofriend="";
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
+    currentFriendID=eFriend;
     getInfoFriend(eFriend);
     let friend = selectFriend;
     for(let i= 0;i< friend.length;i++){
