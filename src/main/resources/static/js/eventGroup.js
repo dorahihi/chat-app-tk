@@ -15,7 +15,7 @@ selectFrmAddMember.addEventListener("submit",e=>{
         e.preventDefault();
         $.ajax({
             url: "/groups/add",
-            type:"GET",
+            type:"POST",
             data:   $('#frmAddMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
             dataType:"text",
             success: function(res) {
