@@ -42,7 +42,7 @@ function groupOnClick(nodeGroup){
     let groupId = nodeGroup.getAttribute('id');
     groupId =groupId.slice(0,groupId.length-6);
     displayFrameChatGroup(groupId);
-    infogroup  =getInfoGroup(idchat);
+    infogroup  =getInfoGroup(groupId);
 }
 
 function inforOnclick(idchat,type){
