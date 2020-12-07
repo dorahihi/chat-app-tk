@@ -19,3 +19,22 @@ function acceptRequest(node){
          }
     });
 }
+// xử lí xóa bạn
+function deleletFriend(node){
+    let keyGroup = Object.keys(user.friend);
+    let emailF = node.getAttribute("id"); // id của danh sách bạn
+    emailF = emailF.slice(0,emailF.length-6);
+    $.ajax({
+        url: "/friends/remove",
+        type:"DELETE",
+        data:"friendEmail="++"&email="+user.email,
+        dataType:"text",
+        success: function(res) {
+            getInfoGroup(currentGroupID);
+            alert("Xóa bạn thành công");
+        },
+         error: () =>{
+            alert("Incorrect!");
+         }
+    });
+}
