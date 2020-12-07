@@ -41,6 +41,7 @@ selectIdFrmAddGroup.addEventListener("submit",e =>{
     $.ajax({
         url: "/groups/create",
         type:"POST",
+        headers:{Authorization:author},
         data: a,
         dataType:"text",
         success: function(res) {
@@ -58,7 +59,7 @@ selectIdFrmAddGroup.addEventListener("submit",e =>{
 // xóa nhóm 
 function deleteGroup(idnode){
     let groupId = idnode.getAttribute("id"); // id của danh sách bạn
-    
+    groupId =groupId.slice(0,groupId.length-6);
     $.ajax({
         url: "/groups/delete",
         type:"DELETE",
