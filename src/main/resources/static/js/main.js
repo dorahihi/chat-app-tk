@@ -2,11 +2,12 @@
 var url = "https://chat-app-tk.herokuapp.com";
 
 function getCookie(name) {
-    const value = `; email=tester; age=10; Id=123123`;
+    const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);  
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 var email = getCookie('email');
+console.log(email);
 var user ;
 var listChatting={};
 // const selectBoxInfoUser =document.getElementsByClassName("box-info-user");
