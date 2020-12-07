@@ -66,7 +66,7 @@ sendBtn.addEventListener('click', () => {
     sender: email,
     message: messa
   }));
-  mes.innerHTML = '';
+  mes.value = '';
 });
 
 //logout.addEventListener('click', onDisconnect);

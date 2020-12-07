@@ -5,7 +5,7 @@ let selectMessage = document.getElementById("message");
 selectSend.addEventListener('click',e=>{    
     let message= selectMessage.value;
     if (message !=""){
-        selectMessage.value ="";
+       // selectMessage.value ="";
         insertMessage(message,0);
     }
         
@@ -15,7 +15,7 @@ selectMessage.addEventListener('keyup',e=>{
     let message= selectMessage.value;
     if(e.keyCode =="13" &&  message!=""){
         
-        selectMessage.value ="";
+       // selectMessage.value ="";
         insertMessage(message,0);    
         //gửi tin
     }
