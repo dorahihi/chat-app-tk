@@ -31,7 +31,6 @@ function getInfoGroup(idGroup){
             url:"/groups/profile/"+idGroup,
             type:"GET",
             async:false,
-            headers:{Authorization:author},
             dataType:"text",
             success: function(res) {
                 groupInfo = JSON.parse(res);
@@ -50,7 +49,6 @@ function getInfoFriend(emailF){
             url:"/users/"+emailF,
             type:"GET",
             async:false,
-            headers:{Authorization:author},
             dataType:"text",
             success: function(res) {
                 friendInfo = JSON.parse(res);

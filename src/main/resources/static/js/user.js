@@ -9,9 +9,8 @@ selectIdFrmUpdateInfo.addEventListener("submit",e =>{
     var a =  $('#id-frm-updata-info').serialize();
     console.log(a);
     $.ajax({
-        url: url +"/users/edit",
+        url: "/users/edit",
         type:"POST",
-        headers:{Authorization:author},
         data: a,
         dataType:"text",
         success: function(res) {

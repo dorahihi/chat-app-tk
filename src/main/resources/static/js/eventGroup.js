@@ -14,9 +14,8 @@ let selectFrmAddMember = document.getElementById("frmAddMember");
 selectFrmAddMember.addEventListener("submit",e=>{
         e.preventDefault();
         $.ajax({
-            url: url +"/groups/add",
+            url: "/groups/add",
             type:"GET",
-            headers:{Authorization:author},
             data:   $('#frmAddMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
             dataType:"text",
             success: function(res) {
@@ -40,9 +39,8 @@ selectIdFrmAddGroup.addEventListener("submit",e =>{
     var a =  $('#id-add-group').serialize()  + "&email="+user.email;
     console.log(a);
     $.ajax({
-        url: url +"/groups/create",
+        url: "/groups/create",
         type:"POST",
-        headers:{Authorization:author},
         data: a,
         dataType:"text",
         success: function(res) {
@@ -62,10 +60,9 @@ function deleteGroup(idnode){
     let groupId = idnode.getAttribute("id"); // id của danh sách bạn
     
     $.ajax({
-        url: url +"/groups/delete",
+        url: "/groups/delete",
         type:"DELETE",
         data:"groupId="+groupId+"&email="+user.email,
-        headers:{Authorization:author},
         dataType:"text",
         success: function(res) {
             getData();
@@ -87,7 +84,6 @@ selectIdFrmAddFriend.addEventListener("submit",e =>{
     $.ajax({
         url: url +"/friends/add",
         type:"POST",
-        headers:{Authorization:author},
         data:   $('#id-add-friend').serialize()+"&email="+user.email,
         dataType:"text",
         success: function(res) {
@@ -107,10 +103,9 @@ function deleletFriend(node){
     let keyGroup = Object.keys(user.friend);
     let emailF = node.getAttribute("id"); // id của danh sách bạn
     $.ajax({
-        url: url +"/friends/remove",
+        url: "/friends/remove",
         type:"DELETE",
         data:"friendEmail="+emailF+"&email="+user.email,
-        headers:{Authorization:author},
         dataType:"text",
         success: function(res) {
             getData();
@@ -124,7 +119,7 @@ function deleletFriend(node){
 // xử lí rời nhóm
 function leaveGroup(){
     $.ajax({
-        url: url +"/groups/leave",
+        url: "/groups/leave",
         type:"POST",
         headers:{Authorization:author},
         data:   "groupId="+currentGroupID+"&email="+user.email,
@@ -147,9 +142,8 @@ let selectFrmDeleteMember = document.getElementById("frmDeleteMember");
 selectFrmDeleteMember.addEventListener("submit",e=>{
     e.preventDefault();
     $.ajax({
-        url: url +"/groups/delete/members",
+        url: "/groups/delete/members",
         type:"DELETE",
-        headers:{Authorization:author},
         data:   $('#frmDeleteMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
         dataType:"text",
         success: function(res) {

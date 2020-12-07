@@ -5,9 +5,8 @@ function acceptRequest(node){
     var friendE= node.getAttribute("id");
 
     $.ajax({
-        url: url +"/friends/accept",
+        url: "/friends/accept",
         type:"POST",
-        headers:{Authorization:author},
         data:   "friendEmail="+friendE+"&email="+user.email,
         dataType:"text",
         success: function(res) {
