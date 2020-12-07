@@ -6,9 +6,9 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);  
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-var email = getCookie('email');
+const email = getCookie('email');
 console.log(email);
-var user ;
+var user;
 var listChatting={};
 // const selectBoxInfoUser =document.getElementsByClassName("box-info-user");
 // const selectChatBox = document.getElementsByClassName("chatBox");
