@@ -33,7 +33,10 @@ function friendOnClick(nodeFriend){
 
 function groupOnClick(nodeGroup){
     infogroup="";
+    let groupId = nodeGroup.getAttribute('id');
+    groupId =groupId.slice(0,groupId.length-6);
     getInfoGroup(groupId);
+    currentGroupID = groupId;
     let friend = selectFriend;
     //đặt toàn bộ lại bình thường
     for(let i= 0;i< friend.length;i++){
@@ -41,8 +44,7 @@ function groupOnClick(nodeGroup){
     }
     //set trạng thai fucus
     nodeGroup.setAttribute("class","friend active");
-    let groupId = nodeGroup.getAttribute('id');
-    groupId =groupId.slice(0,groupId.length-6);
+    
     displayFrameChatGroup(groupId);
     
 }
