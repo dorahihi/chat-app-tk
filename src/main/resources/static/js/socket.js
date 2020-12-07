@@ -1,7 +1,6 @@
 
 
 /*****************************************************************/ 
-const email = user.email;
 const sendBtn = document.getElementById('send');
 const mes = document.getElementById('message');
 const receive = document.getElementById('receive');
