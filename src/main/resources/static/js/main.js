@@ -1,32 +1,13 @@
 
-var url = "https://chatapp-kkt.herokuapp.com";
-var user ={
-    "id":"5f9eab9ce56cb70d5191b318",
-    "email":"tester","password":"",
-    "age":"25",
-    "gender":"FEMALE",
-    "userName":"tester",
-    "role":"ROLE_USER",
-    "friend":{"tester1":"tester1","khang":"Hoàng Khang"},
-    "group":{
-        "nhommoi26763368":"Nhóm mới",
-        "nhoma26763370":"nhóm a",
-        "nhom5ne26768371":"nhóm 5 nè",
-        "nhom7ne26768861":"Nhóm 7 nè",
-        "nhom12326769210":"Nhóm 123",
-        "nhom3ne26766055":"Nhóm 3 nè ",
-        "nhom4ne26766055":"Nhóm 4 nè "},
-    "friendRequest":{
-        "thanh":"Tín",
-        "le":"Lợi",
-        "Ming":"Minh"
-    },
-    "receivedFriendRequest":{
-        "tanh":"Tiến",
-        "lien":"Thi",
-        "Ming":"Mẫn"
-    }};
-var author;
+var url = "https://chat-app-tk.herokuapp.com";
+
+function getCookie(name) {
+    const value = `; email=tester; age=10; Id=123123`;
+    const parts = value.split(`; ${name}=`);  
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+var email = getCookie('email');
+var user ;
 var listChatting={};
 // const selectBoxInfoUser =document.getElementsByClassName("box-info-user");
 // const selectChatBox = document.getElementsByClassName("chatBox");
@@ -43,9 +24,6 @@ var listChatting={};
 // const selectStatus = document.getElementById("status");
 // const selectListFriend = document.getElementsByClassName("list-friend");
 
-/************************************************************************** */
-
-getCookie();
 
 /**********************************************************************/
 // đợi tài liệu load và hiển thị danh sách bạn 

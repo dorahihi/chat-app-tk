@@ -1,35 +1,13 @@
 
-function getCookie() {
+function getData(email){
     $.ajax({
-       type: "POST",
-       url: url+"/auth",
-       async: true,
-       data: "email=tester&password=tester",
-       xhrFields:{
-            withCredentials:true
-       },
-       dataType:"text",
-       success: function(output,status,res) {
-        author =res.getResponseHeader("Authorization");
-        alert("thanh ",author);
-        getData();
-
-       }, 
-       error: () =>{
-          alert("Incorrect email or password!");
-       }
-    });
-}
-function getData(){
-    $.ajax({
-        url:url+"/users/tester",
+        url:url+email,
         type:"GET",
         async:true,
-        headers:{Authorization:author},
         dataType:"text",
         success: function(res) {
             user = JSON.parse(res);
-           console.log(user);
+            console.log(user);
         },
          error: () =>{
             alert("Incorrect!");
