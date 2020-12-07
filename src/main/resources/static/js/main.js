@@ -9,6 +9,7 @@ function getCookie(name) {
 var email = getCookie('email');
 console.log(email);
 var user;
+getData(email);
 var listChatting={};
 // const selectBoxInfoUser =document.getElementsByClassName("box-info-user");
 // const selectChatBox = document.getElementsByClassName("chatBox");

@@ -10,7 +10,7 @@ const logout = document.getElementById('logout');
 
 let stompClient = null;
 
-console.log("email ne:   +++++: "+email);
+console.log("email ne:   +++++: " + email);
 
 const connect = ()  => {
 
