@@ -19,7 +19,7 @@ selectFrmAddMember.addEventListener("submit",e=>{
             data:   $('#frmAddMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
             dataType:"text",
             success: function(res) {
-                infogroup = getInfoGroup(currentGroupID);
+                getInfoGroup(currentGroupID);
                 if(res=="SUCCESS")alert("Đã thêm bạn thành công")
                 else alert ("Người dùng không tồn tại hoặc đã là thành viên");
                 offPlayout('idAddMember','display-none',1);
