@@ -144,6 +144,7 @@ selectFrmDeleteMember.addEventListener("submit",e=>{
     $.ajax({
         url: "/groups/delete/members",
         type:"DELETE",
+        headers:{Authorization:author},
         data:   $('#frmDeleteMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
         dataType:"text",
         success: function(res) {
