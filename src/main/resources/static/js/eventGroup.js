@@ -41,7 +41,6 @@ selectIdFrmAddGroup.addEventListener("submit",e =>{
     $.ajax({
         url: "/groups/create",
         type:"POST",
-        headers:{Authorization:author},
         data: a,
         dataType:"text",
         success: function(res) {
@@ -122,7 +121,6 @@ function leaveGroup(){
     $.ajax({
         url: "/groups/leave",
         type:"POST",
-        headers:{Authorization:author},
         data:   "groupId="+currentGroupID+"&email="+user.email,
         dataType:"text",
         success: function(res) {
@@ -145,7 +143,6 @@ selectFrmDeleteMember.addEventListener("submit",e=>{
     $.ajax({
         url: "/groups/delete/members",
         type:"DELETE",
-        headers:{Authorization:author},
         data:   $('#frmDeleteMember').serialize()+"&groupId="+currentGroupID+"&email="+user.email,
         dataType:"text",
         success: function(res) {
