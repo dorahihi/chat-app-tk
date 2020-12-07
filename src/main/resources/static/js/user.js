@@ -10,7 +10,7 @@ selectIdFrmUpdateInfo.addEventListener("submit",e =>{
     console.log(a);
     $.ajax({
         url: "/users/edit",
-        type:"POST",
+        type:"PUT",
         data: a,
         dataType:"text",
         success: function(res) {
