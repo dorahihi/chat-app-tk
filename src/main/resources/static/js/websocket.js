@@ -4,15 +4,15 @@ const receive = document.getElementById('receive');
 const logout = document.getElementById('logout');
 
 let stompClient = null;
-const email = getCookie('email');
-console.log("email ne:   +++++: "+email);
+// const email = getCookie('email');
+// console.log("email ne:   +++++: "+email);
 
-function getCookie(name) {
-  let matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+// function getCookie(name) {
+//   let matches = document.cookie.match(new RegExp(
+//     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+//   ));
+//   return matches ? decodeURIComponent(matches[1]) : undefined;
+// }
 
 const connect = ()  => {
 
