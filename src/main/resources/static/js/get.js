@@ -28,7 +28,7 @@ function getData(email){
 function getInfoGroup(idGroup){
     let groupInfo;
         $.ajax({
-            url:url+"/groups/profile/"+idGroup,
+            url:"/groups/profile/"+idGroup,
             type:"GET",
             async:false,
             headers:{Authorization:author},
@@ -47,7 +47,7 @@ function getInfoGroup(idGroup){
 function getInfoFriend(emailF){
     let friendInfo;
         $.ajax({
-            url:url+"/users/"+emailF,
+            url:"/users/"+emailF,
             type:"GET",
             async:false,
             headers:{Authorization:author},
