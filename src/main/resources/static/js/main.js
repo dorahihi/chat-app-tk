@@ -6,7 +6,7 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);  
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-const email = getCookie('email');
+var email = getCookie('email');
 console.log(email);
 var user;
 var listChatting={};
