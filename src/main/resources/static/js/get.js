@@ -11,7 +11,7 @@ console.log(email);
 var user;
 function getData(email){
     $.ajax({
-        url:url+"/"+email,
+        url:"/users/"+email,
         type:"GET",
         async:true,
         dataType:"text",
