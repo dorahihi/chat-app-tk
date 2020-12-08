@@ -48,9 +48,10 @@ function sendMessage(url, message) {
 
 
 const displayMessage = data =>{
-let mess = JSON.parse(data.body);
-console.log(" jhdsjfldsk:  "+mess);
-receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
+  let mess = JSON.parse(data.body);
+  console.log(" jhdsjfldsk:  "+mess);
+  //receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
+  insertMessage(mess.message,1);
 }
 
 
