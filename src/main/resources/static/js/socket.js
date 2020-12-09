@@ -44,7 +44,7 @@ function onError(error) {
 
 function sendMessage(url, message) {
     stompClient.send(url, {}, message);
-    insertMessage(message,0);
+    insertMessage(message.message,0);
 }
 
 
