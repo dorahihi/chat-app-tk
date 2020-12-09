@@ -39,7 +39,7 @@ function onConnected() {
 }
 
 function onError(error) {
-    console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
+    alert('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
 function sendMessage(url, message) {
