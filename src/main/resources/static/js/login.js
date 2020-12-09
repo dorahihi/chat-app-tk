@@ -226,7 +226,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: "https://secret-brook-88276.herokuapp.com/signup",
+    url: "/signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {
