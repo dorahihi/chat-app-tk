@@ -50,7 +50,7 @@ function sendMessage(url, message) {
 
 const displayMessage = data =>{
   let mess = JSON.parse(data.body);
-  console.log(" jhdsjfldsk:  "+mess);
+  console.log(" jhdsjfldsk:  "+ mess);
   //receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
    if (currentFriendID === mess.sender) insertMessage(mess.message,1);
 }
@@ -77,13 +77,13 @@ selectMessage.addEventListener('keyup',e=>{
   if(e.keyCode =="13" &&  message!=""){
       
     sendMessage('/app/message', JSON.stringify({
-      recipient: currentFriendID,
+      recipient: currentGroupID,
       sender: email,
       message: messa
     }));
     mes.value = '';
     insertMessage(messa,0);
   }
-});
+});//
 
 //logout.addEventListener('click', onDisconnect);
