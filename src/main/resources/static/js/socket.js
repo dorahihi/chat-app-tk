@@ -44,7 +44,7 @@ function onError(error) {
 
 function sendMessage(url, message) {
     stompClient.send(url, {}, message);
-    insertMessage(message.message,0);
+    
 }
 
 
@@ -69,6 +69,7 @@ sendBtn.addEventListener('click', () => {
     message: messa
   }));
   mes.value = '';
+  insertMessage(messa,0);
 });
 
 selectMessage.addEventListener('keyup',e=>{    
@@ -81,6 +82,7 @@ selectMessage.addEventListener('keyup',e=>{
       message: messa
     }));
     mes.value = '';
+    insertMessage(messa,0);
   }
 });
 
