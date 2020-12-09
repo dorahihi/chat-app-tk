@@ -70,4 +70,20 @@ sendBtn.addEventListener('click', () => {
   mes.value = '';
 });
 
+selectMessage.addEventListener('keyup',e=>{    
+  let messa= mes.value;
+  if(e.keyCode =="13" &&  message!=""){
+      
+    sendMessage('/app/message', JSON.stringify({
+      recipient: currentFriendID,
+      sender: email,
+      message: messa
+    }));
+    mes.value = '';
+    //  // selectMessage.value ="";
+    //   insertMessage(message,0);    
+    //   //gửi tin
+  }
+});
+
 //logout.addEventListener('click', onDisconnect);
