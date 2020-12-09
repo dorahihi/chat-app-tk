@@ -80,9 +80,6 @@ selectMessage.addEventListener('keyup',e=>{
       message: messa
     }));
     mes.value = '';
-    //  // selectMessage.value ="";
-    //   insertMessage(message,0);    
-    //   //gửi tin
   }
 });
 
