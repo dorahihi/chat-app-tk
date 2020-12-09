@@ -20,14 +20,13 @@ function friendOnClick(nodeFriend){
     infofriend="";
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
-    currentFriendID=eFriend;
     getInfoFriend(eFriend);
     let friend = selectFriend;
     for(let i= 0;i< friend.length;i++){
         friend[i].setAttribute("class",'friend');
     }
     nodeFriend.setAttribute("class","friend active");
-  
+    currentFriendID=eFriend;
     // hàm hiển thị khung chat
     displayFrameChatFriend(eFriend);
     
