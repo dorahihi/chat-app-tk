@@ -51,7 +51,7 @@ function insertInfoFriend(){
 // chèn tin vào khung
 function insertMessage(mess){   
     let status ;
-    if (mess.recipientState=="RECEIVED") status = 1;else status =0;
+    if (mess.sender !==user.email) status = 1;else status =0;
 
     if (status===0) { // status = 0 là gửi
         BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>bạn</span></span></div>`;
