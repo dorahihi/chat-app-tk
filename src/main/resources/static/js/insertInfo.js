@@ -52,9 +52,9 @@ function insertInfoFriend(){
 function insertMessage(mes,status,name){   
     
     if (status===0) { // status = 0 là gửi
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mes}</span><span>bạn</span></div>`;
+        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mes}<br><span>bạn</span></span></div>`;
     } else {
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="receive">${mes}</span><span>${name}</span></div>`;
+        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="receive">${mes}<br><span>${name}</span></span></div>`;
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 

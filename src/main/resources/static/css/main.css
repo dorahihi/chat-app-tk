@@ -423,6 +423,10 @@ button:hover {
 .stl_mes .receive{
     float: left;
 }
+.stl_mes span span{
+    color: #000000;
+    font-size: 0.8rem;
+} 
 /* khung gửi tin nhan*/
 .input-box {
     background-color: rgb(198 ,226, 236);
