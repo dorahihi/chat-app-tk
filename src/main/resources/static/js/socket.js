@@ -95,7 +95,7 @@ sendBtn.addEventListener("dblclick",e=>{
           console.log("tin nhắn đã gửi:",res);
       },
       error: () =>{
-          alert("Incorrect!");
+          alert("Lỗi rồi!");
       }
   });
 })
