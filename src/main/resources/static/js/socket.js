@@ -64,26 +64,34 @@ const onDisconnect = () =>{
 
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
-  sendMessage('/app/message', JSON.stringify({
-    recipient: currentFriendID,
-    sender: email,
-    message: messa
-  }));
+  let tin = aMessage(currentFriendID, email, messa);
+  sendMessage('/app/message',tin);
   mes.value = '';
-  insertMessage(messa,0);
+  insertMessage(JSON.parse(tin));
 });
-
+function aMessage(recipient,sender,message){
+  let chatId;
+  if (currentType="friend"){
+    if (sender > recipient) chatId = sender+recipient;
+    else chatId = recipient+sender;
+  }else{
+    chatId = chatting;
+  }
+  return JSON.stringify({
+    recipient: recipient,
+    sender: sender,
+    message: message,
+    chatId:chatId
+  })
+}
 selectMessage.addEventListener('keyup',e=>{    
   let messa= mes.value;
+  let tin =  aMessage(currentFriendID, email, messa);
   if(e.keyCode =="13" &&  message!=""){
       
-    sendMessage('/app/message', JSON.stringify({
-      recipient: currentFriendID,
-      sender: email,
-      message: messa
-    }));
+    sendMessage('/app/message',tin);
     mes.value = '';
-    insertMessage(messa,0);
+    insertMessage(JSON.parse(tin));
   }
 });
 sendBtn.addEventListener("dblclick",e=>{

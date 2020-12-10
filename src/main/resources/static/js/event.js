@@ -3,6 +3,7 @@ var infogroup;
 var infofriend;
 var currentGroupID ="" ;
 var currentFriendID="";
+var currentType;
 // đặt tên và trang thái cho web selectStatus.innerText="Đang offline"
 window.addEventListener('online',setStatus);
 window.addEventListener('offline',setStatus);
@@ -18,6 +19,7 @@ function setStatus(event){
 // đăt lại trạng thái fucus
 function friendOnClick(nodeFriend){
     infofriend="";
+    currentType="friend";
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
     getInfoFriend(eFriend);
@@ -35,6 +37,7 @@ function friendOnClick(nodeFriend){
 
 function groupOnClick(nodeGroup){
     infogroup="";
+    currentType="group";
     let groupId = nodeGroup.getAttribute('id');
     groupId =groupId.slice(0,groupId.length-6);
     getInfoGroup(groupId);

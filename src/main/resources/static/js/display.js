@@ -6,13 +6,13 @@ const selectFormUpdate=document.getElementsByClassName("fromUpdate");
 const selectOverlay =document.getElementsByClassName('overlay');
 const selectListFriend = document.getElementsByClassName("list-friend");
 const selectNameUser = document.getElementById("nameUser");
-
+var chatting;
 
 // hiển thị khung chat cho group
 function displayFrameChatGroup(groupId){
     //tìm xem có tồn tại trong danh sách chat chưa
     let haveExist =listChatting[groupId];
-    currentGroupID = groupId;
+    
     // Nếu chưa thì tạo mới
     if (haveExist ===undefined){
         listChatting[groupId]={ 
@@ -53,6 +53,7 @@ function displayFrameChatFriend(eFriend){
 function displayFrameChat(idnode){
     idnode = idnode.getAttribute("id");
     let idchat = idnode.slice(0,idnode.length-6);
+    chatting= idchat;
      //hiển thị khung chat
     selectChatBox[0].setAttribute("class","chatBox display");
      //dat lai hien thi khung chat
