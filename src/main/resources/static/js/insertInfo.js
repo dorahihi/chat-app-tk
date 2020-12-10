@@ -49,12 +49,14 @@ function insertInfoFriend(){
     selectIdFromInfoFriendChat.innerHTML= html;
 }
 // chèn tin vào khung
-function insertMessage(mes,status,name){   
-    
+function insertMessage(mess){   
+    let status ;
+    if (mess.recipientState=="RECEIVED") status = 1;else status =0;
+
     if (status===0) { // status = 0 là gửi
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mes}<br><span>bạn</span></span></div>`;
+        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>bạn</span></span></div>`;
     } else {
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="receive">${mes}<br><span>${name}</span></span></div>`;
+        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${mess.sender}</span></span></div>`;
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 
