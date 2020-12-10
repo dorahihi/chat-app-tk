@@ -60,8 +60,9 @@ function insertMessage(mess){
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 
-    
-    let  li=JSON.parse(sessionStorage[mess.chatId]);
+    console.log(mess);
+    var lit = mess;
+    let  li= JSON.parse(sessionStorage[mess.chatId]);
     if (li === undefined) li = [];
     console.log(li + typeof(li));
     li.push(mess);
