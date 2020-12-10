@@ -77,13 +77,26 @@ selectMessage.addEventListener('keyup',e=>{
   if(e.keyCode =="13" &&  message!=""){
       
     sendMessage('/app/message', JSON.stringify({
-      recipient: currentGroupID,
+      recipient: currentFriendID,
       sender: email,
       message: messa
     }));
     mes.value = '';
     insertMessage(messa,0);
   }
-});//
-
+});
+sendBtn.addEventListener("dblclick",e=>{
+  $.ajax({
+      url: "/users/messages",
+      type:"POST",
+      data:   "chatId=tester1tester"+"&email="+user.email,
+      dataType:"text",
+      success: function(res) {
+          console.log("tin nhắn đã gửi:",res);
+      },
+      error: () =>{
+          alert("Incorrect!");
+      }
+  });
+})
 //logout.addEventListener('click', onDisconnect);
