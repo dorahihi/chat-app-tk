@@ -60,13 +60,13 @@ function insertMessage(mess){
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 
-    console.log(mess);
-    var lit = mess;
-    let  li= JSON.parse(sessionStorage[mess.chatId]);
-    if (li === undefined) li = [];
-    console.log(li + typeof(li));
+      // lưu vào stogege
+
+    let  li= sessionStorage[mess.chatId];
+    if (li ===undefined)  li = [];
+    else li = JSON.parse(li);
     li.push(mess);
-    sessionStorage[mess.chatId]= JSON.stringify(mess);
+    sessionStorage[mess.chatId]= JSON.stringify(li);
 }
 var loadFile = function(event) {
 
