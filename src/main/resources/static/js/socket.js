@@ -128,13 +128,13 @@ function getMessage(chatId){
 function getMessageGroup(groupId){
   let data;
   $.ajax({
-      url: "/groups/messages",
+      url: "/app/groups/messages",
       type:"GET",
       async:false,
       headers:   {groupId:groupId,email:user.email},
       dataType:"text",
       success: function(res) {
-          console.log("tin nhắn đã gửi:",res);
+          console.log("tin nhắn nhóm :",res);
           data = res;
       },
       error: () =>{
