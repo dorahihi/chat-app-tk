@@ -108,6 +108,7 @@ mes.addEventListener('keyup',e=>{
   }
 });
 function getMessage(chatId){
+  let data;
   $.ajax({
       url: "/users/messages",
       type:"GET",
@@ -116,10 +117,11 @@ function getMessage(chatId){
       dataType:"text",
       success: function(res) {
           console.log("tin nhắn đã gửi:",res);
-          return res;
+          data = res;
       },
       error: () =>{
           alert("Lỗi rồi!");
       }
   });
+  return data;
 }
