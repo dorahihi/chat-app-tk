@@ -115,6 +115,7 @@ function getMessage(chatId){
       dataType:"text",
       success: function(res) {
           console.log("tin nhắn đã gửi:",res);
+          return res;
       },
       error: () =>{
           alert("Lỗi rồi!");
