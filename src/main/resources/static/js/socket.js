@@ -107,11 +107,11 @@ mes.addEventListener('keyup',e=>{
     saveMessage(messa);
   }
 });
-sendBtn.addEventListener("dblclick",e=>{
+function getMessage(chatId){
   $.ajax({
       url: "/users/messages",
       type:"GET",
-      headers:   {chatId:'tester1tester',email:user.email},
+      headers:   {chatId:chatId,email:user.email},
       dataType:"text",
       success: function(res) {
           console.log("tin nhắn đã gửi:",res);
@@ -120,4 +120,4 @@ sendBtn.addEventListener("dblclick",e=>{
           alert("Lỗi rồi!");
       }
   });
-})
+}

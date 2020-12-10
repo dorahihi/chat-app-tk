@@ -76,9 +76,14 @@ function displayFrameChat(idnode){
     }
     let listM =[];
     if (currentType=="friend")   {
-        listM=  sessionStorage[getChatId(currentFriendID,user.email)];
+        let chatId= getChatId(currentFriendID,user.email);
+        listM=  sessionStorage[chatId];
         if(listM !== undefined) listM=JSON.parse(listM);
-        else listM = [];
+        else{
+            li=getMessage(chatId);
+            if(li.length<1)
+            listM = [];
+        } 
         listM.forEach(e=>insertMessage(e));
     }
     
