@@ -111,7 +111,7 @@ sendBtn.addEventListener("dblclick",e=>{
   $.ajax({
       url: "/users/messages",
       type:"GET",
-      header:   "chatId=tester1tester"+"&email="+user.email,
+      headers:   {chatId:'tester1tester',email:user.email},
       dataType:"text",
       success: function(res) {
           console.log("tin nhắn đã gửi:",res);
