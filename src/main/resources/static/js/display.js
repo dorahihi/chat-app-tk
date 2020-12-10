@@ -77,7 +77,7 @@ function displayFrameChat(idnode){
     let listM =[];
     if (currentType=="friend")   {
         listM=  sessionStorage[getChatId(currentFriendID,user.email)];
-        JSON.parse(listM);
+        listM=JSON.parse(listM);
         listM.forEach(e=>insertMessageOld(e));
     }
     
