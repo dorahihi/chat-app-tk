@@ -86,6 +86,8 @@ function displayFrameChat(idnode){
             listM = [];
         } 
         listM.forEach(e=>insertMessage(e));
+    }else{
+        listM= getMessage(chatting);
     }
     
      //tự động cuộn xuống nội dung mới 
