@@ -74,6 +74,13 @@ function displayFrameChat(idnode){
     }else{
         btnDisplayInfor.setAttribute('onclick',`inforOnclick(${idnode},'private')`)
     }
+    let listM =[];
+    if (currentType=="friend")   {
+        listM=  sessionStorage[getChatId(currentFriendID,user.email)];
+        JSON.parse(listM);
+        listM.forEach(e=>insertMessageOld(e));
+    }
+    
      //tự động cuộn xuống nội dung mới 
     selectBoxChat[0].scrollTop = selectBoxChat[0].scrollHeight; 
 }

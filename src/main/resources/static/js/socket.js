@@ -69,14 +69,18 @@ sendBtn.addEventListener('click', () => {
   mes.value = '';
   insertMessage(JSON.parse(tin));
 });
-function aMessage(recipient,sender,message){
-  let chatId;
+function getChatId(recipient,sender){
   if (currentType="friend"){
     if (sender > recipient) chatId = sender+recipient;
     else chatId = recipient+sender;
   }else{
     chatId = chatting;
   }
+  return chatId;
+}
+function aMessage(recipient,sender,message){
+  let chatId = getChatId(recipient,sender);
+  
   return JSON.stringify({
     recipient: recipient,
     sender: sender,
