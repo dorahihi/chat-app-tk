@@ -60,6 +60,12 @@ function insertMessage(mess){
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 
+    
+    let  li=JSON.parse(sessionStorage[mess.chatId]);
+    if (li === undefined) li = [];
+    console.log(li + typeof(li));
+    li.push(mess);
+    sessionStorage[mess.chatId]= JSON.stringify(mess);
 }
 var loadFile = function(event) {
 
