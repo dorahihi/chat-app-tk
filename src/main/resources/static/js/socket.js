@@ -125,3 +125,21 @@ function getMessage(chatId){
   });
   return data;
 }
+function getMessageGroup(groupId){
+  let data;
+  $.ajax({
+      url: "/users/messages",
+      type:"GET",
+      async:false,
+      headers:   {groupId:groupId,email:user.email},
+      dataType:"text",
+      success: function(res) {
+          console.log("tin nhắn đã gửi:",res);
+          data = res;
+      },
+      error: () =>{
+          alert("Lỗi rồi!");
+      }
+  });
+  return data;
+}

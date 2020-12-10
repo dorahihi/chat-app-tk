@@ -87,7 +87,7 @@ function displayFrameChat(idnode){
         } 
         listM.forEach(e=>insertMessage(e));
     }else{
-        listM= getMessage(chatting);
+        listM= getMessageGroup(chatting);
     }
     
      //tự động cuộn xuống nội dung mới 
