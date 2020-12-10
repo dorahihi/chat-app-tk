@@ -111,6 +111,7 @@ function getMessage(chatId){
   $.ajax({
       url: "/users/messages",
       type:"GET",
+      async:false,
       headers:   {chatId:chatId,email:user.email},
       dataType:"text",
       success: function(res) {
