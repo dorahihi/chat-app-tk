@@ -80,8 +80,8 @@ function displayFrameChat(idnode){
         listM=  sessionStorage[chatId];
         if(listM !== undefined) listM=JSON.parse(listM);
         else{
-            li=getMessage(chatId);
-            if(li.length<1)
+            listM=getMessage(chatId);
+            if(listM.length<1)
             listM = [];
         } 
         listM.forEach(e=>insertMessage(e));
