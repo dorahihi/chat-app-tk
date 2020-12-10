@@ -88,7 +88,7 @@ selectMessage.addEventListener('keyup',e=>{
 sendBtn.addEventListener("dblclick",e=>{
   $.ajax({
       url: "/users/messages",
-      type:"POST",
+      type:"GET",
       data:   "chatId=tester1tester"+"&email="+user.email,
       dataType:"text",
       success: function(res) {
