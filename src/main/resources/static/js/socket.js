@@ -35,6 +35,7 @@ function onConnected() {
     stompClient.subscribe(`/user/${email}/msg`,  data =>{
     console.log(`-------- received message:\n`+ data.body+`\n--------received message!!!!`);
     displayMessage(data);
+   
   });
 }
 
@@ -54,6 +55,7 @@ const displayMessage = data =>{
   //receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
    //if (currentFriendID === mess.sender) 
    insertMessage(mess);
+   saveMessage(mess);
 }
 
 
@@ -67,7 +69,9 @@ sendBtn.addEventListener('click', () => {
   let tin = aMessage(currentFriendID, email, messa);
   sendMessage('/app/message',tin);
   mes.value = '';
-  insertMessage(JSON.parse(tin));
+  messa= JSON.parse(tin);
+  insertMessage(messa);
+  saveMessage(messa);
 });
 function getChatId(recipient,sender){
   if (currentType="friend"){
@@ -95,7 +99,9 @@ selectMessage.addEventListener('keyup',e=>{
       
     sendMessage('/app/message',tin);
     mes.value = '';
-    insertMessage(JSON.parse(tin));
+    messa = JSON.parse(tin);
+    insertMessage(messa);
+    saveMessage(messa);
   }
 });
 sendBtn.addEventListener("dblclick",e=>{

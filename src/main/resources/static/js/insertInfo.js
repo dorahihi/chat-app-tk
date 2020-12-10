@@ -60,13 +60,7 @@ function insertMessage(mess){
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat[0].scrollTop = BoxChat[0].scrollHeight; 
-      // lưu vào stogege
-
-    let  li= sessionStorage[mess.chatId];
-    if (li ===undefined)  li = [];
-    else li = JSON.parse(li);
-    li.push(mess);
-    sessionStorage[mess.chatId]= JSON.stringify(li);
+    
 }
 function insertMessageOld(mess){
     let status ;

@@ -78,7 +78,7 @@ function displayFrameChat(idnode){
     if (currentType=="friend")   {
         listM=  sessionStorage[getChatId(currentFriendID,user.email)];
         listM=JSON.parse(listM);
-        listM.forEach(e=>insertMessageOld(e));
+        listM.forEach(e=>insertMessage(e));
     }
     
      //tự động cuộn xuống nội dung mới 
