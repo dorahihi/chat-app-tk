@@ -92,7 +92,7 @@ function aMessage(recipient,sender,message){
     chatId:chatId
   })
 }
-selectMessage.addEventListener('keyup',e=>{    
+mes.addEventListener('keyup',e=>{    
   let messa= mes.value;
   let tin =  aMessage(currentFriendID, email, messa);
   if(e.keyCode =="13" &&  message!=""){
