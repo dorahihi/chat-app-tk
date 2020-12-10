@@ -66,12 +66,15 @@ const onDisconnect = () =>{
 
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
-  let tin = aMessage(currentFriendID, email, messa);
-  sendMessage('/app/message',tin);
-  mes.value = '';
-  messa= JSON.parse(tin);
-  insertMessage(messa);
-  saveMessage(messa);
+  if(messa!==''){
+    let tin = aMessage(currentFriendID, email, messa);
+    sendMessage('/app/message',tin);
+    mes.value = '';
+    messa= JSON.parse(tin);
+    insertMessage(messa);
+    saveMessage(messa);
+  }
+  
 });
 function getChatId(recipient,sender){
   if (currentType="friend"){
@@ -95,7 +98,7 @@ function aMessage(recipient,sender,message){
 mes.addEventListener('keyup',e=>{    
   let messa= mes.value;
   let tin =  aMessage(currentFriendID, email, messa);
-  if(e.keyCode =="13" &&  message!=""){
+  if(e.keyCode =="13" &&  messa!=""){
       
     sendMessage('/app/message',tin);
     mes.value = '';
@@ -118,4 +121,3 @@ sendBtn.addEventListener("dblclick",e=>{
       }
   });
 })
-//logout.addEventListener('click', onDisconnect);
