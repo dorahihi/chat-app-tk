@@ -35,7 +35,13 @@ public class MainController {
 		System.out.println("signup: +++++++++++++++");
 		model.addAttribute("type", "signup");
 		return "login";
-	}	
+	}
+	@GetMapping("/main")
+	public String thanhPage(Model model){
+		System.out.println("thanh:   ++++++");
+		model.addAttribute("type","");
+		return "main";	
+	} 	
 	
 	@GetMapping("/upload")
 	@ResponseBody
