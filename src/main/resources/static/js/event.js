@@ -22,16 +22,17 @@ function friendOnClick(nodeFriend){
     currentType="friend";
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
-    getInfoFriend(eFriend);
+  
      
     for(let i= 0;i< selectFriend.length;i++){
         selectFriend[i].setAttribute("class",'friend');
     }
     nodeFriend.setAttribute("class","friend active");
     currentFriendID=eFriend;
+
     // hàm hiển thị khung chat
     displayFrameChatFriend(eFriend);
-    
+    getInfoFriend(eFriend);
 }
 
 
@@ -40,7 +41,7 @@ function groupOnClick(nodeGroup){
     currentType="group";
     let groupId = nodeGroup.getAttribute('id');
     groupId =groupId.slice(0,groupId.length-6);
-    getInfoGroup(groupId);
+   
     currentGroupID = groupId;
     //đặt toàn bộ lại bình thường
     for(let i= 0;i< selectFriend.length;i++){
@@ -50,7 +51,7 @@ function groupOnClick(nodeGroup){
     nodeGroup.setAttribute("class","friend active");
     
     displayFrameChatGroup(groupId);
-    
+    getInfoGroup(groupId);
 }
 
 function inforOnclick(type){

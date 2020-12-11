@@ -181,6 +181,12 @@ function offDislayChat(){
     selectChatBox.setAttribute("class","chatBox");
     selectTitleBox.innerText="Chọn bạn để chat";
     selectBoxChat.innerHTML ="";
+    chatting= "";
+    infofriend="";
+    infofriend="";
+    currentFriendID="";
+    currentType="";
+    currentGroupID="";
 }
 
 //Hiển thị form cập nhật
