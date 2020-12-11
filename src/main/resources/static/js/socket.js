@@ -77,24 +77,27 @@ sendBtn.addEventListener('click', () => {
   
 });
 function getChatId(recipient,sender){
-  let chatId;
+  let chatId={};
 
   if (currentType==="friend"){
-    if (sender > recipient) chatId = sender+recipient;
-    else chatId = recipient+sender;
+    if (sender > recipient) chatId.id = sender+recipient;
+    else chatId.id = recipient+sender;
+    chatId.type = "PrivateMessage";
   }else{
-    chatId = chatting;
+    chatId.id = chatting;
+    chatId.type = "GroupMessage"
   }
   return chatId;
 }
-function aMessage(recipient,sender,message){
+function aMessage(recipient,sender,message,type){
   let chatId = getChatId(recipient,sender);
   
   return JSON.stringify({
     recipient: recipient,
     sender: sender,
     message: message,
-    chatId:chatId
+    chatId:chatId.id,
+    type:chatId.type
   })
 }
 mes.addEventListener('keyup',e=>{    
@@ -102,7 +105,7 @@ mes.addEventListener('keyup',e=>{
   let messa= mes.value;
   
   if(e.keyCode =="13" &&  messa!=""){
-    let tin =  aMessage(chatting, email, messa);
+    let tin =  aMessage(chatting, email);
     sendMessage('/app/message',tin);
     mes.value = '';
     messa = JSON.parse(tin);
