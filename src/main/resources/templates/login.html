@@ -72,15 +72,15 @@
     </div>
     <div id="signup" class="signup hide-o">
       <form id="signup-form" name="signup-form" class="signup-form" method="post">
-        <input type="text" name="newUserName" placeholder="Username" required>
-        <input type="text" name="newEmail" placeholder="Email" required>
-        <input type="password" name="newPassword" placeholder="Password" required>
-        <select name="NewGender" id="gender">
+        <input type="text" name="userName" placeholder="Username" required>
+        <input type="text" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="gender" id="gender">
           <option value="0">Gender</option>
           <option value="1">Male</option>
           <option value="2">Female</option>
         </select>
-        <input type="number" name="newAge" min="5" max="50" placeholder="Your age">
+        <input type="number" name="age" min="5" max="50" placeholder="Your age">
         <button id="login-btn" type="submit" name="button" class="button-light">SIGN UP</button>
       </form>
     </div>
@@ -100,6 +100,7 @@
     </footer>
   </div>
 
+  <script th:src="@{/js/websocket.js}"></script>
   <script th:src="@{/js/login.js}"></script>
 </body>
 

@@ -97,7 +97,7 @@ public class FriendServices {
 		else throw new Exception("User does not exist!");
 	}
 	
-public String sendFriendRequest(String friendEmail, String email) throws Exception {
+	public String sendFriendRequest(String friendEmail, String email) throws Exception {
 		
 		DBUser user = userRepo.findByEmail(email);
 		DBUser friend = userRepo.findByEmail(friendEmail);

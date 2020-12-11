@@ -36,12 +36,7 @@ public class MainController {
 		model.addAttribute("type", "signup");
 		return "login";
 	}	
-	@GetMapping("/main")
-	public String thanhPage(Model model){
-		System.out.println("thanh:   ++++++");
-		model.addAttribute("type","");
-		return "main";	
-	} 
+	
 	@GetMapping("/upload")
 	@ResponseBody
 	public String huhu() throws UploadErrorException, DbxException, IOException {

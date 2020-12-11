@@ -132,4 +132,22 @@ public class WebSocketController {
 	  return messageServices.viewNotification(email);
   }
   
+  
+  //send image message
+  @PostMapping("/messages/img")
+  public String uploadImage(@RequestParam("image") MultipartFile image, 
+		  		   //@RequestParam("sender") String sender,
+		  		   //@RequestParam("recipient") String recipient,
+		  		   //@RequestParam("type") String type,
+		  		   //@RequestParam("mesType") String mesType
+		  		   @RequestParam("name") String name) throws UploadErrorException, DbxException, IOException {
+	  
+	String url = DropboxServices.uploadFile(image.getInputStream(), image.getOriginalFilename());
+	
+	//MessageTemplate mes = new MessageTemplate(sender, recipient, url, type, mesType);
+	
+	//messageServices.sendMessage(mes);
+	return url+"_____"+name;
+  }
+  
 }

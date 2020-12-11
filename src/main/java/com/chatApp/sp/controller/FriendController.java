@@ -1,6 +1,5 @@
 package com.chatApp.sp.controller;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,22 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.chatApp.sp.model.MessageTemplate;
 import com.chatApp.sp.repository.UserRepository;
 import com.chatApp.sp.service.CookieServices;
-import com.chatApp.sp.service.DropboxServices;
 import com.chatApp.sp.service.FriendServices;
 import com.chatApp.sp.service.MessageServices;
-import com.dropbox.core.DbxException;
-import com.dropbox.core.v2.files.UploadErrorException;
+
 
 @RestController
 @CrossOrigin //for testing
@@ -111,19 +104,6 @@ public class FriendController {
 		return friendServices.viewReceivedFriendRequest(email);
 	}
 	
-	@PostMapping("/messages/img")
-	  public void uploadImage(@RequestParam("image") MultipartFile image, 
-			  		   @RequestParam("sender") String sender,
-			  		   @RequestParam("recipient") String recipient,
-			  		   @RequestParam("type") String type,
-			  		   @RequestParam("mesType") String mesType) throws UploadErrorException, DbxException, IOException {
-		  
-		String url = DropboxServices.uploadFile(image.getInputStream(), image.getOriginalFilename());
-		
-		MessageTemplate mes = new MessageTemplate(sender, recipient, url, type, mesType);
-		
-		messageServices.sendMessage(mes);;
-	  }
 	
 	
 }
