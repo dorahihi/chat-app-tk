@@ -17,8 +17,7 @@ function displayFrameChatGroup(groupId){
     if (haveExist ===undefined){
         listChatting[groupId]={ 
             type:"group",
-            titleChat:user.group[groupId],
-            message:[]
+            titleChat:user.group[groupId]
         };
         haveExist= listChatting[groupId]; 
     };
@@ -57,16 +56,16 @@ function displayFrameChat(idnode){
      //hiển thị khung chat
     selectChatBox[0].setAttribute("class","chatBox display");
      //dat lai hien thi khung chat
-     selectBoxChat[0].innerText="";
+    // selectBoxChat[0].innerText="";
     // đăt title tin nhắn      
     selectTitleBox[0].innerText= listChatting[idchat].titleChat;
-    let type =listChatting[idchat].type;
+    //let type =listChatting[idchat].type;
      // điền tin nhắn
-    listChatting[idchat].message.forEach(x=>{
-        insertMessage(x.content,x.status);
-    });
+    // listChatting[idchat].message.forEach(x=>{
+    //     insertMessage(x.content,x.status);
+    // });
      //tắt nút thêm nhóm
-     offPlayout('btnAddGroup','display-none');
+    offPlayout('btnAddGroup','display-none');
     let btnDisplayInfor = document.getElementById('btnDisplayInfo');
 
     if(listChatting[idchat].type==="group"){
@@ -89,9 +88,6 @@ function displayFrameChat(idnode){
     }else{
         listM= getMessageGroup(chatting);
     }
-    
-     //tự động cuộn xuống nội dung mới 
-    selectBoxChat[0].scrollTop = selectBoxChat[0].scrollHeight; 
 }
 
 //hàm hiển thị danh sách bạn

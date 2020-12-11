@@ -16,7 +16,6 @@ function getData(){
         dataType:"text",
         success: function(res) {
             user = JSON.parse(res);
-            console.log(user);
         },
          error: () =>{
             alert("Incorrect!");
@@ -29,7 +28,6 @@ function getInfoGroup(idGroup){
         $.ajax({
             url:"/groups/profile/"+idGroup,
             type:"GET",
-            async:false,
             dataType:"text",
             success: function(res) {
                 groupInfo = JSON.parse(res);
@@ -47,7 +45,6 @@ function getInfoFriend(emailF){
         $.ajax({
             url:"/users/"+emailF,
             type:"GET",
-            async:false,
             dataType:"text",
             success: function(res) {
                 friendInfo = JSON.parse(res);
