@@ -1,5 +1,4 @@
 
-var url = "https://chat-app-tk.herokuapp.com";
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
