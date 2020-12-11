@@ -241,4 +241,21 @@ signupForm.addEventListener('submit', e => {
       notiMessage("Something wrong. Please try again!");
     }
   });
+  $.ajax({
+    type: "POST",
+    url: url+"/signup",
+    data: $('#signup-form').serialize(),
+    //contentType: "application/json",
+    success: function() {
+      closeLoading();
+      //notiMessage("Signup successfully!");
+      // setTimeout(() => {
+      //   redirect('login');
+      // }, 3000);
+    },
+    error: () =>{
+      closeLoading();
+      notiMessage("Something wrong. Please try again!");
+    }
+  });
 });

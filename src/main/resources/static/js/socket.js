@@ -5,7 +5,7 @@ const sendBtn = document.getElementById('send');
 const mes = document.getElementById('message');
 const receive = document.getElementById('receive');
 const logout = document.getElementById('logout');
-let url ='https://secret-brook-88276.herokuapp.com';
+var url ='https://secret-brook-88276.herokuapp.com';
 // phần chát
 
 let stompClient = null;
@@ -14,7 +14,7 @@ console.log("email ne:   +++++: " + email);
 
 const connect = ()  => {
 
-    var socket = new SockJS('/websocket-chat');
+    var socket = new SockJS(url+'/websocket-chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
 }
