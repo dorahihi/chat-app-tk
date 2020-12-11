@@ -67,7 +67,7 @@ const onDisconnect = () =>{
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   if(messa!==''){
-    let tin = aMessage(currentFriendID, email, messa);
+    let tin = aMessage(chatting, email, messa);
     sendMessage('/app/message',tin);
     mes.value = '';
     messa= JSON.parse(tin);
@@ -100,9 +100,9 @@ function aMessage(recipient,sender,message){
 mes.addEventListener('keyup',e=>{    
   
   let messa= mes.value;
-  let tin =  aMessage(chatting, email, messa);
+  
   if(e.keyCode =="13" &&  messa!=""){
-      
+    let tin =  aMessage(chatting, email, messa);
     sendMessage('/app/message',tin);
     mes.value = '';
     messa = JSON.parse(tin);
