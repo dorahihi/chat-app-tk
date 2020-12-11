@@ -18,16 +18,18 @@ function setStatus(event){
 
 // đăt lại trạng thái fucus
 function friendOnClick(nodeFriend){
+   
+    
+    for(let i= 0;i< selectFriend.length;i++){
+        selectFriend[i].setAttribute("class",'friend');
+    }
+    nodeFriend.setAttribute("class","friend active");
     infofriend="";
     currentType="friend";
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
   
      
-    for(let i= 0;i< selectFriend.length;i++){
-        selectFriend[i].setAttribute("class",'friend');
-    }
-    nodeFriend.setAttribute("class","friend active");
     currentFriendID=eFriend;
 
     // hàm hiển thị khung chat

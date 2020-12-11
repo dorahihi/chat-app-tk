@@ -123,7 +123,7 @@ function getMessage(chatId){
       headers:   {chatId:chatId,email:user.email},
       dataType:"text",
       success: function(res) {
-          console.log("tin nhắn đã gửi:",res);
+         // console.log("tin nhắn đã gửi:",res);
           data = res;
       },
       error: () =>{
