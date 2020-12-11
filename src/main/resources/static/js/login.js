@@ -218,6 +218,26 @@ loginForm.addEventListener('submit', e => {
          notiMessage("Incorrect email or password!");
        }
     });
+    $.ajax({
+      type: "POST",
+      url: url+"/auth",
+      data: $('#login-form').serialize(),
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function(output, status, res) {
+        console.log("testing1: "+res.getResponseHeader("Authorization"));
+        console.log("testing2: "+res.getResponseHeader("Date"));
+        console.log("testing3: "+res.getResponseHeader("Content-Type"));
+        closeLoading();
+        //notiMessage("Login successfully!");
+        //window.open("/main","_self");
+      },
+      error: () =>{
+        closeLoading();
+        notiMessage("Incorrect email or password!");
+      }
+   });
 });
 
 signupForm.addEventListener('submit', e => {
@@ -235,23 +255,6 @@ signupForm.addEventListener('submit', e => {
       setTimeout(() => {
         redirect('login');
       }, 3000);
-    },
-    error: () =>{
-      closeLoading();
-      notiMessage("Something wrong. Please try again!");
-    }
-  });
-  $.ajax({
-    type: "POST",
-    url: url+"/signup",
-    data: $('#signup-form').serialize(),
-    //contentType: "application/json",
-    success: function() {
-      closeLoading();
-      //notiMessage("Signup successfully!");
-      // setTimeout(() => {
-      //   redirect('login');
-      // }, 3000);
     },
     error: () =>{
       closeLoading();
