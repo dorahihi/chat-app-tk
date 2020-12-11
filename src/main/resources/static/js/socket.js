@@ -77,6 +77,8 @@ sendBtn.addEventListener('click', () => {
   
 });
 function getChatId(recipient,sender){
+  let chatId;
+
   if (currentType==="friend"){
     if (sender > recipient) chatId = sender+recipient;
     else chatId = recipient+sender;
@@ -98,7 +100,7 @@ function aMessage(recipient,sender,message){
 mes.addEventListener('keyup',e=>{    
   
   let messa= mes.value;
-  let tin =  aMessage(currentFriendID, email, messa);
+  let tin =  aMessage(chatting, email, messa);
   if(e.keyCode =="13" &&  messa!=""){
       
     sendMessage('/app/message',tin);
