@@ -5,7 +5,7 @@ const sendBtn = document.getElementById('send');
 const mes = document.getElementById('message');
 const receive = document.getElementById('receive');
 const logout = document.getElementById('logout');
-
+let url ='https://secret-brook-88276.herokuapp.com/';
 // phần chát
 
 let stompClient = null;
@@ -23,16 +23,16 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
-  stompClient.subscribe('/user/queue/newMember',  ( data) => data);
+  stompClient.subscribe(url+'/user/queue/newMember',  ( data) => data);
 
- stompClient.subscribe('/topic/newMember', data => console.log("data2: " + data.body));
+ stompClient.subscribe(url+'/topic/newMember', data => console.log("data2: " + data.body));
 
 
 
     // Tell your username to the server
-  sendMessage('/app/register', email);
+  sendMessage(url+'/app/register', email);
 
-    stompClient.subscribe(`/user/${email}/msg`,  data =>{
+    stompClient.subscribe(url+`/user/${email}/msg`,  data =>{
     console.log(`-------- received message:\n`+ data.body+`\n--------received message!!!!`);
     displayMessage(data);
    
@@ -60,7 +60,7 @@ const displayMessage = data =>{
 
 
 const onDisconnect = () =>{
-  sendMessage('/app/unregister', email);
+  sendMessage(url+'/app/unregister', email);
   stompClient.disconnect();
 }
 
@@ -68,7 +68,7 @@ sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   if(messa!==''){
     let tin = aMessage(chatting, email, messa,'Text');
-    sendMessage('/app/message',tin);
+    sendMessage(url+'/app/message',tin);
     mes.value = '';
     messa= JSON.parse(tin);
     insertMessage(messa);
@@ -107,7 +107,7 @@ mes.addEventListener('keyup',e=>{
   
   if(e.keyCode =="13" &&  messa!=""){
     let tin =  aMessage(chatting, email,messa,'Text');
-    sendMessage('/app/message',tin);
+    sendMessage(url+'/app/message',tin);
     mes.value = '';
     messa = JSON.parse(tin);
     insertMessage(messa);
@@ -117,7 +117,7 @@ mes.addEventListener('keyup',e=>{
 function getMessage(chatId){
   let data;
   $.ajax({
-      url: "/users/messages",
+      url: url+"/users/messages",
       type:"GET",
       async:false,
       headers:   {chatId:chatId,email:user.email},
@@ -135,7 +135,7 @@ function getMessage(chatId){
 function getMessageGroup(groupId){
   let data;
   $.ajax({
-      url: "/groups/messages",
+      url: url+"/groups/messages",
       type:"GET",
       async:false,
       headers:   {groupId:groupId,email:user.email},
