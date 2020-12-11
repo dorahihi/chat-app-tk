@@ -23,9 +23,9 @@ connect();
 
 function onConnected() {
     // Subscribe to the Public Topic
-  stompClient.subscribe(url+'/user/queue/newMember',  ( data) => data);
+  stompClient.subscribe('/user/queue/newMember',  ( data) => data);
 
- stompClient.subscribe(url+'/topic/newMember', data => console.log("data2: " + data.body));
+ stompClient.subscribe('/topic/newMember', data => console.log("data2: " + data.body));
 
 
 
