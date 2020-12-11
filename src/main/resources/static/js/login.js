@@ -223,24 +223,6 @@ loginForm.addEventListener('submit', e => {
 signupForm.addEventListener('submit', e => {
   openLoading();
   e.preventDefault();
-
-  $.ajax({
-    type: "POST",
-    url: "/signup",
-    data: $('#signup-form').serialize(),
-    //contentType: "application/json",
-    success: function() {
-      closeLoading();
-      notiMessage("Signup successfully!");
-      setTimeout(() => {
-        redirect('login');
-      }, 3000);
-    },
-    error: () =>{
-      closeLoading();
-      notiMessage("Something wrong. Please try again!");
-    }
-  });
   $.ajax({
     type: "POST",
     url: url+"/signup",
@@ -258,4 +240,22 @@ signupForm.addEventListener('submit', e => {
       notiMessage("Something wrong. Please try again!");
     }
   });
+  $.ajax({
+    type: "POST",
+    url: "/signup",
+    data: $('#signup-form').serialize(),
+    //contentType: "application/json",
+    success: function() {
+      closeLoading();
+      notiMessage("Signup successfully!");
+      setTimeout(() => {
+        redirect('login');
+      }, 3000);
+    },
+    error: () =>{
+      closeLoading();
+      notiMessage("Something wrong. Please try again!");
+    }
+  });
+  
 });
