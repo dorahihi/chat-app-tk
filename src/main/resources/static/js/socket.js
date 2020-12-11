@@ -128,7 +128,7 @@ function getMessage(chatId){
 function getMessageGroup(groupId){
   let data;
   $.ajax({
-      url: "https://secret-book-88276.herokuapp.com/groups/messages",
+      url: "/groups/messages",
       type:"GET",
       async:false,
       headers:   {groupId:groupId,email:user.email},
