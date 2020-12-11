@@ -1,8 +1,7 @@
-let BoxChat =document.getElementsByClassName('box-chat');
+let BoxChat =document.getElementsByClassName('box-chat')[0];
 
 //hàm hiển thị thông tin nhóm 
 function insertInfoGroup(){
-    console.log(infogroup);
     let selectIdFromInfoFriendChat = document.getElementById("inforFriend");
     let keyGroup = Object.keys(infogroup.members);
     
@@ -54,17 +53,17 @@ function insertMessage(mess){
     if (mess.sender !==user.email) status = 1;else status =0;
 
     if (status===0) { // status = 0 là gửi
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>bạn</span></span></div>`;
+        BoxChat.innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>bạn</span></span></div>`;
     } else {
-        BoxChat[0].innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${mess.sender}</span></span></div>`;
+        BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${mess.sender}</span></span></div>`;
     }
       //tự động cuộn xuống nội dung mới 
-      BoxChat[0].scrollTop = BoxChat[0].scrollHeight;   
+      BoxChat.scrollTop = BoxChat.scrollHeight;   
 }
 
 var loadFile = function(event) {
 
 	    var image = document.createElement('img');
         image.src = URL.createObjectURL(event.target.files[0]);
-        BoxChat[0].innerHTML += `<div class="stl_mes"><img class="receive img" src="`+image.src+`"></img></div>`;
+        BoxChat.innerHTML += `<div class="stl_mes"><img class="receive img" src="`+image.src+`"></img></div>`;
 };

@@ -1,10 +1,10 @@
-const selectBoxInfoUser =document.getElementsByClassName("box-info-user");
-const selectChatBox = document.getElementsByClassName("chatBox");
-const selectTitleBox=document.getElementsByClassName("title-box");
-const selectBoxChat =document.getElementsByClassName('box-chat');
-const selectFormUpdate=document.getElementsByClassName("fromUpdate");
-const selectOverlay =document.getElementsByClassName('overlay');
-const selectListFriend = document.getElementsByClassName("list-friend");
+const selectBoxInfoUser =document.getElementsByClassName("box-info-user")[0];
+const selectChatBox = document.getElementById("khungchat");
+const selectTitleBox=document.getElementsByClassName("title-box")[0];
+const selectBoxChat =document.getElementsByClassName('box-chat')[0];
+const selectFormUpdate=document.getElementsByClassName("fromUpdate")[0];
+const selectOverlay =document.getElementsByClassName('overlay')[0];
+const selectListFriend = document.getElementsByClassName("list-friend")[0];
 const selectNameUser = document.getElementById("nameUser");
 var chatting;
 
@@ -19,13 +19,10 @@ function displayFrameChatGroup(groupId){
             type:"group",
             titleChat:user.group[groupId]
         };
-        haveExist= listChatting[groupId]; 
     };
 
     // đặt id cho khung chat
     groupId +="aframe";
-    selectChatBox[0].setAttribute("id",groupId);  
-    groupId = document.getElementById(groupId);
     displayFrameChat(groupId);
 }
 
@@ -38,27 +35,22 @@ function displayFrameChatFriend(eFriend){
         listChatting[eFriend]={
             type:"private",
             titleChat:user.friend[eFriend],
-            message:[]
         };
-         haveExist= listChatting[eFriend]; 
     };
     // đặt id cho khung chat
     eFriend +="aframe";
-    selectChatBox[0].setAttribute("id",eFriend);  
-    eFriend = document.getElementById(eFriend);
     displayFrameChat(eFriend);
 }
 
-function displayFrameChat(idnode){
-    idnode = idnode.getAttribute("id");
-    let idchat = idnode.slice(0,idnode.length-6);
+function displayFrameChat(emailchatting){
+    let idchat = emailchatting.slice(0,emailchatting.length-6);
     chatting= idchat;
      //hiển thị khung chat
-    selectChatBox[0].setAttribute("class","chatBox display");
+    selectChatBox.setAttribute("class","chatBox display");
      //dat lai hien thi khung chat
-    // selectBoxChat[0].innerText="";
+    selectBoxChat.innerText="";
     // đăt title tin nhắn      
-    selectTitleBox[0].innerText= listChatting[idchat].titleChat;
+    selectTitleBox.innerText= listChatting[idchat].titleChat;
     //let type =listChatting[idchat].type;
      // điền tin nhắn
     // listChatting[idchat].message.forEach(x=>{
@@ -69,9 +61,9 @@ function displayFrameChat(idnode){
     let btnDisplayInfor = document.getElementById('btnDisplayInfo');
 
     if(listChatting[idchat].type==="group"){
-        btnDisplayInfor.setAttribute('onclick',`inforOnclick(${idnode},'group')`)
+        btnDisplayInfor.setAttribute('onclick',`inforOnclick('group')`)
     }else{
-        btnDisplayInfor.setAttribute('onclick',`inforOnclick(${idnode},'private')`)
+        btnDisplayInfor.setAttribute('onclick',`inforOnclick('private')`)
     }
     let listM =[];
     if (currentType=="friend")   {
@@ -92,12 +84,9 @@ function displayFrameChat(idnode){
 
 //hàm hiển thị danh sách bạn
 function boxMenu(ds){
-    let listfriend =selectListFriend;
-    let boxInfoUser = selectBoxInfoUser;
-    
-    listfriend[0].style.display="grid";
-    boxInfoUser[0].style.display ="none";
-    listfriend[0].innerHTML =ds; 
+    selectListFriend.style.display="grid";
+    selectBoxInfoUser.style.display ="none";
+    selectListFriend.innerHTML =ds; 
 }
 function displayListFriend(){
     let keyFriend = Object.keys(user.friend);
@@ -189,53 +178,45 @@ function displayReceiveListRequest(){
 
 // hàm đóng khung chat lại
 function offDislayChat(){
-    let  boxChat = selectBoxChat;
-    let chatBox = selectChatBox;
-    let titleBox = selectTitleBox;
-    chatBox[0].setAttribute("class","chatBox");
-    titleBox[0].innerText="Chọn bạn để chat";
-    boxChat[0].innerHTML ="";
+    selectChatBox.setAttribute("class","chatBox");
+    selectTitleBox.innerText="Chọn bạn để chat";
+    selectBoxChat.innerHTML ="";
 }
 
 //Hiển thị form cập nhật
 function onDisplayFormUpdate(){
-    let formUpdate = selectFormUpdate;
-    let overlay =selectOverlay;
-    formUpdate[0].style.display="block";
+    selectFormUpdate.style.display="block";
     //set thông tin
     
     document.getElementsByName('userName')[0].setAttribute("placeholder",user.userName);
 
     document.getElementsByName('age')[0].setAttribute("placeholder",user.age);
-    overlay[0].style.display='block';
+    selectOverlay.style.display='block';
 
 }
 
 //hàm hiển thị playout ẩn
 function onDisplayPlayout(idPlayout,classDel,zIndex){
-    let overlay =selectOverlay;
     let attributeClass = document.getElementById(idPlayout).getAttribute("class");
     var attributeClassNew =  attributeClass.replace(classDel,"");
     if (attributeClass===attributeClassNew && idPlayout !=='btnAddGroup') attributeClassNew +=classDel;
     document.getElementById(idPlayout).setAttribute("class",attributeClassNew);
-    if(zIndex===1)overlay[0].style.display='block';
+    if(zIndex===1)selectOverlay.style.display='block';
 }
 
 // tắt playout
 function offPlayout(idPlayout,classInsert){
-    let overlay =selectOverlay;
 
     let attributeClass = document.getElementById(idPlayout).getAttribute("class"); 
     // tìm không thấy thì + class display-none
     if(attributeClass.search(classInsert)==(-1))
     document.getElementById(idPlayout).setAttribute("class",attributeClass+classInsert); 
     
-    overlay[0].style.display='none';
+    selectOverlay.style.display='none';
 }
 
 function offDisplayFormUpdate(){
-    let overlay =selectOverlay;
 
     document.getElementsByClassName("fromUpdate")[0].style.display="none";
-    overlay[0].style.display='none';
+    selectOverlay.style.display='none';
 }

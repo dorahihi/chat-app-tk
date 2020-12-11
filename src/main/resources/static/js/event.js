@@ -23,9 +23,9 @@ function friendOnClick(nodeFriend){
     let eFriend = nodeFriend.getAttribute('id');
     eFriend =eFriend.slice(0,eFriend.length-6);
     getInfoFriend(eFriend);
-    let friend = selectFriend;
-    for(let i= 0;i< friend.length;i++){
-        friend[i].setAttribute("class",'friend');
+     
+    for(let i= 0;i< selectFriend.length;i++){
+        selectFriend[i].setAttribute("class",'friend');
     }
     nodeFriend.setAttribute("class","friend active");
     currentFriendID=eFriend;
@@ -42,10 +42,9 @@ function groupOnClick(nodeGroup){
     groupId =groupId.slice(0,groupId.length-6);
     getInfoGroup(groupId);
     currentGroupID = groupId;
-    let friend = selectFriend;
     //đặt toàn bộ lại bình thường
-    for(let i= 0;i< friend.length;i++){
-        friend[i].setAttribute("class",'friend');
+    for(let i= 0;i< selectFriend.length;i++){
+        selectFriend[i].setAttribute("class",'friend');
     }
     //set trạng thai fucus
     nodeGroup.setAttribute("class","friend active");
@@ -54,9 +53,7 @@ function groupOnClick(nodeGroup){
     
 }
 
-function inforOnclick(idchat,type){
-    idchat = idchat.getAttribute('id');
-    idchat =idchat.slice(0,idchat.length-6);
+function inforOnclick(type){
     // xử lí hiển thị thông tin 
           if(type==="group"){
               insertInfoGroup();
