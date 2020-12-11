@@ -198,26 +198,7 @@ loginForm.addEventListener('submit', e => {
   openLoading();
   e.preventDefault();
 
-  $.ajax({
-    type: "POST",
-    url: "/auth",
-    data: $('#login-form').serialize(),
-    xhrFields: {
-      withCredentials: true
-    },
-    success: function(output, status, res) {
-      // console.log("testing1: "+res.getResponseHeader("Authorization"));
-      // console.log("testing2: "+res.getResponseHeader("Date"));
-      // console.log("testing3: "+res.getResponseHeader("Content-Type"));
-      // closeLoading();
-      // notiMessage("Login successfully!");
-      // window.open("/main","_self");
-    },
-    error: () =>{
-      closeLoading();
-      notiMessage("Incorrect email or password!");
-    }
- });
+  
 
   $.ajax({
        type: "POST",
@@ -239,7 +220,26 @@ loginForm.addEventListener('submit', e => {
          notiMessage("Incorrect email or password!");
        }
     });
-
+    $.ajax({
+      type: "POST",
+      url: "/auth",
+      data: $('#login-form').serialize(),
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function(output, status, res) {
+        // console.log("testing1: "+res.getResponseHeader("Authorization"));
+        // console.log("testing2: "+res.getResponseHeader("Date"));
+        // console.log("testing3: "+res.getResponseHeader("Content-Type"));
+        // closeLoading();
+        // notiMessage("Login successfully!");
+        // window.open("/main","_self");
+      },
+      error: () =>{
+        closeLoading();
+        notiMessage("Incorrect email or password!");
+      }
+   });
 });
 
 signupForm.addEventListener('submit', e => {
