@@ -5,7 +5,7 @@ const sendBtn = document.getElementById('send');
 const mes = document.getElementById('message');
 const receive = document.getElementById('receive');
 const logout = document.getElementById('logout');
-let url ='https://secret-brook-88276.herokuapp.com/';
+let url ='https://secret-brook-88276.herokuapp.com';
 // phần chát
 
 let stompClient = null;
