@@ -67,7 +67,7 @@ const onDisconnect = () =>{
 sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   if(messa!==''){
-    let tin = aMessage(chatting, email, messa);
+    let tin = aMessage(chatting, email, messa,'Text');
     sendMessage('/app/message',tin);
     mes.value = '';
     messa= JSON.parse(tin);
@@ -89,7 +89,7 @@ function getChatId(recipient,sender){
   }
   return chatId;
 }
-function aMessage(recipient,sender,message,type){
+function aMessage(recipient,sender,message,messageType){
   let chatId = getChatId(recipient,sender);
   
   return JSON.stringify({
@@ -97,7 +97,8 @@ function aMessage(recipient,sender,message,type){
     sender: sender,
     message: message,
     chatId:chatId.id,
-    type:chatId.type
+    type:chatId.type,
+    messageType:messageType
   })
 }
 mes.addEventListener('keyup',e=>{    
@@ -105,7 +106,7 @@ mes.addEventListener('keyup',e=>{
   let messa= mes.value;
   
   if(e.keyCode =="13" &&  messa!=""){
-    let tin =  aMessage(chatting, email);
+    let tin =  aMessage(chatting, email,messa,'Text');
     sendMessage('/app/message',tin);
     mes.value = '';
     messa = JSON.parse(tin);
