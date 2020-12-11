@@ -80,7 +80,7 @@ function displayFrameChat(idnode){
         listM=  sessionStorage[chatId];
         if(listM !== undefined) listM=JSON.parse(listM);
         else{
-            listM=getMessage(chatId);
+            listM=getMessage(chatId.id);
             listM = JSON.parse(listM);
             if(listM.length<1)
             listM = [];
