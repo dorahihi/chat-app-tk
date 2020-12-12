@@ -38,3 +38,7 @@ function displayProfile(){
     offPlayout('btnAddGroup','display-none',0);// tắt nút thêm nhóm
 
 }
+// xử lí logout 
+function onLogout(){
+    window.open(url,"_self");
+}
