@@ -7,7 +7,7 @@ const selectOverlay =document.getElementsByClassName('overlay')[0];
 const selectListFriend = document.getElementsByClassName("list-friend")[0];
 const selectNameUser = document.getElementById("nameUser");
 var chatting;
-var listChatting;
+var listChatting={};
 
 // hiển thị khung chat cho group
 function displayFrameChatGroup(groupId){
@@ -77,10 +77,18 @@ function displayFrameChat(emailchatting){
             if(listM.length<1)
             listM = [];
         } 
-        listM.forEach(e=>insertMessage(e));
     }else{
-        listM= getMessageGroup(chatting);
+        listM = sessionStorage[chatting];
+        if (listM != undefined){
+            listM = JSON.parse(listM);
+        }else{
+            listM= getMessageGroup(chatting);
+            listM = JSON.parse(listM);
+            if(listM.length<1) listM=[];            
+        }
     }
+    listM.forEach(e=>insertMessage(e));
+
 }
 
 //hàm hiển thị danh sách bạn
