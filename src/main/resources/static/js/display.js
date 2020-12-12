@@ -43,7 +43,7 @@ function displayFrameChatFriend(eFriend){
     displayFrameChat(eFriend);
 }
 function displayListChatting(nodeId){
-    nodeId = document.getElementById(nodeId);
+    nodeId = nodeId.getAttribute('id');
     displayFrameChat(nodeId);
 }
 function displayFrameChat(emailchatting){
