@@ -125,7 +125,7 @@ function getMessage(chatId){
          // console.log("tin nhắn đã gửi:",res);
          sessionStorage[chatId] = res; 
          res = JSON.parse(res);
-          listMesage(res);
+          listMessage(res);
       },
       error: () =>{
           alert("Lỗi rồi!");

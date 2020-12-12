@@ -42,7 +42,10 @@ function displayFrameChatFriend(eFriend){
     eFriend +="aframe";
     displayFrameChat(eFriend);
 }
-
+function displayListChatting(nodeId){
+    nodeId = document.getElementById(nodeId);
+    displayFrameChat(nodeId);
+}
 function displayFrameChat(emailchatting){
     let idchat = emailchatting.slice(0,emailchatting.length-6);
     chatting= idchat;
