@@ -115,29 +115,29 @@ mes.addEventListener('keyup',e=>{
   }
 });
 function getMessage(chatId){
-  let data;
   $.ajax({
       url: "/users/messages",
       type:"GET",
-      async:false,
+      async:true,
       headers:   {chatId:chatId,email:user.email},
       dataType:"text",
       success: function(res) {
          // console.log("tin nhắn đã gửi:",res);
-          data = res;
+          res = JSON.parse(res);
+          listMesage(res);
       },
       error: () =>{
           alert("Lỗi rồi!");
       }
   });
-  return data;
+  
 }
 function getMessageGroup(groupId){
   let data;
   $.ajax({
       url: "/groups/messages",
       type:"GET",
-      async:false,
+      async:true,
       headers:   {groupId:groupId,email:user.email},
       success: function(res) {
           console.log("tin nhắn nhóm :",res);

@@ -60,7 +60,11 @@ function insertMessage(mess){
       //tự động cuộn xuống nội dung mới 
       BoxChat.scrollTop = BoxChat.scrollHeight;   
 }
-
+function listMessage(li){
+    if(li.length >= 1){
+        li.forEach(e=>insertMessage(e));
+    }
+}
 var loadFile = function(event) {
 
 	    var image = document.createElement('img');
