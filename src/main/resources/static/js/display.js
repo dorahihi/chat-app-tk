@@ -7,6 +7,7 @@ const selectOverlay =document.getElementsByClassName('overlay')[0];
 const selectListFriend = document.getElementsByClassName("list-friend")[0];
 const selectNameUser = document.getElementById("nameUser");
 var chatting;
+var listChatting;
 
 // hiển thị khung chat cho group
 function displayFrameChatGroup(groupId){
