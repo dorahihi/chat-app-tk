@@ -25,10 +25,8 @@ selectIdFrmUpdateInfo.addEventListener("submit",e =>{
 });
 // hàm hiển thị thông tin cá nhân và đăng xuất
 function displayProfile(){
-    let listFriend = selectListFriend;
-    listFriend[0].style.display="none";
-    let boxInfoUser = selectBoxInfoUser;
-    boxInfoUser[0].style.display ="flex";
+    selectListFriend.style.display="none";
+    selectBoxInfoUser.style.display ="flex";
     document.getElementById('myName').innerText = "Tên : "+user.userName;
     document.getElementById('myAge').innerText = "Tuổi : "+user.age;
     let gt;
