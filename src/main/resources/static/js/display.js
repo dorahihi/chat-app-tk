@@ -126,7 +126,7 @@ function onDisplayListChat(){
     let idchat = Object.keys(listChatting);
     let html="";
     idchat.forEach(x =>{
-        html+=`<li class='friend' id="${x+'alistC'}" onclick="displayFrameChat(this)">
+        html+=`<li class='friend' id="${x+'alistC'}" onclick="displayListChatting(this)">
         <div class='picture' ></div>
         <div class='nameFriend'>${listChatting[x].titleChat}</div>
         </li>` ;
