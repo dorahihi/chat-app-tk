@@ -29,7 +29,8 @@ public class UserController {
 	public String createAccount(@RequestParam("newEmail") String email, @RequestParam("newPassword") String password, 
 								@RequestParam("newUserName") String userName,
 								@RequestParam("newAge") String age,
-								@RequestParam("NewGender") String gender) throws Exception {
+								@RequestParam("newGender") String gender) throws Exception {
+		email = email.replace(".", "__");
 		return  userUtils.createUser(email, userName, password, age, gender);
 	}
 	

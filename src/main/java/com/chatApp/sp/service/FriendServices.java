@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.chatApp.sp.model.DBUser;
+import com.chatApp.sp.model.MessageType;
+import com.chatApp.sp.model.Notification;
 import com.chatApp.sp.repository.UserRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class FriendServices {
 	
 	@Autowired
 	CookieServices cookieServices;
+	
+	@Autowired
+	MessageServices mesService;
 	
 	private Map<String, String> getFriendRequestList(DBUser user){
 		Map<String, String> friendRequest = user.getFriendRequest();
@@ -90,6 +95,10 @@ public class FriendServices {
 				friend.setReceivedFriendRequest(putMap(receivedFriendRequest, email, user.getUserName()));
 				userRepo.save(user);
 				userRepo.save(friend);
+				
+				Notification noti = new Notification(email, friendEmail, "New friend request from "+user.getUserName(), MessageType.FriendRequest);
+				mesService.sendNotification(noti);
+				
 				return "SUCCEED";
 			}
 			return "Already sent friend request";
@@ -112,6 +121,10 @@ public class FriendServices {
 				friend.setReceivedFriendRequest(putMap(receivedFriendRequest, email, user.getUserName()));
 				userRepo.save(user);
 				userRepo.save(friend);
+				
+				Notification noti = new Notification(email, friendEmail, "New friend request from "+user.getUserName(), MessageType.FriendRequest);
+				mesService.sendNotification(noti); 
+				
 				return "SUCCEED";
 			}
 			return "Already sent friend request";
@@ -139,6 +152,10 @@ public class FriendServices {
 				friend.setFriendRequest(removeMapElement(friend.getFriendRequest(), email));
 				userRepo.save(friend);
 				userRepo.save(user);
+				
+				Notification noti = new Notification(email, friendEmail, "Your friend request to "+user.getUserName()+" has been accepted!", MessageType.AcceptFriendRequest);
+				mesService.sendNotification(noti);
+				
 				return "SUCCEED";
 			}
 			return "You did not receive friend request from this user";
@@ -162,6 +179,10 @@ public class FriendServices {
 				friend.setFriendRequest(removeMapElement(friend.getFriendRequest(), email));
 				userRepo.save(friend);
 				userRepo.save(user);
+				
+				Notification noti = new Notification(email, friendEmail, "Your friend request to "+user.getUserName()+" has been accepted!", MessageType.AcceptFriendRequest);
+				mesService.sendNotification(noti);
+				
 				return "SUCCEED";
 			}
 			return "You did not receive friend request from this user";

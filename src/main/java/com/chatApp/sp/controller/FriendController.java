@@ -54,7 +54,7 @@ public class FriendController {
 	
 	//gửi lời mời kết bạn +
 	@PostMapping("/friends/add")
-	public String sendFriendRequest(@RequestParam("friendEmail") String friendEmail, @RequestParam("email") String email,HttpServletRequest req) throws Exception {
+	public String sendFriendRequest(@RequestParam("friendEmail") String friendEmail,HttpServletRequest req) throws Exception {
 		return friendServices.sendFriendRequest(friendEmail, req);
 	}
 	@PostMapping("/app/friends/add")

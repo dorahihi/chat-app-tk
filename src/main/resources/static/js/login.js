@@ -198,8 +198,6 @@ loginForm.addEventListener('submit', e => {
   openLoading();
   e.preventDefault();
 
-  
-
   $.ajax({
        type: "POST",
        url: "/auth",
@@ -213,7 +211,6 @@ loginForm.addEventListener('submit', e => {
          console.log("testing3: "+res.getResponseHeader("Content-Type"));
          closeLoading();
          notiMessage("Login successfully!");
-         window.open("/main","_self");
        },
        error: () =>{
          closeLoading();
@@ -228,7 +225,7 @@ signupForm.addEventListener('submit', e => {
 
   $.ajax({
     type: "POST",
-    url: "/signup",
+    url: "https://secret-brook-88276.herokuapp.com/signup",
     data: $('#signup-form').serialize(),
     //contentType: "application/json",
     success: function() {

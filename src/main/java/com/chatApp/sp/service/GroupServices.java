@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.chatApp.sp.controller.WebSocketController;
 import com.chatApp.sp.model.DBGroup;
 import com.chatApp.sp.model.DBUser;
+import com.chatApp.sp.model.MessageType;
+import com.chatApp.sp.model.Notification;
 import com.chatApp.sp.repository.GroupMessageRepository;
 import com.chatApp.sp.repository.GroupRepository;
+import com.chatApp.sp.repository.NotiRepository;
 import com.chatApp.sp.repository.UserRepository;
 
 
@@ -27,6 +31,12 @@ public class GroupServices {
 	
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	NotiRepository notiRepo;
+	
+	@Autowired
+	MessageServices mesService;
 	
 	@Autowired
 	CookieServices cookieServices;
@@ -80,6 +90,9 @@ public class GroupServices {
 			for(String email: mems) {
 				member.put(email, userRepo.findByEmail(email).getUserName());
 				addUserGroup(email, group.getGroupId(), group.getGroupName());
+				
+				Notification noti = new Notification(group.getGroupId(), email, "You have been added to "+group.getGroupName(), MessageType.NewGroup);
+				mesService.sendNotification(noti);
 			}
 		}
 		
@@ -89,9 +102,11 @@ public class GroupServices {
 		return group.getGroupId();
 	}
 	
+	
 	public DBGroup getGroupInfo(String groupId) {
 		return groupRepo.findByGroupId(groupId);
 	}
+	
 	
 	public String deleteGroup(String groupId, HttpServletRequest req) throws Exception {
 		
@@ -141,7 +156,7 @@ public class GroupServices {
 			return "SUCCEED";
 		}else throw new Exception("You are not a members of that group");
 	}
-public String leaveGroup(String groupId, String email) throws Exception {
+	public String leaveGroup(String groupId, String email) throws Exception {
 		
 		DBGroup group = groupRepo.findByGroupId(groupId);
 		
@@ -215,6 +230,9 @@ public String leaveGroup(String groupId, String email) throws Exception {
 				group.setMembers(members);
 				groupRepo.save(group);
 				
+				Notification noti = new Notification(groupId, newMember, "You have been added to "+group.getGroupName(), MessageType.NewGroup);
+				mesService.sendNotification(noti);
+				
 				return "SUCCESS";
 			}
 			return "User does not exist or already a group member";
@@ -232,6 +250,9 @@ public String leaveGroup(String groupId, String email) throws Exception {
 						if(!members.containsKey(mem)) {
 							addUserGroup(mem, group.getGroupId(), group.getGroupName());
 							members.put(mem, userRepo.findByEmail(mem).getUserName());
+							
+							Notification noti = new Notification(groupId, mem, "You have been added to "+group.getGroupName(), MessageType.NewGroup);
+							mesService.sendNotification(noti);
 						}
 					}
 					group.setMembers(members);

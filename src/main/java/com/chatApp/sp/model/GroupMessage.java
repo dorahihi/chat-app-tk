@@ -1,5 +1,6 @@
 package com.chatApp.sp.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -18,7 +19,7 @@ public class GroupMessage extends Message {
 	
 	private String timeStamp;
 	
-	private String groupid;
+	private String groupId;
 	
 	private String sender;
 	
@@ -26,22 +27,34 @@ public class GroupMessage extends Message {
 	
 	private Map<String, Boolean> isRemove;
 	
+	private MessageType mesType;
+	
 	private Type type;
 	
 	
 	public GroupMessage() {
 		
 	}
-	public GroupMessage(String groupId, String sender, String message, Map<String, String> members) {
-		this.groupid = groupId;
-		this.messageId = "group_"+this.groupid+"_"+timeStamp;
+	public GroupMessage(String groupId, String sender, String message, Map<String, String> members, MessageType mesType) {
+		this.groupId = groupId;
+		this.mesType = mesType;
+		this.timeStamp = System.currentTimeMillis() + "";
+		this.messageId = "group_"+this.groupId+"_"+timeStamp;
 		this.sender =sender;
 		this.message = message;
-		this.timeStamp = System.currentTimeMillis() + "";
+		this.type = Type.GroupMessage;
 		
+		this.isRemove = new HashMap<String, Boolean>();
 		for(Map.Entry<String, String> m: members.entrySet()) {
 			this.isRemove.put(m.getKey(), false);
 		}
+	}
+	
+	public MessageType getMesType() {
+		return mesType;
+	}
+	public void setMesType(MessageType mesType) {
+		this.mesType = mesType;
 	}
 	public String getId() {
 		return id;
@@ -49,11 +62,11 @@ public class GroupMessage extends Message {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getGroupid() {
-		return groupid;
+	public String getGroupId() {
+		return groupId;
 	}
-	public void setGroupid(String groupid) {
-		this.groupid = groupid;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	public String getSender() {
 		return sender;

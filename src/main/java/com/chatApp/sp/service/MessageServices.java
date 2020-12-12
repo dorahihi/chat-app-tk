@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.chatApp.sp.controller.WebSocketController;
 import com.chatApp.sp.model.ChatMessage;
 import com.chatApp.sp.model.DBGroup;
+import com.chatApp.sp.model.DBUser;
 import com.chatApp.sp.model.GroupMessage;
 import com.chatApp.sp.model.Message;
 import com.chatApp.sp.model.MessageState;
@@ -25,6 +26,7 @@ import com.chatApp.sp.repository.GroupMessageRepository;
 import com.chatApp.sp.repository.GroupRepository;
 import com.chatApp.sp.repository.MessageRepository;
 import com.chatApp.sp.repository.NotiRepository;
+import com.chatApp.sp.repository.UserRepository;
 
 @Service
 public class MessageServices {
@@ -45,6 +47,9 @@ public class MessageServices {
 	MessageRepository mesRepo;
 	
 	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
 	CookieServices cookieServices;
 	
 	
@@ -55,7 +60,7 @@ public class MessageServices {
 		
 		if(type.equals(Type.GroupMessage)) {
 			DBGroup group = groupRepo.findByGroupId(mes.getRecipient());
-			GroupMessage message = new GroupMessage(mes.getRecipient(), mes.getSender(), mes.getMessage(), group.getMembers());
+			GroupMessage message = new GroupMessage(mes.getRecipient(), mes.getSender(), mes.getMessage(), group.getMembers(), mesType);
 			sendGroupMessage(message);
 		}
 		if(type.equals(Type.Notification)) {
@@ -63,7 +68,7 @@ public class MessageServices {
 			sendNotification(noti);
 		}
 		if(type.equals(Type.PrivateMessage)) {
-			ChatMessage message = new ChatMessage(mes.getSender(), mes.getRecipient(), mes.getMessage());
+			ChatMessage message = new ChatMessage(mes.getSender(), mes.getRecipient(), mes.getMessage(), mesType);
 			sendPrivateMessage(message);
 		}
 	}
@@ -101,13 +106,13 @@ public class MessageServices {
 		String email = cookieServices.getEmail(req);
 		
 		if(groupRepo.findByGroupId(groupId).getMembers().containsKey(email))
-			return groupMesRepo.findByGroupid(groupId);
+			return groupMesRepo.findByGroupId(groupId);
 		throw new Exception("You are not a group member!");
 	}
 	public List<GroupMessage> viewGroupMessages(String groupId, String email) throws Exception{
 		
 		if(groupRepo.findByGroupId(groupId).getMembers().containsKey(email))
-			return groupMesRepo.findByGroupid(groupId);
+			return groupMesRepo.findByGroupId(groupId);
 		throw new Exception("You are not a group member!");
 	}
 	
@@ -140,24 +145,35 @@ public class MessageServices {
 	}
 	
 	
-	private void sendGroupMessage(GroupMessage mes) {	
+	public void sendGroupMessage(GroupMessage mes) {	
 		Map<String, Boolean> members = mes.getIsRemove();
 		
 		groupMesRepo.save(mes);
 		
+		DBUser user = userRepo.findByEmail(mes.getSender());
+		String[] groupRecentChats = user.getGroupRecentChats();
+		groupRecentChats = addRecentChat(groupRecentChats, mes.getGroupId());
+		user.setGroupRecentChats(groupRecentChats);
+		userRepo.save(user);
+		
 		for(Map.Entry<String, Boolean> mem: members.entrySet()) {
-			if(WebSocketController.activeUser.contains(mem.getKey()))
+			if(WebSocketController.activeUser.contains(mem.getKey()) && !mem.getKey().equals(mes.getSender()))
 				messageTemplate.convertAndSendToUser(mem.getKey(), "/msg", mes);
 		}
 	}
 	
-	private void sendPrivateMessage(ChatMessage mes) {
+	public void sendPrivateMessage(ChatMessage mes) {
 		mesRepo.save(mes);
+		DBUser user = userRepo.findByEmail(mes.getSender());
+		String[] friendRecentChats = user.getFriendRecentChats();
+		friendRecentChats = addRecentChat(friendRecentChats, mes.getRecipient());
+		user.setFriendRecentChats(friendRecentChats);
+		userRepo.save(user);
 		if(WebSocketController.activeUser.contains(mes.getRecipient()))
 			messageTemplate.convertAndSendToUser(mes.getRecipient(), "/msg", mes);
 	}
 	
-	private void sendNotification(Notification noti) {
+	public void sendNotification(Notification noti) {
 		notiRepo.save(noti);
 		if(WebSocketController.activeUser.contains(noti.getRecipient()))
 			messageTemplate.convertAndSendToUser(noti.getRecipient(), "/msg", noti);
@@ -182,7 +198,7 @@ public class MessageServices {
 		return MessageType.Text;
 	}
 	
-	private void deleteGroupMessage(GroupMessage groupMes, String email) {
+	public void deleteGroupMessage(GroupMessage groupMes, String email) {
 		Map<String, Boolean> isRemove = groupMes.getIsRemove();
 		isRemove.replace(email, true);
 		groupMes.setIsRemove(isRemove);
@@ -191,7 +207,7 @@ public class MessageServices {
 	}
 	
 	
-	private void deleteMessage(ChatMessage mes, String email) {
+	public void deleteMessage(ChatMessage mes, String email) {
 		if(mes.getSender().equals(email)) 
 			mes.setSenderState(MessageState.REMOVED);
 		else 
@@ -199,6 +215,42 @@ public class MessageServices {
 		
 		mesRepo.save(mes);
 		
+	}
+	
+	private String[] addRecentChat(String[] arr, String id) {
+		
+		if(arr[0] == null)
+			arr[0] = id;
+		else if(arr[1] == null) {
+			if(!arr[0].equals(id)) {
+				arr[1] = arr[0];
+				arr[0] = id;
+			}
+		} else if(arr[2] == null) {
+			if(!arr[0].equals(id)) {
+				if(arr[1].equals(id)) {
+					arr[1] = arr[0];
+					arr[0] = id;
+				}else {
+					arr[2] =arr[1];
+					arr[1] =arr[0];
+					arr[0] = id;
+				}
+			}
+		}else {
+			if(!arr[0].equals(id)) {
+				if(arr[1].equals(id)) {
+					arr[1] = arr[0];
+					arr[0] = id;
+				}else {
+					arr[2] = arr[1];
+					arr[1] =arr[0];
+					arr[0] = id;
+				}
+			}
+		}
+		
+		return arr;
 	}
 	
 }

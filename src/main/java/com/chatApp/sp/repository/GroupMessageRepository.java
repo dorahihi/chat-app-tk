@@ -12,6 +12,6 @@ public interface GroupMessageRepository extends MongoRepository<GroupMessage, St
 
 	public GroupMessage findByMessageId(String messageId);
 	
-	public List<GroupMessage> findByGroupid(String groupid);
+	public List<GroupMessage> findByGroupId(String groupId);
 	
 }

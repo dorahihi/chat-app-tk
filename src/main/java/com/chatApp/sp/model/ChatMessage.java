@@ -19,9 +19,19 @@ public class ChatMessage extends Message{
 	private String message;
 	private MessageState senderState;
 	private MessageState recipientState;
+	private MessageType mesType;
 	private Type type;
 	
 	
+	
+	
+	public MessageType getMesType() {
+		return mesType;
+	}
+
+	public void setMesType(MessageType mesType) {
+		this.mesType = mesType;
+	}
 
 	public MessageState getSenderState() {
 		return senderState;
@@ -109,7 +119,7 @@ public class ChatMessage extends Message{
 		this.messageId = messageId;
 	}
 
-	public ChatMessage(String sender, String recipient, String message) {
+	public ChatMessage(String sender, String recipient, String message, MessageType mesType) {
 		
 		if(sender.compareTo(recipient) > 0)
 			this.chatId = sender+recipient;
@@ -118,6 +128,7 @@ public class ChatMessage extends Message{
 		
 		this.messageId = "private_"+this.chatId+"_"+this.timeStamp;
 		
+		this.mesType = mesType;
 		this.message = message;
 		this.recipient = recipient;
 		this.sender = sender;

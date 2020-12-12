@@ -1,5 +1,7 @@
 package com.chatApp.sp.utils;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,15 @@ public class UserUtils {
 			}
 			if(userName != null && !userName.equals("")) {
 				user.setUserName(userName);
+				Map<String, String> friends = user.getFriend();
+				
+				for(Map.Entry<String, String> f: friends.entrySet()) {
+					DBUser other =  userRepo.findByEmail(f.getKey());
+					Map<String,String> friend = other.getFriend();
+					friend.put(user.getEmail(), userName);
+					other.setFriend(friend);
+					userRepo.save(other);
+				}
 				System.out.println("userName changed");
 			}
 			if(age != null && !age.equals("")) {
@@ -89,6 +100,15 @@ public class UserUtils {
 			}
 			if(userName != null && !userName.equals("")) {
 				user.setUserName(userName);
+				Map<String, String> friends = user.getFriend();
+				
+				for(Map.Entry<String, String> f: friends.entrySet()) {
+					DBUser other =  userRepo.findByEmail(f.getKey());
+					Map<String,String> friend = other.getFriend();
+					friend.put(user.getEmail(), userName);
+					other.setFriend(friend);
+					userRepo.save(other);
+				}
 				System.out.println("userName changed");
 			}
 			if(age != null && !age.equals("")) {

@@ -24,6 +24,8 @@ public class DBUser {
 	private Map<String, String> group;
 	private Map<String, String> friendRequest;
 	private Map<String, String> receivedFriendRequest;
+	private String[] friendRecentChats;
+	private String[] groupRecentChats;
 	
 
 	public DBUser() {
@@ -54,6 +56,8 @@ public class DBUser {
 		this.group = new HashMap<String, String>();
 		this.friendRequest = new HashMap<String, String>();
 		this.receivedFriendRequest = new HashMap<String, String>();
+		this.friendRecentChats = new String[3];
+		this.groupRecentChats = new String[3];
 	}
 	
 	public void setUser(DBUser user) {
@@ -63,6 +67,22 @@ public class DBUser {
 		this.userName = user.getUserName();
 	}
 		
+	public String[] getFriendRecentChats() {
+		return friendRecentChats;
+	}
+
+	public void setFriendRecentChats(String[] friendRecentChats) {
+		this.friendRecentChats = friendRecentChats;
+	}
+
+	public String[] getGroupRecentChats() {
+		return groupRecentChats;
+	}
+
+	public void setGroupRecentChats(String[] groupRecentChats) {
+		this.groupRecentChats = groupRecentChats;
+	}
+
 	public Map<String, String> getFriendRequest() {
 		return friendRequest;
 	}

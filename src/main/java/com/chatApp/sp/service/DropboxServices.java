@@ -34,8 +34,12 @@ public class DropboxServices {
 	}
 	
 	public static String uploadFile(InputStream in, String fileName) throws UploadErrorException, DbxException, IOException {
-        FileMetadata metadata = DropboxServices.client.files().uploadBuilder("/"+fileName).uploadAndFinish(in);
-        SharedLinkMetadata sharedLink = client.sharing().createSharedLinkWithSettings("/"+fileName);
+        String timeStamp = System.currentTimeMillis()/100 +"";
+		
+		FileMetadata metadata = DropboxServices.client.files().uploadBuilder("/"+fileName+timeStamp).uploadAndFinish(in);
+        
+        
+        SharedLinkMetadata sharedLink = client.sharing().createSharedLinkWithSettings("/"+fileName+timeStamp);
         return convertToRawLink(sharedLink.getUrl());
 	}
 	
