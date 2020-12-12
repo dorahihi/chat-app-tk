@@ -47,15 +47,31 @@ function insertInfoFriend(){
                 <div><button onclick="deleletFriend(${infofriend.email})" >Xóa bạn</button><hr></div>`;
     selectIdFromInfoFriendChat.innerHTML= html;
 }
+function getTime(t){
+      
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    var date = new Date(t * 1000);
+    // Hours part from the timestamp
+    var hours = date.getHours();
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+    // Seconds part from the timestamp
+    var seconds = "0" + date.getSeconds();
+
+    // Will display time in 10:30:23 format
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+}
 // chèn tin vào khung
 function insertMessage(mess){   
     let status ;
+    let time = getTime(mess.timeStamp);
     if (mess.sender !==user.email) status = 1;else status =0;
 
     if (status===0) { // status = 0 là gửi
-        BoxChat.innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>bạn</span></span></div>`;
+        BoxChat.innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>${time}</span></span></div>`;
     } else {
-        BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${mess.sender}</span></span></div>`;
+        BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${time}</span></span></div>`;
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat.scrollTop = BoxChat.scrollHeight;   
