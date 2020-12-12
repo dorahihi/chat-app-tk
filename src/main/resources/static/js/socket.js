@@ -53,7 +53,7 @@ const displayMessage = data =>{
   let mess = JSON.parse(data.body);
   console.log(" jhdsjfldsk:  "+ mess);
   //receive.innerHTML = `from: `+mess.sender+`\n message: `+ mess.message+"\n to: "+mess.recipient;
-   if (currentFriendID !=="" && currentFriendID === mess.sender || chatting===mess.sender) 
+   if (currentFriendID !=="" && (currentFriendID === mess.sender || chatting===mess.sender)) 
    insertMessage(mess);
    saveMessage(mess);
 }
