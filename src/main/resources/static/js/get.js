@@ -8,6 +8,7 @@ function getCookie(name) {
 
 var email = getCookie('email');
 var user;
+getData();
 function getData(){
     $.ajax({
         url:"/users/"+email,
