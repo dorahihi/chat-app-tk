@@ -70,23 +70,22 @@ function displayFrameChat(emailchatting){
     if (currentType=="friend")   {
         let chatId= getChatId(currentFriendID,user.email);
         listM=  sessionStorage[chatId];
-        if(listM !== undefined) listM=JSON.parse(listM);
+        if(listM !== undefined){
+            listM=JSON.parse(listM);
+            listMessage(listM);
+        } 
         else{
-            listM=getMessage(chatId.id);
-            listM = JSON.parse(listM);
-            if(listM.length<1)
-            listM = [];
+            getMessage(chatId.id);
         } 
     }else{
         listM = sessionStorage[chatting];
         if (listM != undefined){
             listM = JSON.parse(listM);
+            listMessage(listM);
         }else{
-            listM= getMessageGroup(chatting);
-            if(listM.length<1) listM=[];            
+             getMessageGroup(chatting);        
         }
     }
-    listM.forEach(e=>insertMessage(e));
 
 }
 

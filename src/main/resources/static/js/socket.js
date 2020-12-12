@@ -123,7 +123,8 @@ function getMessage(chatId){
       dataType:"text",
       success: function(res) {
          // console.log("tin nhắn đã gửi:",res);
-          res = JSON.parse(res);
+         sessionStorage[chatId] = res; 
+         res = JSON.parse(res);
           listMesage(res);
       },
       error: () =>{
@@ -133,7 +134,6 @@ function getMessage(chatId){
   
 }
 function getMessageGroup(groupId){
-  let data;
   $.ajax({
       url: "/groups/messages",
       type:"GET",
@@ -141,11 +141,11 @@ function getMessageGroup(groupId){
       headers:   {groupId:groupId,email:user.email},
       success: function(res) {
           console.log("tin nhắn nhóm :",res);
-          data = res;
+          listMessage(res);
+          sessionStorage[groupId]= JSON.stringify(res);
       },
       error: () =>{
           alert("Lỗi rồi!");
       }
-  });
-  return data;
+  })
 }
