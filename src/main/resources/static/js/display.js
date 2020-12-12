@@ -73,7 +73,7 @@ function displayFrameChat(emailchatting){
         if(listM !== undefined) listM=JSON.parse(listM);
         else{
             listM=getMessage(chatId.id);
-            listM = JSON.parse(listM);
+            //listM = JSON.parse(listM);
             if(listM.length<1)
             listM = [];
         } 
@@ -83,7 +83,7 @@ function displayFrameChat(emailchatting){
             listM = JSON.parse(listM);
         }else{
             listM= getMessageGroup(chatting);
-            listM = JSON.parse(listM);
+            //listM = JSON.parse(listM);
             if(listM.length<1) listM=[];            
         }
     }
