@@ -211,7 +211,8 @@ loginForm.addEventListener('submit', e => {
          console.log("testing3: "+res.getResponseHeader("Content-Type"));
          closeLoading();
          notiMessage("Login successfully!");
-       },
+          window.open("/main.html","_self")
+        },
        error: () =>{
          closeLoading();
          notiMessage("Incorrect email or password!");
