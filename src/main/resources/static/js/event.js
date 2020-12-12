@@ -19,10 +19,8 @@ function setStatus(event){
 // đăt lại trạng thái fucus
 function friendOnClick(nodeFriend){
    
+    $('#'+currentFriendID+'friend')[0].setAttribute("class",'friend');
     
-    for(let i= 0;i< selectFriend.length;i++){
-        selectFriend[i].setAttribute("class",'friend');
-    }
     nodeFriend.setAttribute("class","friend active");
     infofriend="";
     currentType="friend";
