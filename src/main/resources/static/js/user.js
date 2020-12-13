@@ -40,5 +40,8 @@ function displayProfile(){
 }
 // xử lí logout 
 function onLogout(){
+    onDisconnect();
     window.open('/logout',"_self");
+    sessionStorage.clear();
+    
 }

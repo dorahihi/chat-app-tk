@@ -8,8 +8,8 @@ function getCookie(name) {
 
 var email = getCookie('email');
 var user;
-getData();
-function getData(){
+getData(onDisplayListChat);
+function getData(a){
     $.ajax({
         url:"/users/"+email,
         type:"GET",
@@ -17,6 +17,7 @@ function getData(){
         dataType:"text",
         success: function(res) {
             user = JSON.parse(res);
+            if(a !== undefined) a;
         },
          error: () =>{
             alert("Incorrect!");
