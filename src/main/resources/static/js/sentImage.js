@@ -3,32 +3,30 @@ let upload = document.getElementById('image_upload_form');
     event.preventDefault();
   
     let img = new FormData(upload);
-    let data =aImage(chatting,img);
-    // $.ajax({
-    //       type: "POST",
-    //       enctype: 'multipart/form-data',
-    //       url: "/messages/img",
-    //       data: data,
+    let chatId = getChatId(chatting);
+    let data = {};
+    data.append('recipient',chatting);
+    data.append('sender',user.email);
+    data.append('type',chatId.type);
+    data.append('image',img);
+    data.append('mesType','Image');
+    data.append('chatId',chatId.id);
+    $.ajax({
+          type: "POST",
+          enctype: 'multipart/form-data',
+          url: "/messages/img",
+          data: data,
+          // prevent jQuery from automatically transforming the data into a query string
+          processData: false,
+          contentType: false,
+          cache: false,
+          timeout: 1000000,
+          success: function(data, textStatus, jqXHR) {
+              console.log(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log("lỗi rồi bà con ơi!!");
   
-    //       // prevent jQuery from automatically transforming the data into a query string
-    //       processData: false,
-    //       contentType: false,
-    //       cache: false,
-    //       timeout: 1000000,
-    //       success: function(data, textStatus, jqXHR) {
-    //           console.log(data);
-    //       },
-    //       error: function(jqXHR, textStatus, errorThrown) {
-    //         console.log("lỗi rồi bà con ơi!!");
-  
-    //       }
-    //   });
-    uploadImage("/messages/img",data);
+          }
+      });
   });
-
-  function aImage(recipient,image){
-    let chatId = getChatId(recipient);
-    
-    let a = `recipient=${recipient}&sender=${user.email}&image=${image}&chatId:${chatId.id}&type:${chatId.type}&mesType:'Image'`;
-    return a;
-  }
