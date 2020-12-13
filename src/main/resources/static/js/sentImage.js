@@ -29,12 +29,13 @@ let upload = document.getElementById('image_upload_form');
   function aImage(recipient,image){
     let chatId = getChatId(recipient);
     
-    return JSON.stringify({
+    let a =  {
       recipient: recipient,
       sender: user.email,
       image: image,
       chatId:chatId.id,
       type:chatId.type,
       mesType:'Image'
-    })
+    };
+    return a;
   }
