@@ -30,7 +30,7 @@ function onConnected() {
 
 
     // Tell your username to the server
-  sendMessage('/app/register', email);
+  sendMessage('/register', email);
 
     stompClient.subscribe(`/user/${email}/msg`,  data =>{
     console.log(`-------- received message:\n`+ data.body+`\n--------received message!!!!`);
@@ -60,7 +60,7 @@ const displayMessage = data =>{
 
 
 const onDisconnect = () =>{
-  sendMessage('/app/unregister', email);
+  sendMessage('/unregister', email);
   stompClient.disconnect();
 }
 
