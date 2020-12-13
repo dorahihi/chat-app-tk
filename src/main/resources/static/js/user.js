@@ -40,5 +40,5 @@ function displayProfile(){
 }
 // xử lí logout 
 function onLogout(){
-    window.open(url,"_self");
+    window.open('/logout',"_self");
 }
