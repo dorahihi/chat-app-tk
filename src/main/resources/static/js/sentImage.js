@@ -2,7 +2,7 @@ let upload = document.getElementById('image_upload_form');
   upload.addEventListener('submit', (event) =>{
     event.preventDefault();
   
-    var data = new FormData(this);
+    var data = new FormData(upload);
     data.append("name", chatting);
     console.log(data);
     $.ajax({
