@@ -1,5 +1,5 @@
 
-  $("image_upload_form").addEventListener('submit', (event) =>{
+  $("#image_upload_form").addEventListener('submit', (event) =>{
     event.preventDefault();
   
     var data = new FormData(this);
