@@ -30,7 +30,7 @@ function onConnected() {
 
 
     // Tell your username to the server
-  sendMessage('/register', email);
+  sendMessage('/app/register', email);
 
     stompClient.subscribe(`/user/${email}/msg`,  data =>{
     console.log(`-------- received message:\n`+ data.body+`\n--------received message!!!!`);
