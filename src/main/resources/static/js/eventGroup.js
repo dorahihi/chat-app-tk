@@ -44,7 +44,7 @@ selectIdFrmAddGroup.addEventListener("submit",e =>{
         data: a,
         dataType:"text",
         success: function(res) {
-            getData(displayListGroup());
+            getData(displayListGroup);
             alert("Tạo nhóm thành công");
             offPlayout('frmAddGroup','display-none');
             displayListGroup();
@@ -65,7 +65,7 @@ function deleteGroup(idnode){
         data:"groupId="+groupId+"&email="+user.email,
         dataType:"text",
         success: function(res) {
-            getData(displayListGroup());
+            getData(displayListGroup);
             alert("Xóa nhóm thành công");
             displayListGroup();
             offPlayout('frmAddGroup','display-none');
@@ -87,7 +87,7 @@ selectIdFrmAddFriend.addEventListener("submit",e =>{
         data:   $('#id-add-friend').serialize()+"&email="+user.email,
         dataType:"text",
         success: function(res) {
-            getData(displayListFriend());
+            getData(displayListFriend);
             alert("Đã gửi lời mời kết bạn");
             offPlayout('frmAddFriend','display-none',1);
             displayListRequest();
@@ -108,7 +108,7 @@ function deleletFriend(node){
         data:"friendEmail="+emailF+"&email="+user.email,
         dataType:"text",
         success: function(res) {
-            getData(displayListFriend());
+            getData(displayListFriend);
             alert("Xóa bạn thành công");
         },
          error: () =>{
@@ -124,7 +124,7 @@ function leaveGroup(){
         data:   "groupId="+currentGroupID+"&email="+user.email,
         dataType:"text",
         success: function(res) {
-            getData(displayListGroup());
+            getData(displayListGroup);
             if(res=="SUCCEED")alert("Bạn đã rời nhóm")
             else alert ("Bạn không là thành viên của nhóm");
         },
