@@ -44,7 +44,7 @@ function onError(error) {
 }
 
 function sendMessage(url, message) {
-    stompClient.send(url, {}, message);
+    stompClient.send(url, message);
     
 }
 
@@ -68,7 +68,7 @@ sendBtn.addEventListener('click', () => {
   let messa = mes.value;
   if(messa!==''){
     let tin = aMessage(chatting, email, messa,'Text');
-    sendMessage('/message',tin);
+    sendMessage('/app/message',tin);
     mes.value = '';
     messa= JSON.parse(tin);
     insertMessage(messa);
@@ -106,7 +106,7 @@ mes.addEventListener('keyup',e=>{
   
   if(e.keyCode =="13" &&  messa!=""){
     let tin =  aMessage(chatting, email,messa,'Text');
-    sendMessage('/message',tin);
+    sendMessage('/app/message',tin);
     mes.value = '';
     messa = JSON.parse(tin);
     insertMessage(messa);
