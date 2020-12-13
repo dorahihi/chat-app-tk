@@ -75,10 +75,14 @@ function insertMessage(mess){
 
         }
         else {
-            BoxChat.innerHTML += `<div class="stl_mes"><img class="receive img" src="`+mess.message+`"></img></div>`;
+            BoxChat.innerHTML += `<div class="stl_mes"><img class="send img" src="`+mess.message+`"></img></div>`;
         }
     } else {
-        BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${time}</span></span></div>`;
+        if( type !== "Image"){
+            BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${time}</span></span></div>`;
+        } else{
+            BoxChat.innerHTML += `<div class="stl_mes"><img class="receive img" src="`+mess.message+`"></img></div>`;
+        }
     }
       //tự động cuộn xuống nội dung mới 
       BoxChat.scrollTop = BoxChat.scrollHeight;   

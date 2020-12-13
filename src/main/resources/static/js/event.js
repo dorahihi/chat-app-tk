@@ -19,7 +19,7 @@ function setStatus(event){
 // đăt lại trạng thái fucus
 function friendOnClick(nodeFriend){
     if (currentFriendID!==""){
-        $('#'+currentFriendID+'friend')[0].setAttribute("class",'friend');
+        $('#'+currentFriendID+'friend').setAttribute("class",'friend');
     }   
     
     nodeFriend.setAttribute("class","friend active");
