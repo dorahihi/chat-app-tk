@@ -27,8 +27,6 @@ body{
 .footer {
     width: 100%;
     height: 10vh;
-    background-image: linear-gradient(to right, #29FFDF, #29D5FF, #29FFDF, #29D5FF, #29FFDF);
-    background-size: 350%;
 }
 .nav_box {
     width: 100%;
@@ -261,13 +259,13 @@ body{
     display: flex;
     align-items: center;
     padding: 0.15rem 1.2rem;
-    border-bottom: 0.1rem solid #ddd;
+    border-bottom: 0.1rem solid rgb(249, 251, 252);
     width: 100%;
 }
 
 .picture {
-    height: 3.5rem;
-    width: 3.5rem;
+    height: 3rem;
+    width: 3rem;
     border-radius: 50%;
     background-image: url('https://via.placeholder.com/40x40');
     background-size: cover;
@@ -284,7 +282,7 @@ body{
     background:none;
 }
 button.accept{
-    color: rgb(57 ,164 ,255);;
+    color: rgb(156, 205, 248);;
     size: 1rem;
 }
 button.cancel{
@@ -292,7 +290,7 @@ button.cancel{
     size: 1rem;
 }
 .active {
-    background-color: rgb(200, 245, 253);
+    background-color: rgba(197, 235, 253,0.3);
 }
 
 .box-info-user {
@@ -429,7 +427,7 @@ button:hover {
 } 
 /* khung gửi tin nhan*/
 .input-box {
-    background-color: rgb(198 ,226, 236);
+    background:rgb(229, 234, 234);
     width: 100%;
     height: 15%;
     bottom: 0rem;
