@@ -65,11 +65,18 @@ function getTime(t){
 // chèn tin vào khung
 function insertMessage(mess){   
     let status ;
+    let type = mess.mesType;
     let time = getTime(mess.timeStamp);
     if (mess.sender !==user.email) status = 1;else status =0;
 
     if (status===0) { // status = 0 là gửi
-        BoxChat.innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>${time}</span></span></div>`;
+        if (type !== "Image"){
+            BoxChat.innerHTML += `<div class="stl_mes"><span class="send">${mess.message}<br><span>${time}</span></span></div>`;
+
+        }
+        else {
+            BoxChat.innerHTML += `<div class="stl_mes"><img class="receive img" src="`+mess.message+`"></img></div>`;
+        }
     } else {
         BoxChat.innerHTML += `<div class="stl_mes"><span class="receive">${mess.message}<br><span>${time}</span></span></div>`;
     }

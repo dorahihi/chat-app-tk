@@ -45,7 +45,6 @@ body{
     justify-content: center;
     align-items: center;
     border: 0.25rem double #fff;
-   
 }
 .logo >div{
     margin: 1rem;
@@ -600,6 +599,9 @@ button:hover {
         padding:0.3rem ;
         max-width:20rem; 
         min-width:15rem;
+   }
+   .title-box{
+       font-size: 1.2rem;
    }
 }
 
