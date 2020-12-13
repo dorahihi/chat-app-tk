@@ -2,9 +2,8 @@ let upload = document.getElementById('image_upload_form');
   upload.addEventListener('submit', (event) =>{
     event.preventDefault();
   
-    var data = new FormData(upload);
-    data.append("name", chatting);
-    console.log(data);
+    let img = new FormData(upload);
+    let data =aImage(chatting,img);
     $.ajax({
           type: "POST",
           enctype: 'multipart/form-data',
@@ -24,11 +23,11 @@ let upload = document.getElementById('image_upload_form');
   
           }
       });
-    let mes =aMessage(chatting,);
+   
   });
 
-  function aMessage(recipient,image){
-    let chatId = getChatId(recipient,sender);
+  function aImage(recipient,image){
+    let chatId = getChatId(recipient);
     
     return JSON.stringify({
       recipient: recipient,
