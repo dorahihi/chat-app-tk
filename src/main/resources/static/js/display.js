@@ -195,6 +195,7 @@ function offDislayChat(){
     chatting= "";
     infofriend="";
     infofriend="";
+    $('#'+currentFriendID+'friend')[0].setAttribute("class",'friend');
     currentFriendID="";
     currentType="";
     currentGroupID="";
