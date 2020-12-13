@@ -51,7 +51,7 @@ function getTime(t){
       
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-    var date = new Date(t * 1000);
+    var date = new Date(t).toLocaleTimeString();
     // Hours part from the timestamp
     var hours = date.getHours();
     // Minutes part from the timestamp

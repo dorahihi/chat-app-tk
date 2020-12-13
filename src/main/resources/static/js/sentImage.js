@@ -17,7 +17,6 @@ let upload = document.getElementById('image_upload_form');
           cache: false,
           timeout: 1000000,
           success: function(data, textStatus, jqXHR) {
-  
               console.log(data);
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -25,4 +24,18 @@ let upload = document.getElementById('image_upload_form');
   
           }
       });
+    let mes =aMessage(chatting,);
   });
+
+  function aMessage(recipient,image){
+    let chatId = getChatId(recipient,sender);
+    
+    return JSON.stringify({
+      recipient: recipient,
+      sender: user.email,
+      image: image,
+      chatId:chatId.id,
+      type:chatId.type,
+      mesType:'Image'
+    })
+  }
