@@ -8,7 +8,7 @@ function getCookie(name) {
 
 var email = getCookie('email');
 var user;
-getData(onDisplayListChat);
+getData(onDisplayListChat());
 function getData(a){
     $.ajax({
         url:"/users/"+email,
